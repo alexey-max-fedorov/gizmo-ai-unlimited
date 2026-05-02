@@ -1,6 +1,6 @@
 import { describe, it } from "node:test"
 import assert from "node:assert/strict"
-import { HEARTS_MODAL_SELECTORS, buildHidingCSS } from "../contents/filter-rules.ts"
+import { HEARTS_MODAL_SELECTORS, buildHidingCSS } from "../lib/filter-rules.ts"
 
 describe("HEARTS_MODAL_SELECTORS", () => {
   it("contains all 4 selectors from the uBO Lite element picker", () => {

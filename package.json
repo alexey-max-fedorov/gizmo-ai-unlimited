@@ -2,10 +2,6 @@
   "name": "gizmo-ai-unlimited-hearts",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=22.6"
-  },
   "description": "Open-source MV3 extension that hides the out-of-hearts modal on app.gizmo.ai/quiz",
   "scripts": {
     "dev": "plasmo dev",
@@ -23,11 +19,20 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.1.40",
-    "@types/node": "^22.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "plasmo": "^0.90.5",
     "typescript": "^6.0.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "esbuild",
+      "lmdb",
+      "msgpackr-extract",
+      "sharp"
+    ]
   },
   "manifest": {
     "name": "Gizmo AI Unlimited Hearts",

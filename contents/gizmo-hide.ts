@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo"
-import { buildHidingCSS } from "./filter-rules"
+import { buildHidingCSS } from "../lib/filter-rules"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://app.gizmo.ai/quiz/*"],
