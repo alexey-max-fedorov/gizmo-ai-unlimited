@@ -15,7 +15,7 @@
     "package": "plasmo package",
     "package:firefox": "plasmo package --target=firefox-mv3",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test 'tests/**/*.test.ts'"
+    "test": "node --experimental-strip-types --test \"tests/**/*.test.ts\""
   },
   "dependencies": {
     "react": "^19.2.5",
