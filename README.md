@@ -56,7 +56,9 @@ pnpm test
 pnpm typecheck
 ```
 
-> **Note on `"type": "module"` in package.json:** This is required for `node --test --experimental-strip-types` to correctly resolve TypeScript test files as ESM. It is safe to keep alongside Plasmo's Parcel bundler, which uses its own module resolution independently of the root `package.json` `type` field.
+> **Node.js 22.6+ required** for the test script (`node --experimental-strip-types`). Install via [nvm](https://github.com/nvm-sh/nvm) or [mise](https://mise.jdx.dev/) if needed.
+
+> **Important:** Do not add `"engines": {"node": "..."}` to `package.json`. Parcel reads that field and switches to Node.js target resolution, breaking the browser extension build.
 
 Load the unpacked extension from `build/chrome-mv3-dev/` (dev) or `build/chrome-mv3-prod/` (prod) in Chrome.
 
@@ -64,7 +66,7 @@ Load the unpacked extension from `build/chrome-mv3-dev/` (dev) or `build/chrome-
 
 | Path | What it is |
 |------|------------|
-| `contents/filter-rules.ts` | Pure module: the 4 cosmetic-filter selectors + CSS builder |
+| `lib/filter-rules.ts` | Pure module: the 4 cosmetic-filter selectors + CSS builder |
 | `contents/gizmo-hide.ts` | Plasmo content script — injects the CSS at `document_start` |
 | `popup.tsx` | Minimal informational popup |
 | `tests/filter-rules.test.ts` | Node `--test` unit test for the pure module |
