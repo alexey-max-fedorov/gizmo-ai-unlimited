@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo"
-import { buildHidingCSS } from "../lib/filter-rules"
+import { buildHidingCSS, HEARTS_MODAL_SELECTORS } from "../lib/filter-rules"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://app.gizmo.ai/*"],
@@ -8,6 +8,36 @@ export const config: PlasmoCSConfig = {
 
 const STYLE_ATTR = "data-gizmo-hearts-style"
 const STYLE_SEL = `style[${STYLE_ATTR}]`
+
+let modalObserver: MutationObserver | null = null
+
+function hideMatchingNodes(root: Node): void {
+  if (!(root instanceof Element)) return
+  for (const sel of HEARTS_MODAL_SELECTORS) {
+    const el = root.matches(sel) ? root : root.querySelector(sel)
+    if (el instanceof HTMLElement) el.style.setProperty("display", "none", "important")
+  }
+}
+
+function startModalObserver(): void {
+  if (modalObserver) return
+  modalObserver = new MutationObserver((records) => {
+    for (const record of records) {
+      for (const node of record.addedNodes) {
+        hideMatchingNodes(node)
+      }
+    }
+  })
+  modalObserver.observe(document.body ?? document.documentElement, {
+    childList: true,
+    subtree: true
+  })
+}
+
+function stopModalObserver(): void {
+  modalObserver?.disconnect()
+  modalObserver = null
+}
 
 function isQuizPage(): boolean {
   return window.location.pathname.startsWith("/quiz/")
@@ -19,10 +49,12 @@ function inject(): void {
   el.setAttribute(STYLE_ATTR, "1")
   el.textContent = buildHidingCSS()
   document.documentElement.appendChild(el)
+  startModalObserver()
 }
 
 function eject(): void {
   document.documentElement.querySelector(STYLE_SEL)?.remove()
+  stopModalObserver()
 }
 
 function sync(): void {
