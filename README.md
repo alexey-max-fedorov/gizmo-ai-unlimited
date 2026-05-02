@@ -27,11 +27,17 @@ This is a cosmetic accessibility/usability hack. It does not:
 - Bypass payment or auth
 - Load remote code
 
-It only hides DOM elements that are already on the page. If Gizmo's pricing or product policy changes such that this no longer aligns with their terms, the responsible use is to support them directly.
+It only hides DOM elements that are already on the page. If Gizmo's pricing or product policy changes such that this no longer aligns with their terms, the responsible use is to support them directly — see their [pricing page](https://app.gizmo.ai/pricing).
 
 The extension exists because we believe users should be able to control what their own browser renders. Same principle as ad blockers, reading-mode extensions, and dark-mode injectors.
 
 ## Development
+
+> **Note:** Before running `pnpm build` or `pnpm dev` for the first time, approve native build dependencies:
+> ```bash
+> pnpm approve-builds
+> ```
+> This is needed because Plasmo depends on `@parcel/watcher`, `@swc/core`, and `esbuild`, which require native compilation.
 
 ```bash
 # Install dependencies
@@ -49,12 +55,6 @@ pnpm test
 # TypeScript check
 pnpm typecheck
 ```
-
-> **Note:** Before running `pnpm build` or `pnpm dev` for the first time, approve native build dependencies:
-> ```bash
-> pnpm approve-builds
-> ```
-> This is needed because Plasmo depends on `@parcel/watcher`, `@swc/core`, and `esbuild`, which require native compilation.
 
 > **Note on `"type": "module"` in package.json:** This is required for `node --test --experimental-strip-types` to correctly resolve TypeScript test files as ESM. It is safe to keep alongside Plasmo's Parcel bundler, which uses its own module resolution independently of the root `package.json` `type` field.
 

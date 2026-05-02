@@ -21,7 +21,7 @@ function Popup() {
 
       <a
         className="link"
-        href="https://github.com/"
+        href="https://github.com/alexey-max-fedorov/gizmo-ai-unlimited"
         target="_blank"
         rel="noreferrer"
       >
