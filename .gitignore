@@ -145,6 +145,7 @@ vite.config.ts.timestamp-*
 # Plasmo
 .plasmo/
 build/
+out/
 keys.json
 
 # OS
