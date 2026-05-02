@@ -1,12 +1,12 @@
 # Gizmo AI Unlimited Hearts
 
-**Free and open source extension that hides the "out of hearts" modal on [Gizmo AI](https://app.gizmo.ai) quizzes.**
+**Extension that bypasses the "out of hearts" modal on [Gizmo AI](https://app.gizmo.ai) quizzes.**
 
-> Open source — security through transparency. Every line of code that runs in your browser is in this repo. No remote code, no tracking, no analytics.
+> Source-available — security through transparency. Every line of code that runs in your browser is in this repo. No remote code, no tracking, no analytics.
 
 ## What it does
 
-Gizmo AI shows a modal that blocks practice sessions once you run out of hearts. This extension applies a uBlock Origin Lite-style cosmetic filter scoped to `https://app.gizmo.ai/quiz/*` that hides that modal at `document_start` — before it ever paints.
+Gizmo AI shows a modal that blocks practice sessions once you run out of hearts. This extension applies a uBlock Origin Lite-style cosmetic filter on `https://app.gizmo.ai/*` that hides that modal at `document_start` — before it ever paints. It also watches for SPA navigation events so the filter activates when you navigate into a quiz without a hard reload, and is removed when you leave.
 
 That's it. No game-state mutation, no API spoofing, no network interception. Just CSS.
 
@@ -67,10 +67,10 @@ Load the unpacked extension from `build/chrome-mv3-dev/` (dev) or `build/chrome-
 | Path | What it is |
 |------|------------|
 | `lib/filter-rules.ts` | Pure module: the 4 cosmetic-filter selectors + CSS builder |
-| `contents/gizmo-hide.ts` | Plasmo content script — injects the CSS at `document_start` |
-| `popup.tsx` | Minimal informational popup |
+| `contents/gizmo-hide.ts` | Plasmo content script — injects/removes CSS on navigation |
+| `popup.tsx` | Extension popup |
 | `tests/filter-rules.test.ts` | Node `--test` unit test for the pure module |
 
 ## License
 
-[Mozilla Public License 2.0](LICENSE.txt)
+[All Rights Reserved](LICENSE.txt) — Alexey Fedorov, 2026. Personal use permitted; commercial use requires written authorization.

@@ -1,77 +1,146 @@
-:root {
-  color-scheme: dark;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+@font-face {
+  font-family: "Playfair Display";
+  src: url("./assets/fonts/playfair-display-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/inter-latin.woff2") format("woff2");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: #0f0f12;
-  color: #f4f4f5;
-  width: 280px;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .popup-root {
-  padding: 18px 20px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  width: 380px;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 20px;
 }
 
 .popup-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  margin-bottom: 4px;
 }
 
 .popup-logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 
 .popup-title {
-  margin: 0;
-  font-size: 14px;
+  font-family: "Playfair Display", Georgia, serif;
   font-weight: 600;
-  line-height: 1.2;
+  font-size: 20px;
+  line-height: 1;
+  margin: 0;
+  color: #ffffff;
 }
 
 .popup-eyebrow {
-  margin: 2px 0 0;
   font-size: 11px;
-  color: #a1a1aa;
+  color: #666;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin: 4px 0 0 0;
 }
 
-.divider {
+.divider-gold {
   height: 1px;
-  background: #27272a;
-  margin: 4px 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(201, 168, 76, 0.4),
+    transparent
+  );
+  margin: 16px 0;
 }
 
-.status {
+.main-hint {
   font-size: 12px;
-  color: #d4d4d8;
-  line-height: 1.4;
+  color: #a0a0a0;
+  margin: 0 0 12px 0;
 }
 
-.status strong {
-  color: #ec4899;
+.action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.link {
-  display: inline-block;
-  margin-top: 4px;
-  font-size: 12px;
-  color: #60a5fa;
-  text-decoration: none;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
 }
 
-.link:hover {
-  text-decoration: underline;
+.btn:active {
+  transform: scale(0.98);
 }
 
-.footer {
-  font-size: 10px;
-  color: #88888d;
-  margin-top: 6px;
+.btn-primary {
+  background-color: #c9a84c;
+  color: #000;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #d4b65e;
+  box-shadow: 0 0 16px rgba(201, 168, 76, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: #c9a84c;
+  color: #c9a84c;
+}
+
+.btn-outline:hover {
+  background-color: rgba(201, 168, 76, 0.08);
+  box-shadow: 0 0 12px rgba(201, 168, 76, 0.2);
+}
+
+.btn-md {
+  padding: 10px 16px;
+  font-size: 13px;
+}
+
+:focus-visible {
+  outline: 2px solid #c9a84c;
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: rgba(201, 168, 76, 0.3);
+  color: #ffffff;
 }
