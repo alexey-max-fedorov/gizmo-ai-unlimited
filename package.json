@@ -44,7 +44,10 @@
     "browser_specific_settings": {
       "gecko": {
         "id": "gizmo-ai-unlimited-hearts@gizmoai.local",
-        "data_collection_permissions": {}
+        "data_collection_permissions": {
+          "required": [],
+          "optional": []
+        }
       }
     }
   }
