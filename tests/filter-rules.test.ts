@@ -1,6 +1,6 @@
 import { describe, it } from "node:test"
 import assert from "node:assert/strict"
-import { HEARTS_MODAL_SELECTORS, buildHidingCSS } from "../lib/filter-rules.ts"
+import { HEARTS_MODAL_SELECTORS, HEARTS_MODAL_OBSERVER_SELECTORS, buildHidingCSS } from "../lib/filter-rules.ts"
 
 describe("HEARTS_MODAL_SELECTORS", () => {
   it("contains all 4 selectors from the uBO Lite element picker", () => {
@@ -11,6 +11,28 @@ describe("HEARTS_MODAL_SELECTORS", () => {
     assert.ok(HEARTS_MODAL_SELECTORS.includes("div:nth-of-type(4) > div > div > div > div"))
     assert.ok(HEARTS_MODAL_SELECTORS.includes("div[aria-modal][role]"))
     assert.ok(HEARTS_MODAL_SELECTORS.includes("div[tabindex][style]"))
+  })
+})
+
+describe("HEARTS_MODAL_OBSERVER_SELECTORS", () => {
+  it("is a strict subset of HEARTS_MODAL_SELECTORS", () => {
+    for (const sel of HEARTS_MODAL_OBSERVER_SELECTORS) {
+      assert.ok(
+        HEARTS_MODAL_SELECTORS.includes(sel),
+        `observer selector not present in full list: ${sel}`
+      )
+    }
+    assert.ok(
+      HEARTS_MODAL_OBSERVER_SELECTORS.length < HEARTS_MODAL_SELECTORS.length,
+      "observer list should be smaller than full list"
+    )
+  })
+
+  it("does not include broad structural or attribute selectors", () => {
+    for (const sel of HEARTS_MODAL_OBSERVER_SELECTORS) {
+      assert.ok(!sel.includes("nth-of-type"), `broad structural selector leaked into observer list: ${sel}`)
+      assert.ok(sel !== "div[tabindex][style]", "div[tabindex][style] must not be in observer list")
+    }
   })
 })
 
