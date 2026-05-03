@@ -37,4 +37,4 @@ If the extension ever changes in a way that affects data handling, this policy w
 
 ## Contact
 
-alexey.max.fedorov@gmail.com
+https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/issues
