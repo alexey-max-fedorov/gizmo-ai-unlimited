@@ -45,7 +45,7 @@
       "gecko": {
         "id": "gizmo-ai-unlimited-hearts@gizmoai.local",
         "data_collection_permissions": {
-          "required": [],
+          "required": ["none"],
           "optional": []
         }
       }
