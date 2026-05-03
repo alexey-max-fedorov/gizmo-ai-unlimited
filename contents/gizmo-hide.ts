@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo"
-import { buildHidingCSS, HEARTS_MODAL_SELECTORS } from "../lib/filter-rules"
+import { buildHidingCSS, HEARTS_MODAL_OBSERVER_SELECTORS } from "../lib/filter-rules"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://app.gizmo.ai/*"],
@@ -13,7 +13,7 @@ let modalObserver: MutationObserver | null = null
 
 function hideMatchingNodes(root: Node): void {
   if (!(root instanceof Element)) return
-  for (const sel of HEARTS_MODAL_SELECTORS) {
+  for (const sel of HEARTS_MODAL_OBSERVER_SELECTORS) {
     const el = root.matches(sel) ? root : root.querySelector(sel)
     if (el instanceof HTMLElement) el.style.setProperty("display", "none", "important")
   }
