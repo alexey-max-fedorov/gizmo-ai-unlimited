@@ -3,29 +3,30 @@ import assert from "node:assert/strict"
 import { HEARTS_MODAL_SELECTORS, HEARTS_MODAL_OBSERVER_SELECTORS, buildHidingCSS } from "../lib/filter-rules.ts"
 
 describe("HEARTS_MODAL_SELECTORS", () => {
-  it("contains all 4 selectors from the uBO Lite element picker", () => {
-    assert.equal(HEARTS_MODAL_SELECTORS.length, 4)
+  it("contains exactly the two safe selectors", () => {
+    assert.equal(HEARTS_MODAL_SELECTORS.length, 2)
     assert.ok(HEARTS_MODAL_SELECTORS.includes(
       "div.r-1p0dtai.r-1d2f490.r-1xcajam.r-zchlnj.r-ipm5af.r-sfbmgh.r-9daxd3.r-leqjx2.r-xx3c9p.r-6dt33c"
     ))
-    assert.ok(HEARTS_MODAL_SELECTORS.includes("div:nth-of-type(4) > div > div > div > div"))
     assert.ok(HEARTS_MODAL_SELECTORS.includes("div[aria-modal][role]"))
-    assert.ok(HEARTS_MODAL_SELECTORS.includes("div[tabindex][style]"))
+  })
+
+  it("does not include broad selectors that match quiz content", () => {
+    assert.ok(!HEARTS_MODAL_SELECTORS.includes("div[tabindex][style]"),
+      "div[tabindex][style] hides draggable answer items in matching exercises")
+    assert.ok(!HEARTS_MODAL_SELECTORS.some(s => s.includes("nth-of-type")),
+      "structural nth-of-type selectors match quiz containers")
   })
 })
 
 describe("HEARTS_MODAL_OBSERVER_SELECTORS", () => {
-  it("is a strict subset of HEARTS_MODAL_SELECTORS", () => {
+  it("is a subset of HEARTS_MODAL_SELECTORS", () => {
     for (const sel of HEARTS_MODAL_OBSERVER_SELECTORS) {
       assert.ok(
         HEARTS_MODAL_SELECTORS.includes(sel),
         `observer selector not present in full list: ${sel}`
       )
     }
-    assert.ok(
-      HEARTS_MODAL_OBSERVER_SELECTORS.length < HEARTS_MODAL_SELECTORS.length,
-      "observer list should be smaller than full list"
-    )
   })
 
   it("does not include broad structural or attribute selectors", () => {

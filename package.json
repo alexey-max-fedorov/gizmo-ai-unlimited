@@ -1,6 +1,6 @@
 {
   "name": "gizmo-ai-unlimited-hearts",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
   "description": "MV3 extension that bypasses the out-of-hearts modal on app.gizmo.ai/quiz",
   "scripts": {

@@ -1,22 +1,20 @@
 /**
  * Cosmetic-filter selectors for the Gizmo AI "out of hearts" modal.
  *
- * Sourced from the uBlock Origin Lite element picker on app.gizmo.ai/quiz/*.
- * Four alternative selectors are kept and OR-combined so the rule survives
- * Gizmo redeploys that change React Native Web class hashes (r-*) — the
- * aria/structural selectors still catch the modal.
+ * Two selectors OR-combined: the specific r-* class chain matches the current
+ * modal precisely; div[aria-modal][role] is the semantic fallback for when
+ * Gizmo redeploys and changes React Native Web class hashes.
+ *
+ * Intentionally excluded (too broad — false-positives on quiz content):
+ *   "div:nth-of-type(4) > div > div > div > div"  — matches quiz containers
+ *   "div[tabindex][style]"  — matches draggable answer items in matching exercises
  */
 export const HEARTS_MODAL_SELECTORS: readonly string[] = [
   "div.r-1p0dtai.r-1d2f490.r-1xcajam.r-zchlnj.r-ipm5af.r-sfbmgh.r-9daxd3.r-leqjx2.r-xx3c9p.r-6dt33c",
-  "div:nth-of-type(4) > div > div > div > div",
-  "div[aria-modal][role]",
-  "div[tabindex][style]"
+  "div[aria-modal][role]"
 ]
 
-// Subset used by the MutationObserver — must be specific enough to never
-// match quiz UI elements (answer choices, containers) that are added to the
-// DOM during normal quiz flow. The two broad selectors above are fine in a
-// static CSS rule but cause false positives when searched inside new nodes.
+// MutationObserver uses the same set — both selectors are already specific.
 export const HEARTS_MODAL_OBSERVER_SELECTORS: readonly string[] = [
   "div.r-1p0dtai.r-1d2f490.r-1xcajam.r-zchlnj.r-ipm5af.r-sfbmgh.r-9daxd3.r-leqjx2.r-xx3c9p.r-6dt33c",
   "div[aria-modal][role]"
