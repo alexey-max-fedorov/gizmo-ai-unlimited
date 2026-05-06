@@ -12,4 +12,4 @@
 4. AMO validator is strict — see `.claude/gotchas.md` for `data_collection_permissions`
 
 ## Versioning
-Bump `version` in `package.json` (Plasmo writes it into the generated manifest). `PRIVACY_POLICY.md` is the policy linked from the AMO listing.
+Bump `version` in `package.json` (Plasmo writes it into the generated manifest) **and** update the version string in `popup.tsx` (the `<p className="popup-eyebrow">` line) to match. `PRIVACY_POLICY.md` is the policy linked from the AMO listing.

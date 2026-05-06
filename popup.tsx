@@ -12,7 +12,7 @@ function Popup() {
         <img src={logoUrl} alt="Gizmo AI Unlimited Hearts" className="popup-logo" />
         <div>
           <h1 className="popup-title">Gizmo AI Unlimited</h1>
-          <p className="popup-eyebrow">Hearts · v0.2.0</p>
+          <p className="popup-eyebrow">Hearts · v1.0.0</p>
         </div>
       </div>
 
