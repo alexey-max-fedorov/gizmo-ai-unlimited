@@ -1,0 +1,386 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "popup.tsx",
+      "file_type": "code",
+      "source_file": "popup.tsx",
+      "source_location": "L1",
+      "id": "popup_tsx",
+      "community": 2,
+      "norm_label": "popup.tsx"
+    },
+    {
+      "label": "Popup()",
+      "file_type": "code",
+      "source_file": "popup.tsx",
+      "source_location": "L4",
+      "id": "gizmo_ai_unlimited_popup_popup",
+      "community": 2,
+      "norm_label": "popup()"
+    },
+    {
+      "label": "css.d.ts",
+      "file_type": "code",
+      "source_file": "css.d.ts",
+      "source_location": "L1",
+      "id": "css_d_ts",
+      "community": 3,
+      "norm_label": "css.d.ts"
+    },
+    {
+      "label": "gizmo-hide.ts",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L1",
+      "id": "contents_gizmo_hide_ts",
+      "community": 0,
+      "norm_label": "gizmo-hide.ts"
+    },
+    {
+      "label": "hideMatchingNodes()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L14",
+      "id": "contents_gizmo_hide_hidematchingnodes",
+      "community": 0,
+      "norm_label": "hidematchingnodes()"
+    },
+    {
+      "label": "startModalObserver()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L22",
+      "id": "contents_gizmo_hide_startmodalobserver",
+      "community": 1,
+      "norm_label": "startmodalobserver()"
+    },
+    {
+      "label": "stopModalObserver()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L37",
+      "id": "contents_gizmo_hide_stopmodalobserver",
+      "community": 0,
+      "norm_label": "stopmodalobserver()"
+    },
+    {
+      "label": "isQuizPage()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L42",
+      "id": "contents_gizmo_hide_isquizpage",
+      "community": 0,
+      "norm_label": "isquizpage()"
+    },
+    {
+      "label": "inject()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L46",
+      "id": "contents_gizmo_hide_inject",
+      "community": 1,
+      "norm_label": "inject()"
+    },
+    {
+      "label": "eject()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L55",
+      "id": "contents_gizmo_hide_eject",
+      "community": 0,
+      "norm_label": "eject()"
+    },
+    {
+      "label": "sync()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L60",
+      "id": "contents_gizmo_hide_sync",
+      "community": 0,
+      "norm_label": "sync()"
+    },
+    {
+      "label": "startNavWatch()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L64",
+      "id": "contents_gizmo_hide_startnavwatch",
+      "community": 0,
+      "norm_label": "startnavwatch()"
+    },
+    {
+      "label": "init()",
+      "file_type": "code",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L85",
+      "id": "contents_gizmo_hide_init",
+      "community": 0,
+      "norm_label": "init()"
+    },
+    {
+      "label": "filter-rules.test.ts",
+      "file_type": "code",
+      "source_file": "tests/filter-rules.test.ts",
+      "source_location": "L1",
+      "id": "tests_filter_rules_test_ts",
+      "community": 1,
+      "norm_label": "filter-rules.test.ts"
+    },
+    {
+      "label": "filter-rules.ts",
+      "file_type": "code",
+      "source_file": "lib/filter-rules.ts",
+      "source_location": "L1",
+      "id": "lib_filter_rules_ts",
+      "community": 1,
+      "norm_label": "filter-rules.ts"
+    },
+    {
+      "label": "buildHidingCSS()",
+      "file_type": "code",
+      "source_file": "lib/filter-rules.ts",
+      "source_location": "L23",
+      "id": "lib_filter_rules_buildhidingcss",
+      "community": 1,
+      "norm_label": "buildhidingcss()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "popup.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "popup_tsx",
+      "target": "gizmo_ai_unlimited_popup_popup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "lib_filter_rules_buildhidingcss",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_hidematchingnodes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_startmodalobserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_stopmodalobserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_isquizpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_inject",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_eject",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_sync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_startnavwatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_ts",
+      "target": "contents_gizmo_hide_init",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_inject",
+      "target": "contents_gizmo_hide_startmodalobserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_eject",
+      "target": "contents_gizmo_hide_stopmodalobserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_sync",
+      "target": "contents_gizmo_hide_isquizpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_sync",
+      "target": "contents_gizmo_hide_inject",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_inject",
+      "target": "lib_filter_rules_buildhidingcss"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_sync",
+      "target": "contents_gizmo_hide_eject",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_init",
+      "target": "contents_gizmo_hide_sync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "contents/gizmo-hide.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "contents_gizmo_hide_init",
+      "target": "contents_gizmo_hide_startnavwatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/filter-rules.test.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "tests_filter_rules_test_ts",
+      "target": "lib_filter_rules_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/filter-rules.test.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "tests_filter_rules_test_ts",
+      "target": "lib_filter_rules_buildhidingcss",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/filter-rules.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "lib_filter_rules_ts",
+      "target": "lib_filter_rules_buildhidingcss",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "03e923f02769d2673ca29a19f863bf027d6929b5"
+}

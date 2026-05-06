@@ -1,0 +1,10 @@
+# Device-specific: contain absolute local paths
+.graphify_python
+.graphify_root
+manifest.json
+
+# Machine-specific extraction cache
+cache/
+
+# Temp files from in-progress runs
+.graphify_*.json
