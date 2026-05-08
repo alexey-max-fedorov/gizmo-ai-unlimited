@@ -1,4 +1,4 @@
-# Privacy Policy — Gizmo AI Unlimited Hearts v0.2.0
+# Privacy Policy — Gizmo AI Unlimited Hearts v1.0.0
 
 **Effective date:** 2026-05-02
 **Author:** Alexey Fedorov
