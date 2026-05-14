@@ -1,0 +1,5 @@
+The "scripting" permission is required to register the content script in the MAIN world via chrome.scripting.registerContentScripts().
+
+The content script must run in the MAIN world — not the default isolated world — because it overrides native DOM APIs (Document.prototype.createElement, Node.prototype.appendChild, Node.prototype.insertBefore, Element.prototype.append) to intercept the moment Gizmo's entry script tag is inserted into the page. These overrides only take effect if the script runs in the same JavaScript context as the page itself; isolated-world scripts cannot override the page's prototype chain.
+
+The extension framework (Plasmo) registers MAIN-world scripts from the background service worker using chrome.scripting.registerContentScripts(), which requires the "scripting" permission. No other scripting API is called.

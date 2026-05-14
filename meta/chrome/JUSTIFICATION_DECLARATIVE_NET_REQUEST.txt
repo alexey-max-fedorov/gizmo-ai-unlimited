@@ -1,0 +1,9 @@
+The "declarativeNetRequest" permission is required to block Gizmo's original JavaScript bundle before it loads.
+
+When a user visits app.gizmo.ai, the browser fetches Gizmo's entry bundle (entry-*.js). This bundle contains the subscription gate that blocks quiz access. The extension registers a single dynamic DNR rule at install time that blocks requests matching:
+
+  *://app.gizmo.ai/_expo/static/js/web/entry-*.js
+
+Blocking the original is necessary so that only the patched version executes. Without this rule, both the original and patched bundles would run in sequence, producing JavaScript errors and undefined behavior.
+
+Only one rule is registered. The rule targets a specific URL pattern scoped to app.gizmo.ai scripts. No browsing history or request content is read; the rule operates purely on the URL match.

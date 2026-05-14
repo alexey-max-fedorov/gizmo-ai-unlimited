@@ -1,0 +1,7 @@
+The extension fetches a JavaScript file from raw.githubusercontent.com and executes it on app.gizmo.ai pages.
+
+The fetched file is Gizmo AI's own JavaScript bundle (entry.min.js), modified by this extension's author to remove the subscription gate. The modification is a targeted text replacement: the isSubscribed getter body is rewritten to return true. The patcher source and the patched output are both publicly auditable in the same repository as the extension.
+
+The remote fetch is necessary because Gizmo deploys bundle updates frequently and the entry URL contains a content hash that changes with each deployment. A bundled static copy would become stale within hours. Fetching from the author's own repository — kept current by a GitHub Actions workflow — ensures the extension works across Gizmo updates without requiring a new extension release.
+
+The fetched code is executed in the page context, not the extension context.
