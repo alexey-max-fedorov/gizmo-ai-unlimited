@@ -76,10 +76,32 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ${{ github.workspace }}
         run: |
-          gh issue create \
-            --title "Patch workflow failed" \
-            --body "The patch workflow failed at $(date -u +'%Y-%m-%d %H:%M:%S UTC').
+          set -euo pipefail
 
-          **Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ISSUE_TITLE="Patch workflow failed"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          TIMESTAMP="$(date -u +'%Y-%m-%d %H:%M:%S UTC')"
 
-          Investigate logs — likely causes: bundle structure changed (regex no longer matches), bot detection, or Gizmo origin moved."
+          ISSUE_BODY=$(cat <<EOF
+          The patch workflow failed at ${TIMESTAMP}.
+
+          **Run:** ${RUN_URL}
+
+          Investigate logs — likely causes: bundle structure changed (regex no longer matches), bot detection, or Gizmo origin moved.
+          EOF
+          )
+
+          EXISTING_ISSUE_NUMBER="$(gh issue list \
+            --state open \
+            --search "${ISSUE_TITLE} in:title" \
+            --json number,title \
+            --jq '.[] | select(.title == "'"${ISSUE_TITLE}"'") | .number' \
+            | head -n 1)"
+
+          if [ -n "${EXISTING_ISSUE_NUMBER}" ]; then
+            gh issue comment "${EXISTING_ISSUE_NUMBER}" --body "${ISSUE_BODY}"
+          else
+            gh issue create \
+              --title "${ISSUE_TITLE}" \
+              --body "${ISSUE_BODY}"
+          fi
