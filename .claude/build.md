@@ -15,7 +15,7 @@
 
 ## First-time setup
 1. `pnpm install` (repo root) — installs extension deps
-2. `cd patcher && pnpm install` (patcher deps; usually hoisted from root pnpm-lock)
+2. `cd patcher && pnpm install` (patcher has its own independent `pnpm-lock.yaml`)
 3. `pnpm approve-builds` — required so native deps (`@parcel/watcher`, `@swc/core`, `esbuild`, `lmdb`, `msgpackr-extract`, `sharp`) can compile
 4. `pnpm build`
 
