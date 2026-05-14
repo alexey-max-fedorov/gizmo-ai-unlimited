@@ -1,5 +1,5 @@
 Single purpose: unlock unlimited hearts and hints on app.gizmo.ai quiz pages.
 
-Gizmo AI gates continued quiz practice behind a hearts system and a subscription paywall for hints. This extension intercepts the Gizmo JavaScript bundle as it loads and replaces it with a pre-patched version that removes the subscription gate, so users can study without interruption.
+This extension intercepts Gizmo's JavaScript bundle as it loads and replaces it with a pre-patched version that has hearts and hints unlocked, so users can study without interruption.
 
 The extension operates exclusively on app.gizmo.ai. It has no settings UI, no background data collection, and no effect on any other site or page.

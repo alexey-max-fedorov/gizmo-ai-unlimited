@@ -1,7 +1,7 @@
 Two host permissions are required:
 
 https://app.gizmo.ai/*
-The content script runs on app.gizmo.ai pages to intercept Gizmo's bundle-loading sequence. The declarativeNetRequest blocking rule also targets this origin. Both the content script match pattern and the DNR rule condition require this host permission. The extension has no functionality outside this domain.
+The content script runs on app.gizmo.ai pages to intercept Gizmo's bundle-loading sequence and deliver the patched version. The declarativeNetRequest rule also targets this origin. Both the content script match pattern and the DNR rule condition require this host permission. The extension has no functionality outside this domain.
 
 https://raw.githubusercontent.com/*
 The content script fetches the pre-patched bundle from:
