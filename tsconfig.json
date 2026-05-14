@@ -11,6 +11,7 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "tests"
+    "tests",
+    "patcher"
   ]
 }
