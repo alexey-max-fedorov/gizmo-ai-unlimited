@@ -1,0 +1,83 @@
+name: Patch Gizmo Bundle
+
+on:
+  schedule:
+    # Run every 2 hours (UTC). Gizmo deploys at unpredictable times;
+    # a frequent cadence keeps the patched bundle fresh.
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: patch-workflow
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: patcher
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: main
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install patcher deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Run patcher
+        timeout-minutes: 10
+        run: pnpm run patch
+
+      - name: Commit patched bundle
+        working-directory: ${{ github.workspace }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          git add patcher/dist/entry.min.js patcher/dist/metadata.json
+
+          if git diff --cached --quiet; then
+            echo "No patch changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: refresh patched Gizmo bundle"
+          git pull --rebase origin main
+          git push origin main
+
+      - name: Create issue on failure
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ${{ github.workspace }}
+        run: |
+          gh issue create \
+            --title "Patch workflow failed" \
+            --body "The patch workflow failed at $(date -u +'%Y-%m-%d %H:%M:%S UTC').
+
+          **Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          Investigate logs — likely causes: bundle structure changed (regex no longer matches), bot detection, or Gizmo origin moved."
