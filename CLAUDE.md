@@ -1,19 +1,19 @@
 # CLAUDE.md
 
-Plasmo MV3 browser extension that hides the "out of hearts" modal on `app.gizmo.ai/*` via cosmetic CSS filters. No remote code, no API spoofing, no tracking.
+Two-part system on `app.gizmo.ai/*`. **Patcher** (`./patcher/`, a Node CLI run by a scheduled GitHub Action) fetches the live Gizmo bundle, rewrites `get isSubscribed(){...}` to return `true`, and publishes the result to `./patcher/dist/entry.min.js` (committed back to `main`). **Extension** (Plasmo MV3) blocks the original bundle via declarativeNetRequest and injects the patched bundle from `raw.githubusercontent.com` via the `onreset` trick.
 
-**Stack:** Plasmo · React 19 · TypeScript 6 · pnpm · Node `--test`
+**Stack:** Plasmo · React 19 · TypeScript 6 · pnpm · Node `--test` · `--experimental-strip-types`
 **Targets:** Chrome MV3, Firefox MV3 (AMO)
 
 ## Where to look
 
-- **`.claude/build.md`** — dev/build/test commands, pnpm `approve-builds` step, Node 22.6+ requirement
-- **`.claude/architecture.md`** — file layout, content-script SPA-navigation handling, filter-rules module, popup
-- **`.claude/gotchas.md`** — Parcel breaks if `engines.node` is set; Firefox AMO `data_collection_permissions` schema; `--experimental-strip-types`
-- **`.claude/release.md`** — Chrome vs Firefox packaging, manifest differences, AMO submission notes
+- **`.claude/build.md`** — dev/build/test commands, patcher commands, Node 22+ requirement
+- **`.claude/architecture.md`** — file layout, content-script flow, DNR rule, patcher pipeline
+- **`.claude/gotchas.md`** — Parcel + `engines.node`, AMO `data_collection_permissions`, bot detection on Gizmo HTML, `onreset` URL shadowing
+- **`.claude/release.md`** — Chrome vs Firefox packaging, manifest differences, AMO submission
 
 ## House rules
 
-- Cosmetic-only: never add network interception, API spoofing, or game-state mutation
-- Touch `package.json` `manifest` block carefully — AMO validation is strict
-- Run `pnpm typecheck && pnpm test` before declaring work done
+- The patcher must NEVER do anything other than text-replace on a known minified pattern. Keep regexes tightly anchored.
+- The extension fetches JS from `raw.githubusercontent.com/alexey-max-fedorov/gizmo-ai-unlimited/main/...` — if you fork, update `PATCHED_URL` in `lib/patch-config.ts`.
+- Run `pnpm typecheck && pnpm test` (extension) and `cd patcher && pnpm typecheck && pnpm test` (patcher) before declaring work done.
