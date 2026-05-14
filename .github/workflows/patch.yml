@@ -57,12 +57,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
 
-          git add patcher/dist/entry.min.js patcher/dist/metadata.json
+          git add patcher/dist/entry.min.js
 
           if git diff --cached --quiet; then
             echo "No patch changes to commit"
             exit 0
           fi
+
+          git add patcher/dist/metadata.json
 
           git commit -m "chore: refresh patched Gizmo bundle"
           git pull --rebase origin main
