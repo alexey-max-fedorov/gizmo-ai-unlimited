@@ -16,3 +16,20 @@ export const applyIsSubscribedPatch = (source: string): PatchOutcome => {
   });
   return { output, count };
 };
+
+export const addLoadMarkers = (source: string): string => {
+  const prefix = `console.log("[Gizmo Unlimited] patched bundle loaded (patcher v${VERSION})");\n`;
+  const suffix = `\nconsole.log("[Gizmo Unlimited] patched bundle finished executing (patcher v${VERSION})");\n`;
+  return `${prefix}${source}${suffix}`;
+};
+
+export type AllPatchesOutcome = {
+  output: string;
+  isSubscribedCount: number;
+};
+
+export const applyAllPatches = (source: string): AllPatchesOutcome => {
+  const { output: afterIsSubscribed, count: isSubscribedCount } = applyIsSubscribedPatch(source);
+  const output = addLoadMarkers(afterIsSubscribed);
+  return { output, isSubscribedCount };
+};
