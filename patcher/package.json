@@ -1,0 +1,16 @@
+{
+  "name": "gizmo-patcher",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Fetches and patches the Gizmo AI entry.js bundle for the unlimited-hearts extension",
+  "scripts": {
+    "patch": "node --experimental-strip-types src/patch.ts",
+    "test": "node --experimental-strip-types --test \"tests/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^6.0.3"
+  }
+}

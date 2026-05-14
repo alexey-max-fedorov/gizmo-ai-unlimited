@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-05-14T02:11:14.015Z",
+  "patcherVersion": "2.0.0",
+  "source": {
+    "probeUrl": "https://app.gizmo.ai/quiz/198926301",
+    "entryUrl": "https://app.gizmo.ai/_expo/static/js/web/entry-a7ba1bec972606400a599699bc996b57.js",
+    "entryPath": "/_expo/static/js/web/entry-a7ba1bec972606400a599699bc996b57.js"
+  },
+  "patches": {
+    "isSubscribedCount": 2
+  },
+  "bytes": {
+    "in": 19312779,
+    "out": 19312871
+  }
+}
