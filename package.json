@@ -1,8 +1,8 @@
 {
   "name": "gizmo-ai-unlimited-hearts",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
-  "description": "MV3 extension that bypasses the out-of-hearts modal on app.gizmo.ai/quiz by injecting a patched bundle",
+  "description": "MV3 extension that unlocks unlimited hearts and hints on app.gizmo.ai by injecting a patched bundle",
   "scripts": {
     "dev": "plasmo dev",
     "dev:firefox": "plasmo dev --target=firefox-mv3",
@@ -35,8 +35,8 @@
     ]
   },
   "manifest": {
-    "name": "Gizmo AI Unlimited Hearts",
-    "description": "Bypasses the out-of-hearts modal on Gizmo AI quizzes.",
+    "name": "Gizmo AI Unlimited",
+    "description": "Unlocks unlimited hearts and hints on Gizmo AI quizzes.",
     "author": "Alexey Fedorov",
     "permissions": [
       "declarativeNetRequest"

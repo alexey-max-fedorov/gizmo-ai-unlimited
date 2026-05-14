@@ -1,6 +1,6 @@
-# Gizmo AI Unlimited Hearts
+# Gizmo AI Unlimited
 
-Bypasses the out-of-hearts modal on [app.gizmo.ai](https://app.gizmo.ai/) quizzes.
+Unlocks unlimited hearts and hints on [app.gizmo.ai](https://app.gizmo.ai/) quizzes.
 
 ## How it works
 

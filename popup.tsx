@@ -9,17 +9,17 @@ function Popup() {
   return (
     <div className="popup-root">
       <div className="popup-header">
-        <img src={logoUrl} alt="Gizmo AI Unlimited Hearts" className="popup-logo" />
+        <img src={logoUrl} alt="Gizmo AI Unlimited" className="popup-logo" />
         <div>
           <h1 className="popup-title">Gizmo AI Unlimited</h1>
-          <p className="popup-eyebrow">Hearts · v2.0.0</p>
+          <p className="popup-eyebrow">v2.0.1</p>
         </div>
       </div>
 
       <div className="divider-gold" />
 
       <p className="main-hint">
-        Bypasses the out-of-hearts modal on app.gizmo.ai/quiz.
+        Unlocks unlimited hearts and hints on app.gizmo.ai/quiz.
       </p>
 
       <div className="action-stack">
