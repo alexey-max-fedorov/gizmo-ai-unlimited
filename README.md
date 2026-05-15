@@ -1,5 +1,9 @@
 # Gizmo AI Unlimited
 
+[![Chrome Web Store](https://img.shields.io/badge/Chrome-Install-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=github-readme)
+[![Microsoft Edge](https://img.shields.io/badge/Edge-Install-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/gizmo-ai-unlimited/gajdekhpddjnkkldabhaahhhanmkkegi?utm_source=github-readme)
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox-Install-FF7139?style=for-the-badge&logo=firefoxbrowser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/?utm_source=github-readme)
+
 Unlocks unlimited hearts and hints on [app.gizmo.ai](https://app.gizmo.ai/) quizzes.
 
 ## How it works
