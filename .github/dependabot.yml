@@ -1,0 +1,64 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "alexey-max-fedorov"
+    commit-message:
+      prefix: "[root]"
+
+  - package-ecosystem: "npm"
+    directory: "/research"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "alexey-max-fedorov"
+    commit-message:
+      prefix: "[research]"
+
+  - package-ecosystem: "npm"
+    directory: "/tests"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "alexey-max-fedorov"
+    commit-message:
+      prefix: "[tests]"
+
+  - package-ecosystem: "npm"
+    directory: "/patcher"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "alexey-max-fedorov"
+    commit-message:
+      prefix: "[patcher]"
+
+  - package-ecosystem: "npm"
+    directory: "/lib"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "alexey-max-fedorov"
+    commit-message:
+      prefix: "[lib]"
+
+  - package-ecosystem: "npm"
+    directory: "/patcher/tests"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "alexey-max-fedorov"
+    commit-message:
+      prefix: "[patcher/tests]"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "alexey-max-fedorov"
+    commit-message:
+      prefix: "[actions]"
