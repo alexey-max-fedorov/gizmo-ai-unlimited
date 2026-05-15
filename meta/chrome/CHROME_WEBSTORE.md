@@ -10,44 +10,62 @@ Unlimited hearts and hints for Gizmo AI quizzes — no interruptions, no paywall
 
 GIZMO AI UNLIMITED — Study Without Limits
 
-Gizmo AI is one of the best flashcard and quiz platforms out there. It's also one that cuts you off mid-session the moment your streak slips — hearts run out, a modal blocks the interface, and you can't continue until you wait, upgrade, or reload. This extension removes those limits so you can keep studying without hitting a wall every time you make a mistake.
+Gizmo AI Unlimited is a free Chrome extension that removes the hearts limit and unlocks hints on every Gizmo AI quiz — no subscription required, no account changes, no data collected. Install it once and study without interruption.
 
-If you've ever been locked out of a quiz right before finishing a deck, this extension is for you.
-
-________________________________________________________________
-
-WHY THIS EXISTS
-
-Gizmo AI uses a hearts system to gate continued practice. Run out of hearts and a full-screen modal blocks the interface. Hints are similarly gated behind a subscription. For students trying to cram before a test, those interruptions don't teach discipline. They just waste time.
+Gizmo AI is one of the best flashcard and quiz platforms available. It is also one that cuts you off mid-session the moment your streak slips — hearts run out, a modal blocks the interface, and you cannot continue until you wait, upgrade, or reload. This extension eliminates those interruptions so you can keep studying without hitting a wall every time you make a mistake.
 
 ________________________________________________________________
 
 WHAT IT DOES
 
-— Removes the out-of-hearts modal so you can keep practicing indefinitely
+— Removes the out-of-hearts modal so you can practice indefinitely
 — Unlocks hints on every question without a subscription
-— Activates automatically when you navigate into a quiz, even via SPA navigation from the decks page
-— Deactivates automatically when you leave a quiz so it never interferes with the rest of the site
-— Works without requiring a page reload
+— Activates automatically on every Gizmo AI quiz, including SPA navigation from the decks page
+— Stays current automatically: the patched bundle is refreshed every 2 hours via a scheduled GitHub Actions workflow
 
 ________________________________________________________________
 
 WHAT IT DOES NOT DO
 
-— It does not modify Gizmo's servers, APIs, or account state
-— It does not collect, transmit, or store any data about you
-— It does not use cookies, local storage, or any persistence mechanism
-— It does not contact any third-party analytics, advertising, or telemetry service
-— It has no settings panel because it needs none
+— Does not modify Gizmo's servers, APIs, or account state
+— Does not collect, transmit, or store any data about you
+— Does not use cookies, local storage, or any persistence mechanism
+— Does not contact any third-party analytics, advertising, or telemetry service
+— Has no settings panel because it needs none
+
+________________________________________________________________
+
+FREQUENTLY ASKED QUESTIONS
+
+Does Gizmo AI Unlimited still work?
+Yes. The extension checks for bundle updates every 2 hours automatically. If Gizmo deploys a change, the patch is refreshed within 2 hours.
+
+How do I get unlimited hearts on Gizmo AI?
+Install this extension. Once installed, the hearts modal is removed and you can practice indefinitely without waiting or upgrading.
+
+How do I unlock hints on Gizmo AI without a subscription?
+This extension unlocks hints on every question automatically. No subscription or account change is needed.
+
+Does it require creating an account or logging in?
+No. The extension works without any account and makes no changes to your Gizmo account or profile.
+
+Is it free?
+Yes, completely free. No in-app purchases, no premium tier.
+
+Does it work after SPA navigation (when you click into a quiz from the decks page)?
+Yes. The extension is designed specifically to handle Gizmo's single-page app navigation.
+
+Is it safe? Does it steal my data?
+No data is ever collected or transmitted. The extension fetches one file — a pre-patched JavaScript bundle from this project's own GitHub repository (raw.githubusercontent.com). That is the only network request the extension makes. Full source code is publicly available.
 
 ________________________________________________________________
 
 PRIVACY
 
-The extension fetches a pre-patched version of Gizmo's JavaScript bundle from this project's own GitHub repository (raw.githubusercontent.com). No other network activity occurs. Nothing about you is ever sent anywhere. See the full privacy policy linked in the source repository.
+The extension fetches a pre-patched version of Gizmo's JavaScript bundle from this project's GitHub repository (raw.githubusercontent.com). No other network activity occurs. Nothing about you is ever sent anywhere. See the full privacy policy linked in the source repository.
 
 ________________________________________________________________
 
 TECHNICAL
 
-Built with Plasmo (MV3). The patched bundle is refreshed automatically every 2 hours via a GitHub Actions workflow to stay current with Gizmo's deployments. Source available at github.com/alexey-max-fedorov/gizmo-ai-unlimited. Every line of code that runs in your browser is in that repository.
+Built with Plasmo (MV3). Uses declarativeNetRequest to block Gizmo's original bundle and injects a patched version hosted on GitHub. The patched bundle is refreshed automatically every 2 hours via a GitHub Actions workflow to stay current with Gizmo's deployments. Source available at github.com/alexey-max-fedorov/gizmo-ai-unlimited. Every line of code that runs in your browser is in that repository.
