@@ -1,0 +1,26 @@
+TEST INSTRUCTIONS — Gizmo AI Unlimited
+
+SETUP
+
+1. Install the extension.
+2. Create a free account at app.gizmo.ai (no subscription required).
+
+TESTING
+
+3. Navigate to any Gizmo AI quiz. You can use this one:
+   https://app.gizmo.ai/quiz/199211333
+
+4. Start the quiz.
+
+EXPECTED RESULT
+
+The hearts counter should display "Infinity" instead of a numeric value.
+The hints counter should also display "Infinity" instead of being locked behind a subscription prompt.
+
+After installing the extension, reload any open Gizmo tabs before testing.
+
+NOTES
+
+- A free account is sufficient. Do not purchase a subscription.
+- If you navigate to the quiz page from the Gizmo home page (rather than by direct URL), the extension still activates correctly via SPA navigation.
+- The extension has no settings panel and requires no configuration.
