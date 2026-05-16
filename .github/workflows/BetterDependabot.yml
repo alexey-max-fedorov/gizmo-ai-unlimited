@@ -8,6 +8,8 @@ on:
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -62,7 +64,5 @@ jobs:
           git add -A
           git commit -m "chore: update dependencies" || echo "No changes"
 
-      - uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+      - name: Push changes
+        run: git push origin HEAD:${{ github.ref }}
