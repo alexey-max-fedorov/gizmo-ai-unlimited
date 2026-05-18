@@ -19,10 +19,20 @@ node -e "
   fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n');
 "
 
+# Update patcher/package.json
+node -e "
+  const fs = require('fs');
+  const p = '$ROOT/patcher/package.json';
+  const pkg = JSON.parse(fs.readFileSync(p, 'utf8'));
+  pkg.version = '$NEW_VERSION';
+  fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n');
+"
+
 # Update patcher/src/constants.ts
 sed -i '' "s/^export const VERSION = \".*\";/export const VERSION = \"$NEW_VERSION\";/" \
   "$ROOT/patcher/src/constants.ts"
 
 echo "✓ Bumped to v$NEW_VERSION"
 echo "  → package.json"
+echo "  → patcher/package.json"
 echo "  → patcher/src/constants.ts"
