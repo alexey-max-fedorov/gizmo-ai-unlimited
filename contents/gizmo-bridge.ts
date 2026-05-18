@@ -6,8 +6,9 @@ import type { PlasmoCSConfig } from "plasmo";
 
 export const config: PlasmoCSConfig = {
   matches: ["https://app.gizmo.ai/*"],
-  run_at: "document_start",
-  world: "ISOLATED"
+  run_at: "document_start"
+  // world: "ISOLATED" is the default — omitting it keeps it out of the manifest
+  // so the Parcel transformer's strict schema validation doesn't reject it
 };
 
 type RequestDetail = { originalUrl: string };
