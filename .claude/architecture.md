@@ -40,7 +40,7 @@ Pipeline: `runPatch()` fetches the live quiz HTML with a realistic User-Agent, r
 8. The patched Metro bundle runs; `isSubscribed` returns `true` → no hearts modal.
 
 ### Injection flow (cache hit)
-Same as above except step 6 short-circuits at `getCachedBundle()` and returns the stored bundle directly. Typical warm-cache latency: ~100ms (patches.json HEAD/304 + storage read).
+Same as above except step 6 short-circuits at `getCachedBundle()` and returns the stored bundle directly. The patches.json fetch still happens (plain GET, browser HTTP cache); only the original bundle fetch and `applyPatchRules` work are skipped.
 
 ### Cache invalidation
 Cache key is `{bundleFilename, patchesHash}`. A mismatch on either field triggers a full rebuild. `patchesHash` is `sha256(JSON.stringify(rules)).slice(0, 16)`, precomputed by the patcher and read verbatim from `patches.json`.
