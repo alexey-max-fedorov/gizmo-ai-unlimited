@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo";
-import { PATCHED_URL, isEntryScriptSrc } from "../lib/patch-config";
+import { isEntryScriptSrc } from "../lib/patch-config";
 
 export const config: PlasmoCSConfig = {
   matches: ["https://app.gizmo.ai/*"],
@@ -24,9 +24,6 @@ const origGetAttribute = Element.prototype.getAttribute;
 const origCreateElement = Document.prototype.createElement;
 
 // ─── Integrity (SRI) bypass ───
-// SRI on a <script> would prevent us from substituting content.
-// We disable the `integrity` property on every script/link element.
-
 const lockIntegrity = (el: HTMLElement): void => {
   Object.defineProperty(el, "integrity", {
     set() {},
@@ -68,6 +65,27 @@ const stripIntegrity = (node: Node): void => {
   }
 };
 
+// ─── Bridge round-trip ───
+
+type ResponseDetail =
+  | { ok: true; patchedBundle: string }
+  | { ok: false; error: string };
+
+const requestPatchedBundle = (originalUrl: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const onResponse = (e: Event) => {
+      document.removeEventListener("__gizmo_patch_response__", onResponse);
+      const detail = (e as CustomEvent<ResponseDetail>).detail;
+      if (detail.ok) resolve(detail.patchedBundle);
+      else reject(new Error(detail.error || "patch failed"));
+    };
+    document.addEventListener("__gizmo_patch_response__", onResponse);
+    document.dispatchEvent(
+      new CustomEvent("__gizmo_patch_request__", { detail: { originalUrl } })
+    );
+  });
+};
+
 // ─── Entry-script detection + injection ───
 
 const isInterceptableGameScript = (node: Node): node is HTMLScriptElement => {
@@ -76,6 +94,9 @@ const isInterceptableGameScript = (node: Node): node is HTMLScriptElement => {
   return isEntryScriptSrc(node.src || origGetAttribute.call(node, "src") || "");
 };
 
+const captureSrc = (node: HTMLScriptElement): string =>
+  node.src || origGetAttribute.call(node, "src") || "";
+
 const createNopScript = (): HTMLScriptElement => {
   const nop = origCreateElement.call(document, "script") as HTMLScriptElement;
   lockIntegrity(nop);
@@ -83,16 +104,12 @@ const createNopScript = (): HTMLScriptElement => {
   return nop;
 };
 
-const injectPatchedBundle = (): void => {
+const injectPatchedBundle = (originalUrl: string): void => {
   if (window.__GIZMO_PATCH_HANDLED__) return;
   window.__GIZMO_PATCH_HANDLED__ = true;
 
-  console.log(`[Gizmo Unlimited] fetching patched bundle from ${PATCHED_URL}`);
-  fetch(PATCHED_URL, { cache: "no-cache" })
-    .then((r) => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.text();
-    })
+  console.log(`[Gizmo Unlimited] requesting patched bundle (origin=${originalUrl})`);
+  requestPatchedBundle(originalUrl)
     .then((js) => {
       // Inject via `onreset`. HTML event handlers run in the document scope,
       // so we shadow `URL` (which would otherwise resolve to document.URL,
@@ -104,7 +121,7 @@ const injectPatchedBundle = (): void => {
       console.log("[Gizmo Unlimited] patched bundle injected via onreset");
     })
     .catch((e) => {
-      console.error("[Gizmo Unlimited] failed to fetch patched bundle:", e);
+      console.error("[Gizmo Unlimited] failed to obtain patched bundle:", e);
     });
 };
 
@@ -112,7 +129,8 @@ const injectPatchedBundle = (): void => {
 
 Node.prototype.appendChild = function <T extends Node>(child: T): T {
   if (isInterceptableGameScript(child)) {
-    injectPatchedBundle();
+    const originalUrl = captureSrc(child as unknown as HTMLScriptElement);
+    injectPatchedBundle(originalUrl);
     return origAppendChild.call(this, createNopScript()) as unknown as T;
   }
   stripIntegrity(child);
@@ -121,7 +139,8 @@ Node.prototype.appendChild = function <T extends Node>(child: T): T {
 
 Node.prototype.insertBefore = function <T extends Node>(newNode: T, refNode: Node | null): T {
   if (isInterceptableGameScript(newNode)) {
-    injectPatchedBundle();
+    const originalUrl = captureSrc(newNode as unknown as HTMLScriptElement);
+    injectPatchedBundle(originalUrl);
     return origInsertBefore.call(this, createNopScript(), refNode) as unknown as T;
   }
   stripIntegrity(newNode);
@@ -131,7 +150,8 @@ Node.prototype.insertBefore = function <T extends Node>(newNode: T, refNode: Nod
 Element.prototype.append = function (...nodes: (Node | string)[]) {
   const processed = nodes.map((node) => {
     if (node instanceof Node && isInterceptableGameScript(node)) {
-      injectPatchedBundle();
+      const originalUrl = captureSrc(node as HTMLScriptElement);
+      injectPatchedBundle(originalUrl);
       return createNopScript();
     }
     if (node instanceof Node) stripIntegrity(node);
@@ -143,12 +163,11 @@ Element.prototype.append = function (...nodes: (Node | string)[]) {
 // ─── MutationObserver: catch parser-added script tags ───
 
 const handleParserAddedEntryScript = (script: HTMLScriptElement): void => {
-  // Neutralize the src — DNR will block the network request, but clearing
-  // it here avoids both a network error and any chance the original runs.
+  const originalUrl = captureSrc(script);
   origSetAttribute.call(script, "data-gizmo-patched", "1");
   script.removeAttribute("src");
   script.textContent = "";
-  injectPatchedBundle();
+  injectPatchedBundle(originalUrl);
 };
 
 const observer = new MutationObserver((mutations) => {
@@ -168,8 +187,6 @@ const observer = new MutationObserver((mutations) => {
         if (origGetAttribute.call(node, "integrity")) {
           origRemoveAttribute.call(node, "integrity");
         }
-        // <link rel="preload" href="entry-*.js"> — strip the preload so the
-        // browser doesn't waste a request on the blocked URL.
         const href = node.href || "";
         const rel = (node.rel || "").toLowerCase();
         if (rel === "preload" && isEntryScriptSrc(href)) {
