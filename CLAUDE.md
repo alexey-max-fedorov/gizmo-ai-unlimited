@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Two-part system on `app.gizmo.ai/*`. **Patcher** (`./patcher/`, a Node CLI run by a scheduled GitHub Action) fetches the live Gizmo bundle, rewrites `get isSubscribed(){...}` to return `true`, and publishes the result to `./patcher/dist/entry.min.js` (committed back to `main`). **Extension** (Plasmo MV3) blocks the original bundle via declarativeNetRequest and injects the patched bundle from `raw.githubusercontent.com` via the `onreset` trick.
+Two-part system on `app.gizmo.ai/*`. **Patcher** (`./patcher/`, a Node CLI run by a scheduled GitHub Action) fetches the live Gizmo bundle, runs structured `applyRules` over it, and publishes `./patcher/dist/patches.json` (primary artifact) plus `./patcher/dist/entry.min.js` (verification copy). **Extension** (Plasmo MV3) blocks the original bundle via declarativeNetRequest, fetches `patches.json` + the original bundle in the background, applies patches locally, caches the result in `chrome.storage.local`, and injects via the `onreset` trick.
 
 **Stack:** Plasmo · React 19 · TypeScript 6 · pnpm · Node `--test` · `--experimental-strip-types`
 **Targets:** Chrome MV3, Firefox MV3 (AMO)
