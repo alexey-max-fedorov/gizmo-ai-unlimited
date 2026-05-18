@@ -39,6 +39,7 @@
     "author": "Alexey Fedorov",
     "permissions": [
       "declarativeNetRequest",
+      "storage",
       "unlimitedStorage"
     ],
     "host_permissions": [

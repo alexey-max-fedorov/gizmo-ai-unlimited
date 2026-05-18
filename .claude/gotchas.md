@@ -33,6 +33,9 @@ HTML event-handler attributes (like `onreset`) run with `document` in their scop
 ## chrome.storage.local quota
 The cached patched bundle is ~18MB. The default `chrome.storage.local` quota is 10MB, so the manifest declares the `unlimitedStorage` permission. This permission shows no install-time warning to users.
 
+## `storage` AND `unlimitedStorage` are separate permissions
+`unlimitedStorage` only relaxes the quota — it does NOT expose `chrome.storage`. To use `chrome.storage.local` at all, the manifest must declare BOTH `"storage"` (exposes the API) AND `"unlimitedStorage"` (raises the cap). Missing `storage` makes `chrome.storage` itself `undefined` at runtime — the symptom is a confusing `Cannot read properties of undefined (reading 'local')` in the background service worker with no compile-time warning.
+
 ## ISOLATED bridge must be registered before MAIN dispatches
 Both content scripts run at `document_start`, but the MAIN-world script only dispatches `__gizmo_patch_request__` AFTER a script tag is detected (i.e., not synchronously at load). The ISOLATED bridge registers its listener at script top, synchronously — so it is always ready before any request fires.
 

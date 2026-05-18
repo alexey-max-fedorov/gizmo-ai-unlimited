@@ -3,6 +3,9 @@ set -e
 
 VERSION=$npm_package_version
 
+plasmo build
+plasmo build --target=firefox-mv3
+
 plasmo package
 plasmo package --target=firefox-mv3
 
