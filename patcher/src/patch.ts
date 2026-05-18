@@ -4,13 +4,14 @@ import { fileURLToPath } from "node:url";
 
 import { GIZMO_ORIGIN, GIZMO_PROBE_URL, VERSION } from "./constants.ts";
 import { extractEntryUrl, fetchEntryBundle, fetchHtml } from "./fetch-entry.ts";
-import { applyAllPatches } from "./patches.ts";
+import { RULES, applyRules, hashRules } from "./patches.ts";
 
 export type PatchResult = {
   outputDir: string;
   entryPath: string;
   entryUrl: string;
-  isSubscribedCount: number;
+  perRuleCounts: Record<string, number>;
+  patchesHash: string;
   bytesIn: number;
   bytesOut: number;
 };
@@ -29,30 +30,55 @@ export const runPatch = async (outputDir = "dist"): Promise<PatchResult> => {
   const bytesIn = source.length;
   console.log(`[patcher] source bundle: ${bytesIn} bytes`);
 
-  console.log(`[patcher] applying patches`);
-  const { output, isSubscribedCount } = applyAllPatches(source);
+  console.log(`[patcher] applying ${RULES.length} rule(s)`);
+  const { output, perRuleCounts } = applyRules(source, RULES);
   const bytesOut = output.length;
-  if (isSubscribedCount === 0) {
+
+  const degraded = RULES.filter((r) => (perRuleCounts[r.id] ?? 0) < r.minMatches);
+  if (degraded.length > 0) {
+    const summary = degraded
+      .map((r) => `${r.id}=${perRuleCounts[r.id] ?? 0} (min ${r.minMatches})`)
+      .join(", ");
     throw new Error(
-      "Refusing to write patched bundle: applyIsSubscribedPatch matched ZERO occurrences. " +
-      "The minifier output may have changed shape — update the regex in patches.ts."
+      `Refusing to write patched bundle: rule(s) below minMatches — ${summary}. ` +
+      `The minifier output may have changed shape — update find regex in patches.ts.`
     );
   }
-  console.log(`[patcher] isSubscribed replaced ${isSubscribedCount} time(s)`);
 
+  for (const rule of RULES) {
+    console.log(`[patcher] rule "${rule.id}" matched ${perRuleCounts[rule.id]} time(s)`);
+  }
+
+  const patchesHash = hashRules(RULES);
   const resolvedOutputDir = path.resolve(outputDir);
   await mkdir(resolvedOutputDir, { recursive: true });
+
+  // NOTE: no `generatedAt` here — patches.json must be content-stable so the
+  // CI commit-gate only fires on real changes (rules or version bump). Per-run
+  // timestamps belong in metadata.json instead.
+  const patchesJson = {
+    schemaVersion: 1,
+    patcherVersion: VERSION,
+    hash: patchesHash,
+    rules: RULES
+  };
 
   const metadata = {
     generatedAt: new Date().toISOString(),
     patcherVersion: VERSION,
     source: { probeUrl: GIZMO_PROBE_URL, entryUrl, entryPath },
-    patches: { isSubscribedCount },
+    perRuleCounts,
+    patchesHash,
     bytes: { in: bytesIn, out: bytesOut }
   };
 
   await Promise.all([
     writeFile(path.join(resolvedOutputDir, "entry.min.js"), output, "utf8"),
+    writeFile(
+      path.join(resolvedOutputDir, "patches.json"),
+      `${JSON.stringify(patchesJson, null, 2)}\n`,
+      "utf8"
+    ),
     writeFile(
       path.join(resolvedOutputDir, "metadata.json"),
       `${JSON.stringify(metadata, null, 2)}\n`,
@@ -60,8 +86,17 @@ export const runPatch = async (outputDir = "dist"): Promise<PatchResult> => {
     )
   ]);
 
-  console.log(`[patcher] wrote ${path.join(resolvedOutputDir, "entry.min.js")} (${bytesOut} bytes)`);
-  return { outputDir: resolvedOutputDir, entryPath, entryUrl, isSubscribedCount, bytesIn, bytesOut };
+  console.log(`[patcher] wrote patches.json (hash=${patchesHash})`);
+  console.log(`[patcher] wrote entry.min.js (${bytesOut} bytes, verification copy)`);
+  return {
+    outputDir: resolvedOutputDir,
+    entryPath,
+    entryUrl,
+    perRuleCounts,
+    patchesHash,
+    bytesIn,
+    bytesOut
+  };
 };
 
 const isEntrypoint = process.argv[1] === fileURLToPath(import.meta.url);

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "patcherVersion": "2.2.0",
+  "hash": "e0bc4cff66d9a909",
+  "rules": [
+    {
+      "id": "is-subscribed",
+      "description": "Force isSubscribed getter to return true",
+      "find": "\\bget isSubscribed\\(\\)\\{[^}]*\\}",
+      "flags": "g",
+      "replace": "get isSubscribed(){return true}",
+      "minMatches": 1
+    }
+  ]
+}
