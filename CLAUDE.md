@@ -15,7 +15,7 @@ Two-part system on `app.gizmo.ai/*`. **Patcher** (`./patcher/`, a Node CLI run b
 ## House rules
 
 - The patcher must NEVER do anything other than text-replace on a known minified pattern. Keep regexes tightly anchored.
-- The extension fetches JS from `raw.githubusercontent.com/alexey-max-fedorov/gizmo-ai-unlimited/main/...` — if you fork, update `PATCHED_URL` in `lib/patch-config.ts`.
+- The extension fetches `patches.json` from `raw.githubusercontent.com/alexey-max-fedorov/gizmo-ai-unlimited/main/...` — if you fork, update `PATCHES_URL` in `lib/patch-config.ts`.
 - Run `pnpm typecheck && pnpm test` (extension) and `cd patcher && pnpm typecheck && pnpm test` (patcher) before declaring work done.
 
 ## Version Bump
