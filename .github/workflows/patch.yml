@@ -57,7 +57,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
 
-          git add patcher/dist/entry.min.js
+          git add patcher/dist/entry.min.js patcher/dist/patches.json
 
           if git diff --cached --quiet; then
             echo "No patch changes to commit"
@@ -99,9 +99,10 @@ jobs:
             | head -n 1)"
 
           if [ -n "${EXISTING_ISSUE_NUMBER}" ]; then
-            gh issue comment "${EXISTING_ISSUE_NUMBER}" --body "${ISSUE_BODY}"
-          else
-            gh issue create \
-              --title "${ISSUE_TITLE}" \
-              --body "${ISSUE_BODY}"
+            echo "An open issue (#${EXISTING_ISSUE_NUMBER}) with title '${ISSUE_TITLE}' already exists — not creating a duplicate."
+            exit 0
           fi
+
+          gh issue create \
+            --title "${ISSUE_TITLE}" \
+            --body "${ISSUE_BODY}"
