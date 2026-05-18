@@ -38,7 +38,8 @@
     "description": "Unlocks unlimited hearts and hints on Gizmo AI quizzes.",
     "author": "Alexey Fedorov",
     "permissions": [
-      "declarativeNetRequest"
+      "declarativeNetRequest",
+      "unlimitedStorage"
     ],
     "host_permissions": [
       "https://*.gizmo.ai/*",
