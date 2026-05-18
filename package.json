@@ -1,6 +1,6 @@
 {
   "name": "gizmo-ai-unlimited-hearts",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "private": true,
   "description": "MV3 extension that unlocks unlimited hearts and hints on app.gizmo.ai by injecting a patched bundle",
   "scripts": {
@@ -42,7 +42,7 @@
       "declarativeNetRequest"
     ],
     "host_permissions": [
-      "https://app.gizmo.ai/*",
+      "https://*.gizmo.ai/*",
       "https://raw.githubusercontent.com/*"
     ],
     "browser_specific_settings": {

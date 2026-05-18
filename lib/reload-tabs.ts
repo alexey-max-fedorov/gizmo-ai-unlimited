@@ -1,4 +1,4 @@
-export const GIZMO_TAB_URL_PATTERN = "https://app.gizmo.ai/*";
+export const GIZMO_TAB_URL_PATTERN = "https://*.gizmo.ai/*";
 
 export type ReloadableTabsApi = {
   query: (info: { url: string | string[] }) => Promise<Array<{ id?: number }>>;

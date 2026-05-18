@@ -4,7 +4,7 @@
 // intercepts the corresponding <script> insertion and injects the
 // patched bundle from raw.githubusercontent.com instead.
 //
-// On first install, also reloads any open app.gizmo.ai tabs so the
+// On first install, also reloads any open gizmo.ai tabs so the
 // patch activates without requiring the user to manually refresh.
 
 import { reloadGizmoTabs } from "./lib/reload-tabs";
@@ -35,7 +35,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   if (details.reason === "install") {
     try {
       const count = await reloadGizmoTabs(chrome.tabs);
-      console.log(`[Gizmo Unlimited] reloaded ${count} app.gizmo.ai tab(s) on install`);
+      console.log(`[Gizmo Unlimited] reloaded ${count} gizmo.ai tab(s) on install`);
     } catch (err) {
       console.error("[Gizmo Unlimited] tab reload on install failed:", err);
     }

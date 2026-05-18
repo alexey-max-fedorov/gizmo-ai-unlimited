@@ -7,8 +7,8 @@ import {
 } from "../lib/reload-tabs.ts";
 
 describe("GIZMO_TAB_URL_PATTERN", () => {
-  it("targets every path under the app.gizmo.ai host over https", () => {
-    assert.equal(GIZMO_TAB_URL_PATTERN, "https://app.gizmo.ai/*");
+  it("targets gizmo.ai and any subdomain over https", () => {
+    assert.equal(GIZMO_TAB_URL_PATTERN, "https://*.gizmo.ai/*");
   });
 });
 
@@ -29,7 +29,7 @@ describe("reloadGizmoTabs", () => {
     const count = await reloadGizmoTabs(tabs);
 
     assert.equal(count, 3);
-    assert.deepEqual(queries, [{ url: "https://app.gizmo.ai/*" }]);
+    assert.deepEqual(queries, [{ url: "https://*.gizmo.ai/*" }]);
     assert.deepEqual(reloaded, [11, 22, 33]);
   });
 
