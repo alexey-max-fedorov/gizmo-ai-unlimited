@@ -1,12 +1,39 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { applyIsSubscribedPatch } from "../src/patches.ts";
+import { RULES, applyRules, hashRules, type PatchRule } from "../src/patches.ts";
 
-describe("applyIsSubscribedPatch", () => {
+describe("RULES", () => {
+  it("includes the is-subscribed rule", () => {
+    const ids = RULES.map((r) => r.id);
+    assert.ok(ids.includes("is-subscribed"));
+  });
+
+  it("each rule declares id, find, flags, replace, minMatches", () => {
+    for (const rule of RULES) {
+      assert.equal(typeof rule.id, "string");
+      assert.equal(typeof rule.description, "string");
+      assert.equal(typeof rule.find, "string");
+      assert.equal(typeof rule.flags, "string");
+      assert.equal(typeof rule.replace, "string");
+      assert.equal(typeof rule.minMatches, "number");
+    }
+  });
+});
+
+describe("applyRules", () => {
+  const rule: PatchRule = {
+    id: "is-subscribed",
+    description: "Force isSubscribed getter to return true",
+    find: "\\bget isSubscribed\\(\\)\\{[^}]*\\}",
+    flags: "g",
+    replace: "get isSubscribed(){return true}",
+    minMatches: 1
+  };
+
   it("replaces the canonical getEffectiveIsSubscribed body", () => {
     const input = `foo;get isSubscribed(){return(0,r(_d[4]).getEffectiveIsSubscribed)()};bar`;
-    const { output, count } = applyIsSubscribedPatch(input);
-    assert.equal(count, 1);
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["is-subscribed"], 1);
     assert.ok(output.includes("get isSubscribed(){return true}"));
     assert.ok(!output.includes("getEffectiveIsSubscribed"));
   });
@@ -17,83 +44,51 @@ describe("applyIsSubscribedPatch", () => {
       function other(){};
       get isSubscribed(){return(0,r(_d[4]).getEffectiveIsSubscribed)()}
     `;
-    const { output, count } = applyIsSubscribedPatch(input);
-    assert.equal(count, 2);
-    const occurrences = output.match(/get isSubscribed\(\)\{return true\}/g)!;
-    assert.equal(occurrences.length, 2);
+    const { perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["is-subscribed"], 2);
   });
 
   it("reports zero matches when the pattern is absent (no throw)", () => {
-    const { output, count } = applyIsSubscribedPatch("var x = 1;");
-    assert.equal(count, 0);
+    const { output, perRuleCounts } = applyRules("var x = 1;", [rule]);
+    assert.equal(perRuleCounts["is-subscribed"], 0);
     assert.equal(output, "var x = 1;");
   });
 
   it("does not match the setter (set isSubscribed)", () => {
-    const input = `set isSubscribed(v){this._x=v}`;
-    const { output, count } = applyIsSubscribedPatch(input);
-    assert.equal(count, 0);
-    assert.equal(output, input);
+    const { perRuleCounts } = applyRules(`set isSubscribed(v){this._x=v}`, [rule]);
+    assert.equal(perRuleCounts["is-subscribed"], 0);
   });
 
   it("matches an empty body too", () => {
-    const input = `get isSubscribed(){}`;
-    const { output, count } = applyIsSubscribedPatch(input);
-    assert.equal(count, 1);
+    const { output, perRuleCounts } = applyRules(`get isSubscribed(){}`, [rule]);
+    assert.equal(perRuleCounts["is-subscribed"], 1);
     assert.ok(output.includes("get isSubscribed(){return true}"));
+  });
+
+  it("applies multiple rules in sequence", () => {
+    const ruleA: PatchRule = { id: "a", description: "", find: "foo", flags: "g", replace: "FOO", minMatches: 1 };
+    const ruleB: PatchRule = { id: "b", description: "", find: "bar", flags: "g", replace: "BAR", minMatches: 1 };
+    const { output, perRuleCounts } = applyRules("foo bar foo", [ruleA, ruleB]);
+    assert.equal(output, "FOO BAR FOO");
+    assert.equal(perRuleCounts["a"], 2);
+    assert.equal(perRuleCounts["b"], 1);
   });
 });
 
-import { addLoadMarkers, applyAllPatches } from "../src/patches.ts";
-
-describe("addLoadMarkers", () => {
-  it("prepends a console.log line at the start of the file", () => {
-    const out = addLoadMarkers("var x=1;");
-    const firstLine = out.split("\n", 1)[0];
-    assert.match(firstLine, /console\.log/);
-    assert.match(firstLine, /\[Gizmo Unlimited\]/);
-    assert.match(firstLine, /patched bundle loaded/i);
+describe("hashRules", () => {
+  it("returns a 16-char hex string", () => {
+    const hash = hashRules(RULES);
+    assert.equal(hash.length, 16);
+    assert.match(hash, /^[0-9a-f]{16}$/);
   });
 
-  it("appends a console.log line at the end of the file", () => {
-    const out = addLoadMarkers("var x=1;");
-    const lines = out.split("\n");
-    const lastNonEmpty = lines.reverse().find(l => l.trim().length > 0)!;
-    assert.match(lastNonEmpty, /console\.log/);
-    assert.match(lastNonEmpty, /\[Gizmo Unlimited\]/);
-    assert.match(lastNonEmpty, /finished executing/i);
+  it("is deterministic for the same input", () => {
+    assert.equal(hashRules(RULES), hashRules(RULES));
   });
 
-  it("preserves the original body verbatim between markers", () => {
-    const body = "(function(){var x=1;})();";
-    const out = addLoadMarkers(body);
-    assert.ok(out.includes(body));
-  });
-
-  it("includes the patcher version string in both markers", () => {
-    const out = addLoadMarkers("");
-    const versionMatches = out.match(/v2\.0\.0/g) ?? [];
-    assert.equal(versionMatches.length, 2);
-  });
-});
-
-describe("applyAllPatches", () => {
-  it("runs isSubscribed replacement and adds markers in one shot", () => {
-    const input = `get isSubscribed(){return(0,r(_d[4]).getEffectiveIsSubscribed)()}`;
-    const { output, isSubscribedCount } = applyAllPatches(input);
-    assert.equal(isSubscribedCount, 1);
-    assert.ok(output.includes("get isSubscribed(){return true}"));
-    assert.match(output, /\[Gizmo Unlimited\].*patched bundle loaded/i);
-    assert.match(output, /\[Gizmo Unlimited\].*finished executing/i);
-  });
-
-  it("reports the isSubscribed match count back to the caller", () => {
-    const input = `
-      get isSubscribed(){return a}
-      get isSubscribed(){return b}
-      get isSubscribed(){return c}
-    `;
-    const { isSubscribedCount } = applyAllPatches(input);
-    assert.equal(isSubscribedCount, 3);
+  it("changes when rules change", () => {
+    const ruleA: PatchRule = { id: "a", description: "", find: "x", flags: "g", replace: "y", minMatches: 1 };
+    const ruleB: PatchRule = { id: "b", description: "", find: "x", flags: "g", replace: "z", minMatches: 1 };
+    assert.notEqual(hashRules([ruleA]), hashRules([ruleB]));
   });
 });

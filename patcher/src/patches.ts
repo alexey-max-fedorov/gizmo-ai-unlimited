@@ -1,35 +1,53 @@
-import { VERSION } from "./constants.ts";
+import { createHash } from "node:crypto";
 
-// Match: `get isSubscribed(){<anything that doesn't contain '}'>}`.
-// Observed bodies are simple `return (0,r(_d[N]).getEffectiveIsSubscribed)()`,
-// so [^}]* is sufficient. \b on the leading `get` keeps us from matching
-// substring collisions like `forget isSubscribed`.
-const IS_SUBSCRIBED_RE = /\bget isSubscribed\(\)\{[^}]*\}/g;
-
-export type PatchOutcome = { output: string; count: number };
-
-export const applyIsSubscribedPatch = (source: string): PatchOutcome => {
-  let count = 0;
-  const output = source.replace(IS_SUBSCRIBED_RE, () => {
-    count += 1;
-    return "get isSubscribed(){return true}";
-  });
-  return { output, count };
+export type PatchRule = {
+  id: string;
+  description: string;
+  find: string;     // RegExp source (no surrounding slashes)
+  flags: string;    // RegExp flags (must include "g" for replace-all semantics)
+  replace: string;
+  minMatches: number;
 };
 
-export const addLoadMarkers = (source: string): string => {
-  const prefix = `console.log("[Gizmo Unlimited] patched bundle loaded (patcher v${VERSION})");\n`;
-  const suffix = `\nconsole.log("[Gizmo Unlimited] patched bundle finished executing (patcher v${VERSION})");\n`;
-  return `${prefix}${source}${suffix}`;
-};
+// Rules applied IN ORDER to the original bundle. Each rule is a regex find/replace.
+// Tightly anchor your patterns — see `.claude/gotchas.md`.
+export const RULES: ReadonlyArray<PatchRule> = [
+  {
+    id: "is-subscribed",
+    description: "Force isSubscribed getter to return true",
+    // \bget isSubscribed(){<body without '}'>} — observed bodies are simple
+    // `return(0,r(_d[N]).getEffectiveIsSubscribed)()`.
+    find: "\\bget isSubscribed\\(\\)\\{[^}]*\\}",
+    flags: "g",
+    replace: "get isSubscribed(){return true}",
+    minMatches: 1
+  }
+];
 
-export type AllPatchesOutcome = {
+export type ApplyRulesOutcome = {
   output: string;
-  isSubscribedCount: number;
+  perRuleCounts: Record<string, number>;
 };
 
-export const applyAllPatches = (source: string): AllPatchesOutcome => {
-  const { output: afterIsSubscribed, count: isSubscribedCount } = applyIsSubscribedPatch(source);
-  const output = addLoadMarkers(afterIsSubscribed);
-  return { output, isSubscribedCount };
+export const applyRules = (
+  source: string,
+  rules: ReadonlyArray<PatchRule>
+): ApplyRulesOutcome => {
+  const perRuleCounts: Record<string, number> = {};
+  let output = source;
+  for (const rule of rules) {
+    const re = new RegExp(rule.find, rule.flags);
+    let count = 0;
+    output = output.replace(re, () => {
+      count += 1;
+      return rule.replace;
+    });
+    perRuleCounts[rule.id] = count;
+  }
+  return { output, perRuleCounts };
+};
+
+export const hashRules = (rules: ReadonlyArray<PatchRule>): string => {
+  const canonical = JSON.stringify(rules);
+  return createHash("sha256").update(canonical).digest("hex").slice(0, 16);
 };
