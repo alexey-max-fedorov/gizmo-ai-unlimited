@@ -4,7 +4,7 @@
 - `pnpm dev` — Plasmo dev (Chrome MV3, hot reload) → `build/chrome-mv3-dev/`
 - `pnpm dev:firefox` — Firefox MV3 dev → `build/firefox-mv3-dev/`
 - `pnpm build` / `pnpm build:firefox` — production builds
-- `pnpm package` / `pnpm package:firefox` — produce zip for store submission
+- `pnpm package` — build both targets, package both, output to `dist/gizmo-ai-unlimited-v{VERSION}-{chrome,firefox}.zip`
 - `pnpm test` — Node native test runner over `tests/**/*.test.ts`
 - `pnpm typecheck` — `tsc --noEmit`
 

@@ -1,7 +1,9 @@
-The extension fetches a JavaScript file from raw.githubusercontent.com and executes it on app.gizmo.ai pages.
+The extension does not fetch and execute pre-built remote JavaScript. Instead it fetches two things and applies patches locally:
 
-The fetched file is Gizmo AI's own JavaScript bundle (entry.min.js), modified by an auto patcher to unlock hearts and hints. The modification is a targeted text replacement: the isSubscribed getter body is rewritten to return true. The patcher source and the patched output are both publicly auditable in the same repository as the extension.
+1. patches.json — a small JSON file from this extension's own GitHub repository (raw.githubusercontent.com). This file contains regex find/replace rules, not executable code. Example rule: replace `get isSubscribed(){...}` with `get isSubscribed(){return true}`.
 
-The remote fetch is necessary because Gizmo deploys bundle updates frequently and the entry URL contains a content hash that changes with each deployment. A bundled static copy would become stale within hours. Fetching from the open source repository — kept current by a GitHub Actions workflow — ensures the extension works across Gizmo updates without requiring a new extension release.
+2. Gizmo AI's own entry bundle — fetched from app.gizmo.ai by the background service worker. This is the same JavaScript file Gizmo's own servers would serve to any browser. The DNR rule blocks it in the tab context; the background service worker fetches it independently because service-worker fetches are not subject to the extension's own DNR rules.
 
-The fetched code is executed in the page context, not the extension context.
+The background service worker applies the patch rules (regex replacements) to the original bundle locally, then caches the result in chrome.storage.local. The MAIN-world content script injects this locally-patched bundle into the page via the `onreset` attribute trick.
+
+The executed code is Gizmo AI's own JavaScript with targeted text replacements applied. Both the patch rules and the original bundle are publicly auditable — the rules are in patcher/src/patches.ts in this repository and the original bundle is served from Gizmo's own CDN.

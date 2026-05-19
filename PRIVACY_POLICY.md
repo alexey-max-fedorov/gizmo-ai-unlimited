@@ -1,6 +1,6 @@
-# Privacy Policy — Gizmo AI Unlimited v2.0.1
+# Privacy Policy — Gizmo AI Unlimited v2.2.0
 
-**Effective date:** May 13, 2026
+**Effective date:** May 18, 2026
 **Author:** Alexey Fedorov
 
 ---
@@ -9,15 +9,19 @@
 
 None. Zero.
 
-Gizmo AI Unlimited operates entirely inside your browser. It uses `declarativeNetRequest` to block the original Gizmo JavaScript bundle and fetches a pre-patched replacement from this repository's `raw.githubusercontent.com` URL. That is the full extent of what it does.
+Gizmo AI Unlimited operates entirely inside your browser. It uses `declarativeNetRequest` to block the original Gizmo JavaScript bundle, then the background service worker fetches `patches.json` (a small JSON rules file) from this repository's `raw.githubusercontent.com` URL and Gizmo's own JavaScript bundle directly from `app.gizmo.ai`, applies the patch rules locally, and caches the result in extension-private storage (`chrome.storage.local`) on your device. That is the full extent of what it does.
 
 The extension does not:
 - Collect, read, or store any personal information
 - Transmit any data to any server — including the author's
-- Use cookies, local storage, or any other persistence mechanism
+- Use cookies, browser web localStorage, or session storage
 - Track your browsing history, quiz activity, or any other behavior
-- Load any code, scripts, or resources from unknown or third-party sources — it fetches only from this project's own `raw.githubusercontent.com` URL
+- Load any code from unknown or unauthorized sources — it fetches only from this project's own GitHub repository and from Gizmo AI's own `app.gizmo.ai` domain
 - Contact any third-party analytics, advertising, or telemetry service
+
+## What this extension stores locally
+
+The extension caches the patched JavaScript bundle in `chrome.storage.local` — the browser extension's own private storage, inaccessible to websites. This cache contains only a modified copy of Gizmo AI's own public JavaScript bundle. It stores no personal information and never leaves your device. The cache is cleared automatically when the extension is uninstalled.
 
 ## Data sharing and sale
 
@@ -33,7 +37,7 @@ This extension is provided **"as is"**, without warranty of any kind, express or
 
 ## Changes to this policy
 
-If the extension ever changes in a way that affects data handling, this policy will be updated and the version number in the header will change. The current version (v2.0.1) collects no data.
+If the extension ever changes in a way that affects data handling, this policy will be updated and the version number in the header will change. The current version (v2.2.0) collects no data.
 
 ## Contact
 

@@ -14,8 +14,8 @@ Unlocks unlimited hearts and hints on [app.gizmo.ai](https://app.gizmo.ai/) quiz
 
 Two pieces in this repo:
 
-1. **Patcher (`patcher/`)** — a Node CLI run every 2 hours by a GitHub Action. It fetches the live Gizmo JavaScript bundle, rewrites `get isSubscribed(){...}` to return `true`, and commits the result to `patcher/dist/entry.min.js` on the `main` branch.
-2. **Browser extension (root)** — a Plasmo MV3 extension. On any `app.gizmo.ai` page it uses declarativeNetRequest to block the original Gizmo bundle, then fetches the pre-patched bundle from this repo's `main` branch and injects it into the page.
+1. **Patcher (`patcher/`)** — a Node CLI run every 2 hours by a GitHub Action. It fetches the live Gizmo JavaScript bundle, applies structured regex patch rules, and commits `patcher/dist/patches.json` (the rules + hash) and `patcher/dist/entry.min.js` (a verification copy) to `main`.
+2. **Browser extension (root)** — a Plasmo MV3 extension. On any `app.gizmo.ai` page it uses declarativeNetRequest to block the original Gizmo bundle. The background service worker fetches `patches.json` from this repo, fetches the original bundle directly from Gizmo, applies the patch rules locally, caches the result in `chrome.storage.local`, and the MAIN-world content script injects the patched bundle into the page.
 
 ## Install
 
@@ -28,7 +28,7 @@ See `.claude/build.md`.
 
 ## Privacy
 
-See `PRIVACY_POLICY.md`. The extension fetches a JavaScript file from this repo's GitHub raw URL — nothing else is sent over the network.
+See `PRIVACY_POLICY.md`. The extension fetches `patches.json` from this repo's GitHub raw URL and Gizmo's own JavaScript bundle from `app.gizmo.ai`. The patched result is cached in extension-private storage on your device. No personal data is collected or transmitted.
 
 ## License
 

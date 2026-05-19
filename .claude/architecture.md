@@ -53,5 +53,5 @@ DNR blocks the network request; the prototype overrides prevent the original `<s
 
 ## Manifest
 Lives in `package.json` under the `manifest` key (Plasmo convention), not a standalone `manifest.json`.
-Permissions: `["declarativeNetRequest", "storage", "unlimitedStorage"]`.
+Permissions: `["scripting", "declarativeNetRequest", "storage", "unlimitedStorage"]` — `scripting` is injected by Plasmo automatically for the MAIN-world content script registration; the other three are declared in `package.json`.
 Host permissions: `["https://*.gizmo.ai/*", "https://raw.githubusercontent.com/*"]`.

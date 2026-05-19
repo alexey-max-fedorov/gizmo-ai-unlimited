@@ -1,10 +1,10 @@
 Two host permissions are required:
 
 https://app.gizmo.ai/*
-The content script runs on app.gizmo.ai pages to intercept Gizmo's bundle-loading sequence and deliver the patched version. The declarativeNetRequest rule also targets this origin. Both the content script match pattern and the DNR rule condition require this host permission. The extension has no functionality outside this domain.
+The content script runs on app.gizmo.ai pages to intercept Gizmo's bundle-loading sequence and deliver the patched version. The declarativeNetRequest rule also targets this origin. Additionally, the background service worker fetches Gizmo's original JavaScript bundle directly from app.gizmo.ai (the DNR rule only blocks in-tab requests; service-worker fetches are not subject to the extension's own DNR rules). All three uses — content script, DNR rule, and background bundle fetch — require this host permission.
 
 https://raw.githubusercontent.com/*
-The content script fetches the pre-patched bundle from:
-  raw.githubusercontent.com/alexey-max-fedorov/gizmo-ai-unlimited/main/patcher/dist/entry.min.js
+The background service worker fetches the patch rules file from:
+  raw.githubusercontent.com/alexey-max-fedorov/gizmo-ai-unlimited/main/patcher/dist/patches.json
 
-This is the extension's own public GitHub repository. The patched file is produced and maintained by the extension author. No other URL under raw.githubusercontent.com is ever accessed. This permission is required for the single fetch call that delivers the patched bundle to the page.
+This is the extension's own public GitHub repository. The file is a small JSON document containing regex patch rules maintained by the extension author. No JavaScript is fetched or executed from this URL — the rules are applied locally to the original Gizmo bundle. No other URL under raw.githubusercontent.com is ever accessed. This permission is required for the fetch call that retrieves the current patch rules.
