@@ -1,0 +1,7 @@
+The extension uses chrome.storage.local to cache the patched JavaScript bundle.
+
+The background service worker fetches Gizmo AI's original bundle, applies regex patch rules from patches.json, and stores the result in chrome.storage.local. On subsequent page loads the content script reads from the cache instead of re-fetching and re-patching on every navigation.
+
+A hash of the cached bundle is also stored so the worker can detect when either the bundle or the patch rules have changed and invalidate the cache accordingly. This avoids redundant network requests while ensuring the injected code stays up to date.
+
+No user data is stored. All stored content is derived from publicly served files: Gizmo AI's own bundle and this extension's patch rules from its public GitHub repository.

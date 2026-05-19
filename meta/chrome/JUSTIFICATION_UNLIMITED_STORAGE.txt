@@ -1,0 +1,5 @@
+The unlimitedStorage permission is required because the cached patched bundle stored in chrome.storage.local is a minified JavaScript file that may exceed the default 5 MB quota.
+
+The background service worker fetches Gizmo AI's original minified entry bundle, applies patch rules to it, and stores the result. Minified production JavaScript bundles commonly exceed 5 MB. Without unlimitedStorage, the storage write would fail whenever the bundle is larger than the quota, forcing the extension to re-fetch and re-patch the full bundle on every single page visit and breaking the caching mechanism entirely.
+
+No user data is stored under this quota. The only content written is the patched bundle derived from Gizmo AI's own publicly served JavaScript.

@@ -1,0 +1,3 @@
+After installing the extension, go to any Gizmo AI quiz such as https://app.gizmo.ai/quiz/199211333
+
+It should display "Infinity" on hearts and hints.

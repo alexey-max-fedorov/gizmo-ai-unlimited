@@ -1,9 +1,7 @@
 The extension does not fetch and execute pre-built remote JavaScript. Instead it fetches two things and applies patches locally:
 
-1. patches.json — a small JSON file from this extension's own GitHub repository (raw.githubusercontent.com). This file contains regex find/replace rules, not executable code. Example rule: replace `get isSubscribed(){...}` with `get isSubscribed(){return true}`.
+1. patches.json — a small JSON file from this extension's own GitHub repository (raw.githubusercontent.com). This file contains regex find/replace rules, not executable code. Example rule: replace `get canHint(){...}` with `get canHint(){return true}`.
 
 2. Gizmo AI's own entry bundle — fetched from app.gizmo.ai by the background service worker. This is the same JavaScript file Gizmo's own servers would serve to any browser. The DNR rule blocks it in the tab context; the background service worker fetches it independently because service-worker fetches are not subject to the extension's own DNR rules.
 
-The background service worker applies the patch rules (regex replacements) to the original bundle locally, then caches the result in chrome.storage.local. The MAIN-world content script injects this locally-patched bundle into the page via the `onreset` attribute trick.
-
-The executed code is Gizmo AI's own JavaScript with targeted text replacements applied. Both the patch rules and the original bundle are publicly auditable — the rules are in patcher/src/patches.ts in this repository and the original bundle is served from Gizmo's own CDN.
+The background service worker applies the patch rules (regex replacements) to the original bundle locally, then caches the result in chrome.storage.local. The MAIN-world content script injects this locally-patched bundle into the page via the `onreset`
