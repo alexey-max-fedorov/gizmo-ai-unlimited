@@ -16,22 +16,22 @@ Two subsystems share this repo.
 
 Pipeline: `runPatch()` fetches the live quiz HTML with a realistic User-Agent, regex-extracts `entry-*.js`, downloads it, runs `applyRules(source, RULES)`, throws if any rule's count is below `minMatches`, and writes the three artifacts above. The GitHub Action at `.github/workflows/patch.yml` runs this every 2 hours.
 
-## Extension (top of repo)
+## Extension (`src/`)
 | Path | Role |
 |------|------|
-| `background.ts` | DNR rule (BLOCK `entry-*.js`) + `chrome.runtime.onMessage` handler for `GET_PATCHED_BUNDLE` — fetches `patches.json`, checks cache, fetches+patches original on miss |
-| `contents/gizmo-bridge.ts` | ISOLATED-world content script. Forwards CustomEvents between MAIN-world and background. |
-| `contents/gizmo-patch.ts` | MAIN-world content script. Overrides DOM APIs to hijack the entry-script load; requests patched bundle from the bridge; injects via `onreset`. |
-| `lib/patch-config.ts` | `PATCHES_URL`, `GIZMO_ENTRY_RE`, `isEntryScriptSrc()`, `entryFilenameFromUrl()` |
-| `lib/patches.ts` | `PatchRule`, `applyPatchRules()`, `wrapWithMarkers()` (browser side) |
-| `lib/bundle-cache.ts` | `getCachedBundle()`, `setCachedBundle()`, `clearCachedBundle()` over `chrome.storage.local` |
-| `lib/reload-tabs.ts` | Reloads open `*.gizmo.ai` tabs after install |
-| `popup.tsx` | Popup UI. React 19. Display-only. |
-| `tests/*.test.ts` | Unit tests for the pure modules |
+| `src/background.ts` | DNR rule (BLOCK `entry-*.js`) + `chrome.runtime.onMessage` handler for `GET_PATCHED_BUNDLE` — fetches `patches.json`, checks cache, fetches+patches original on miss |
+| `src/contents/gizmo-bridge.ts` | ISOLATED-world content script. Forwards CustomEvents between MAIN-world and background. |
+| `src/contents/gizmo-patch.ts` | MAIN-world content script. Overrides DOM APIs to hijack the entry-script load; requests patched bundle from the bridge; injects via `onreset`. |
+| `src/lib/patch-config.ts` | `PATCHES_URL`, `GIZMO_ENTRY_RE`, `isEntryScriptSrc()`, `entryFilenameFromUrl()` |
+| `src/lib/patches.ts` | `PatchRule`, `applyPatchRules()`, `wrapWithMarkers()` (browser side) |
+| `src/lib/bundle-cache.ts` | `getCachedBundle()`, `setCachedBundle()`, `clearCachedBundle()` over `chrome.storage.local` |
+| `src/lib/reload-tabs.ts` | Reloads open `*.gizmo.ai` tabs after install |
+| `src/popup.tsx` | Popup UI. React 19. Display-only. |
+| `src/tests/*.test.ts` | Unit tests for the pure modules |
 
 ### Injection flow (cache miss)
 1. Extension loads on `https://app.gizmo.ai/*`.
-2. `background.ts` registers the DNR BLOCK rule for `entry-*.js` and listens for `GET_PATCHED_BUNDLE` messages.
+2. `src/background.ts` registers the DNR BLOCK rule for `entry-*.js` and listens for `GET_PATCHED_BUNDLE` messages.
 3. The page's HTML contains `<script src="/_expo/static/js/web/entry-<hash>.js" defer>`. The DNR rule blocks the request.
 4. The MAIN-world content script catches the script-tag insertion (via prototype overrides + MutationObserver), captures the original URL, neutralizes the script, and dispatches `__gizmo_patch_request__` on `document` with `{ originalUrl }`.
 5. The ISOLATED-world bridge picks up the event, calls `chrome.runtime.sendMessage({ type: "GET_PATCHED_BUNDLE", originalUrl })`.

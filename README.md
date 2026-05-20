@@ -15,7 +15,7 @@ Unlocks unlimited hearts and hints on [app.gizmo.ai](https://app.gizmo.ai/) quiz
 Two pieces in this repo:
 
 1. **Patcher (`patcher/`)** — a Node CLI run every 2 hours by a GitHub Action. It fetches the live Gizmo JavaScript bundle, applies structured regex patch rules, and commits `patcher/dist/patches.json` (the rules + hash) and `patcher/dist/entry.min.js` (a verification copy) to `main`.
-2. **Browser extension (root)** — a Plasmo MV3 extension. On any `app.gizmo.ai` page it uses declarativeNetRequest to block the original Gizmo bundle. The background service worker fetches `patches.json` from this repo, fetches the original bundle directly from Gizmo, applies the patch rules locally, caches the result in `chrome.storage.local`, and the MAIN-world content script injects the patched bundle into the page.
+2. **Browser extension (`src/`)** — a Plasmo MV3 extension. On any `app.gizmo.ai` page it uses declarativeNetRequest to block the original Gizmo bundle. The background service worker fetches `patches.json` from this repo, fetches the original bundle directly from Gizmo, applies the patch rules locally, caches the result in `chrome.storage.local`, and the MAIN-world content script injects the patched bundle into the page.
 
 ## Install
 

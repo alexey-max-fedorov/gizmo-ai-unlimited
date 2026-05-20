@@ -28,7 +28,7 @@ HTML event-handler attributes (like `onreset`) run with `document` in their scop
 `*://app.gizmo.ai/_expo/static/js/web/entry-*.js` works because DNR's `urlFilter` supports leading scheme wildcards (`*://`) and bare `*` wildcards within the path. Don't try to use a regex; DNR has a separate `regexFilter` field that is more constrained and not necessary here.
 
 ## `patches.json` URL points at `main`
-`PATCHES_URL` in `lib/patch-config.ts` references the `main` branch on GitHub. While developing on a feature branch, the extension still pulls patches from `main`. To test changes to the patcher locally, override `PATCHES_URL` temporarily, or use the chrome.storage cache to seed a known-good bundle directly.
+`PATCHES_URL` in `src/lib/patch-config.ts` references the `main` branch on GitHub. While developing on a feature branch, the extension still pulls patches from `main`. To test changes to the patcher locally, override `PATCHES_URL` temporarily, or use the chrome.storage cache to seed a known-good bundle directly.
 
 ## chrome.storage.local quota
 The cached patched bundle is ~18MB. The default `chrome.storage.local` quota is 10MB, so the manifest declares the `unlimitedStorage` permission. This permission shows no install-time warning to users.

@@ -32,7 +32,21 @@ node -e "
 sed -i '' "s/^export const VERSION = \".*\";/export const VERSION = \"$NEW_VERSION\";/" \
   "$ROOT/patcher/src/constants.ts"
 
+# Update src/popup.tsx eyebrow version (e.g. >v2.2.0<)
+sed -i '' -E "s|(popup-eyebrow\">)v[0-9]+\.[0-9]+\.[0-9]+(</p>)|\1v$NEW_VERSION\2|" \
+  "$ROOT/src/popup.tsx"
+
+# Update PRIVACY_POLICY.md header line (e.g. # Privacy Policy — Gizmo AI Unlimited v2.2.0)
+sed -i '' -E "s|(Gizmo AI Unlimited v)[0-9]+\.[0-9]+\.[0-9]+|\1$NEW_VERSION|g" \
+  "$ROOT/PRIVACY_POLICY.md"
+
+# Update PRIVACY_POLICY.md "current version (vX.Y.Z)" reference
+sed -i '' -E "s|(current version \(v)[0-9]+\.[0-9]+\.[0-9]+(\))|\1$NEW_VERSION\2|g" \
+  "$ROOT/PRIVACY_POLICY.md"
+
 echo "✓ Bumped to v$NEW_VERSION"
 echo "  → package.json"
 echo "  → patcher/package.json"
 echo "  → patcher/src/constants.ts"
+echo "  → src/popup.tsx"
+echo "  → PRIVACY_POLICY.md"

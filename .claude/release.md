@@ -15,4 +15,4 @@
 - `dist/gizmo-ai-unlimited-v{VERSION}-firefox.zip`
 
 ## Versioning
-Run `./bump-version.sh <version>` — syncs version across `package.json`, `patcher/package.json`, and `patcher/src/constants.ts`. Also update the version string in `popup.tsx` (the `<p className="popup-eyebrow">` line) and `PRIVACY_POLICY.md` header. `PRIVACY_POLICY.md` is the policy linked from the AMO listing.
+Run `./bump-version.sh <version>` — syncs version across `package.json`, `patcher/package.json`, `patcher/src/constants.ts`, `src/popup.tsx` (the `<p className="popup-eyebrow">` line), and `PRIVACY_POLICY.md` (header + "current version" line). `PRIVACY_POLICY.md` is the policy linked from the AMO listing.

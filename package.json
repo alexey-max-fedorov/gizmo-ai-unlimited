@@ -10,7 +10,7 @@
     "build:firefox": "plasmo build --target=firefox-mv3",
     "package": "sh package.sh",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test \"tests/**/*.test.ts\""
+    "test": "node --experimental-strip-types --test \"src/tests/**/*.test.ts\""
   },
   "dependencies": {
     "react": "^19.2.6",

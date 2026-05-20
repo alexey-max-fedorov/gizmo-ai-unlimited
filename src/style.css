@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Playfair Display";
-  src: url("./assets/fonts/playfair-display-600.woff2") format("woff2");
+  src: url("../assets/fonts/playfair-display-600.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/inter-latin.woff2") format("woff2");
+  src: url("../assets/fonts/inter-latin.woff2") format("woff2");
   font-weight: 400 500;
   font-style: normal;
   font-display: swap;

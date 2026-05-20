@@ -19,7 +19,7 @@ updates:
       prefix: "[research]"
 
   - package-ecosystem: "npm"
-    directory: "/tests"
+    directory: "/src/tests"
     schedule:
       interval: "daily"
     assignees:
@@ -37,7 +37,7 @@ updates:
       prefix: "[patcher]"
 
   - package-ecosystem: "npm"
-    directory: "/lib"
+    directory: "/src/lib"
     schedule:
       interval: "daily"
     assignees:

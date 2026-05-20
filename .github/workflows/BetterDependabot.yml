@@ -35,7 +35,7 @@ jobs:
 
       - name: Update [tests]
         run: |
-          cd ${{ github.workspace }}/tests
+          cd ${{ github.workspace }}/src/tests
           pnpm update
         continue-on-error: true
 
@@ -47,7 +47,7 @@ jobs:
 
       - name: Update [lib]
         run: |
-          cd ${{ github.workspace }}/lib
+          cd ${{ github.workspace }}/src/lib
           pnpm update
         continue-on-error: true
 

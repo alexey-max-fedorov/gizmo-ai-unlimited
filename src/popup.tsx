@@ -1,4 +1,4 @@
-import logoUrl from "data-base64:./assets/icon.png"
+import logoUrl from "data-base64:../assets/icon.png"
 import "./style.css"
 
 function Popup() {
