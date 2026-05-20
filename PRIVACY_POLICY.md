@@ -1,4 +1,4 @@
-# Privacy Policy — Gizmo AI Unlimited v2.2.0
+# Privacy Policy — Gizmo AI Unlimited v2.2.1
 
 **Effective date:** May 18, 2026
 **Author:** Alexey Fedorov
@@ -37,7 +37,7 @@ This extension is provided **"as is"**, without warranty of any kind, express or
 
 ## Changes to this policy
 
-If the extension ever changes in a way that affects data handling, this policy will be updated and the version number in the header will change. The current version (v2.2.0) collects no data.
+If the extension ever changes in a way that affects data handling, this policy will be updated and the version number in the header will change. The current version (v2.2.1) collects no data.
 
 ## Contact
 
