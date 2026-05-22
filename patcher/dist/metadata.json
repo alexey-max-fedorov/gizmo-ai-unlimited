@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-21T21:41:24.280Z",
-  "patcherVersion": "2.2.0",
+  "generatedAt": "2026-05-22T03:54:14.376Z",
+  "patcherVersion": "2.2.1",
   "source": {
     "probeUrl": "https://app.gizmo.ai/quiz/198926301",
     "entryUrl": "https://app.gizmo.ai/_expo/static/js/web/entry-35806c40f0c5182427d75b063ffe53eb.js",
