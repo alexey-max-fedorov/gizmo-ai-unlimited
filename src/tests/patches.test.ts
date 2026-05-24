@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { applyPatchRules, wrapWithMarkers, type PatchRule } from "../lib/patches.ts";
+import { applyPatchRules, wrapWithMarkers, type PatchRule, type AppendRule, type PrependRule } from "../lib/patches.ts";
 
 const isSubscribedRule: PatchRule = {
   id: "is-subscribed",
@@ -32,6 +32,43 @@ describe("applyPatchRules", () => {
     const { output, perRuleCounts } = applyPatchRules("var x = 1;", [isSubscribedRule]);
     assert.equal(perRuleCounts["is-subscribed"], 0);
     assert.equal(output, "var x = 1;");
+  });
+});
+
+describe("applyPatchRules — append/prepend", () => {
+  it("appends code at the end of the source", () => {
+    const rule: AppendRule = { type: "append", id: "foot", description: "", code: "// footer" };
+    const { output, perRuleCounts } = applyPatchRules("var x=1;", [rule]);
+    assert.ok(output.startsWith("var x=1;"));
+    assert.ok(output.endsWith("// footer"));
+    assert.equal(perRuleCounts["foot"], 1);
+  });
+
+  it("prepends code at the start of the source", () => {
+    const rule: PrependRule = { type: "prepend", id: "head", description: "", code: "// header" };
+    const { output, perRuleCounts } = applyPatchRules("var x=1;", [rule]);
+    assert.ok(output.startsWith("// header"));
+    assert.ok(output.includes("var x=1;"));
+    assert.equal(perRuleCounts["head"], 1);
+  });
+
+  it("append and prepend are applied in rule order alongside replace", () => {
+    const rules: PatchRule[] = [
+      { type: "prepend", id: "pre", description: "", code: "PRE" },
+      { id: "sub", description: "", find: "x", flags: "g", replace: "X", minMatches: 1 },
+      { type: "append", id: "app", description: "", code: "APP" }
+    ];
+    const { output } = applyPatchRules("axb", rules);
+    assert.ok(output.startsWith("PRE\n"));
+    assert.ok(output.includes("aXb"));
+    assert.ok(output.endsWith("\nAPP"));
+  });
+
+  it("a rule with no type field behaves as replace (backwards compat)", () => {
+    const rule: PatchRule = { id: "r", description: "", find: "a", flags: "g", replace: "b", minMatches: 1 };
+    const { output, perRuleCounts } = applyPatchRules("aaa", [rule]);
+    assert.equal(output, "bbb");
+    assert.equal(perRuleCounts["r"], 3);
   });
 });
 

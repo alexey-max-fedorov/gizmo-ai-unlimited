@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { RULES, applyRules, hashRules, type PatchRule } from "../src/patches.ts";
+import { RULES, applyRules, hashRules, type PatchRule, type ReplaceRule, type AppendRule, type PrependRule } from "../src/patches.ts";
 
 describe("RULES", () => {
   it("includes the is-subscribed rule", () => {
@@ -8,14 +8,18 @@ describe("RULES", () => {
     assert.ok(ids.includes("is-subscribed"));
   });
 
-  it("each rule declares id, find, flags, replace, minMatches", () => {
+  it("each rule declares required fields for its type", () => {
     for (const rule of RULES) {
       assert.equal(typeof rule.id, "string");
       assert.equal(typeof rule.description, "string");
-      assert.equal(typeof rule.find, "string");
-      assert.equal(typeof rule.flags, "string");
-      assert.equal(typeof rule.replace, "string");
-      assert.equal(typeof rule.minMatches, "number");
+      if ((rule.type ?? "replace") === "replace") {
+        assert.equal(typeof (rule as ReplaceRule).find, "string");
+        assert.equal(typeof (rule as ReplaceRule).flags, "string");
+        assert.equal(typeof (rule as ReplaceRule).replace, "string");
+        assert.equal(typeof (rule as ReplaceRule).minMatches, "number");
+      } else {
+        assert.equal(typeof (rule as AppendRule | PrependRule).code, "string");
+      }
     }
   });
 });
@@ -72,6 +76,43 @@ describe("applyRules", () => {
     assert.equal(output, "FOO BAR FOO");
     assert.equal(perRuleCounts["a"], 2);
     assert.equal(perRuleCounts["b"], 1);
+  });
+});
+
+describe("applyRules — append/prepend", () => {
+  it("appends code at the end of the source", () => {
+    const rule: AppendRule = { type: "append", id: "foot", description: "", code: "// footer" };
+    const { output, perRuleCounts } = applyRules("var x=1;", [rule]);
+    assert.ok(output.startsWith("var x=1;"));
+    assert.ok(output.endsWith("// footer"));
+    assert.equal(perRuleCounts["foot"], 1);
+  });
+
+  it("prepends code at the start of the source", () => {
+    const rule: PrependRule = { type: "prepend", id: "head", description: "", code: "// header" };
+    const { output, perRuleCounts } = applyRules("var x=1;", [rule]);
+    assert.ok(output.startsWith("// header"));
+    assert.ok(output.includes("var x=1;"));
+    assert.equal(perRuleCounts["head"], 1);
+  });
+
+  it("append and prepend are applied in rule order alongside replace", () => {
+    const rules: PatchRule[] = [
+      { type: "prepend", id: "pre", description: "", code: "PRE" },
+      { id: "sub", description: "", find: "x", flags: "g", replace: "X", minMatches: 1 },
+      { type: "append", id: "app", description: "", code: "APP" }
+    ];
+    const { output } = applyRules("axb", rules);
+    assert.ok(output.startsWith("PRE\n"));
+    assert.ok(output.includes("aXb"));
+    assert.ok(output.endsWith("\nAPP"));
+  });
+
+  it("a rule with no type field behaves as replace (backwards compat)", () => {
+    const rule: PatchRule = { id: "r", description: "", find: "a", flags: "g", replace: "b", minMatches: 1 };
+    const { output, perRuleCounts } = applyRules("aaa", [rule]);
+    assert.equal(output, "bbb");
+    assert.equal(perRuleCounts["r"], 3);
   });
 });
 

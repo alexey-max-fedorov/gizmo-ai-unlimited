@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import { GIZMO_ORIGIN, GIZMO_PROBE_URL, VERSION } from "./constants.ts";
 import { extractEntryUrl, fetchEntryBundle, fetchHtml } from "./fetch-entry.ts";
-import { RULES, applyRules, hashRules } from "./patches.ts";
+import { RULES, applyRules, hashRules, type ReplaceRule } from "./patches.ts";
 
 export type PatchResult = {
   outputDir: string;
@@ -34,7 +34,8 @@ export const runPatch = async (outputDir = "dist"): Promise<PatchResult> => {
   const { output, perRuleCounts } = applyRules(source, RULES);
   const bytesOut = output.length;
 
-  const degraded = RULES.filter((r) => (perRuleCounts[r.id] ?? 0) < r.minMatches);
+  const degraded = (RULES.filter((r) => (r.type ?? "replace") === "replace") as ReplaceRule[])
+    .filter((r) => (perRuleCounts[r.id] ?? 0) < r.minMatches);
   if (degraded.length > 0) {
     const summary = degraded
       .map((r) => `${r.id}=${perRuleCounts[r.id] ?? 0} (min ${r.minMatches})`)
@@ -57,7 +58,7 @@ export const runPatch = async (outputDir = "dist"): Promise<PatchResult> => {
   // CI commit-gate only fires on real changes (rules or version bump). Per-run
   // timestamps belong in metadata.json instead.
   const patchesJson = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     patcherVersion: VERSION,
     hash: patchesHash,
     rules: RULES
