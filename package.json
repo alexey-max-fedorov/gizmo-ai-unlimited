@@ -13,12 +13,12 @@
     "test": "node --experimental-strip-types --test \"src/tests/**/*.test.ts\""
   },
   "dependencies": {
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@types/chrome": "^0.1.42",
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "plasmo": "^0.90.5",
     "typescript": "^6.0.3"
