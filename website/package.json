@@ -29,5 +29,10 @@
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.8"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
   }
 }
