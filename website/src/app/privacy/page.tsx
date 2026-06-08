@@ -73,6 +73,17 @@ export default function PrivacyPage() {
           </section>
 
           <section>
+            <h2 className="text-xl font-semibold text-white mb-3">This website</h2>
+            <p>
+              Everything above describes the <strong className="text-white">browser extension</strong>.
+              This marketing website (<code className="text-[#c9a84c]">gizmo.best</code>) is separate and uses
+              Vercel Analytics and Speed Insights to measure aggregate, anonymous traffic and page
+              performance. These are cookieless and do not track you across sites or build a personal
+              profile. The extension itself remains analytics-free.
+            </p>
+          </section>
+
+          <section>
             <h2 className="text-xl font-semibold text-white mb-3">Contact</h2>
             <p>
               The full source code is public at{" "}
