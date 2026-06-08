@@ -73,6 +73,20 @@ describe("applyRules", () => {
     assert.equal(perRuleCounts["a"], 2);
     assert.equal(perRuleCounts["b"], 1);
   });
+
+  it("expands $1/$2 backreferences in replace", () => {
+    const rule: PatchRule = {
+      id: "swap",
+      description: "swap a,b -> b,a",
+      find: "X\\((\\w+),(\\w+)\\)",
+      flags: "g",
+      replace: "X($2,$1)",
+      minMatches: 1
+    };
+    const { output, perRuleCounts } = applyRules("X(foo,bar) X(baz,qux)", [rule]);
+    assert.equal(output, "X(bar,foo) X(qux,baz)");
+    assert.equal(perRuleCounts["swap"], 2);
+  });
 });
 
 describe("hashRules", () => {

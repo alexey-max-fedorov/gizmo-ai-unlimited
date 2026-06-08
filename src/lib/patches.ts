@@ -19,13 +19,9 @@ export const applyPatchRules = (
   const perRuleCounts: Record<string, number> = {};
   let output = source;
   for (const rule of rules) {
-    const re = new RegExp(rule.find, rule.flags);
-    let count = 0;
-    output = output.replace(re, () => {
-      count += 1;
-      return rule.replace;
-    });
-    perRuleCounts[rule.id] = count;
+    const matches = output.match(new RegExp(rule.find, rule.flags));
+    perRuleCounts[rule.id] = matches ? matches.length : 0;
+    output = output.replace(new RegExp(rule.find, rule.flags), rule.replace);
   }
   return { output, perRuleCounts };
 };

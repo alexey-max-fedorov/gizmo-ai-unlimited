@@ -33,6 +33,20 @@ describe("applyPatchRules", () => {
     assert.equal(perRuleCounts["is-subscribed"], 0);
     assert.equal(output, "var x = 1;");
   });
+
+  it("expands $1/$2 backreferences in replace", () => {
+    const rule: PatchRule = {
+      id: "swap",
+      description: "swap a,b -> b,a",
+      find: "X\\((\\w+),(\\w+)\\)",
+      flags: "g",
+      replace: "X($2,$1)",
+      minMatches: 1
+    };
+    const { output, perRuleCounts } = applyPatchRules("X(foo,bar) X(baz,qux)", [rule]);
+    assert.equal(output, "X(bar,foo) X(qux,baz)");
+    assert.equal(perRuleCounts["swap"], 2);
+  });
 });
 
 describe("wrapWithMarkers", () => {

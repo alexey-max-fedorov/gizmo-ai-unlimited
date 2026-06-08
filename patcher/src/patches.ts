@@ -36,13 +36,13 @@ export const applyRules = (
   const perRuleCounts: Record<string, number> = {};
   let output = source;
   for (const rule of rules) {
-    const re = new RegExp(rule.find, rule.flags);
-    let count = 0;
-    output = output.replace(re, () => {
-      count += 1;
-      return rule.replace;
-    });
-    perRuleCounts[rule.id] = count;
+    // Count on the current output BEFORE replacing. A fresh regex avoids
+    // shared lastIndex state between the count and replace passes.
+    const matches = output.match(new RegExp(rule.find, rule.flags));
+    perRuleCounts[rule.id] = matches ? matches.length : 0;
+    // Native string replacement expands $1, $2, $$, $& in rule.replace.
+    // (A future rule needing a literal "$" must escape it as "$$".)
+    output = output.replace(new RegExp(rule.find, rule.flags), rule.replace);
   }
   return { output, perRuleCounts };
 };
