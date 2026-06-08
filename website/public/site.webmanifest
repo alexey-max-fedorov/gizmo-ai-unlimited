@@ -1,0 +1,12 @@
+{
+  "name": "Gizmo AI Unlimited",
+  "short_name": "Gizmo Unlimited",
+  "description": "Unlimited hearts and hints for Gizmo AI quizzes — free and private.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    { "src": "/icon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

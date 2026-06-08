@@ -1,0 +1,25 @@
+# Gizmo AI Unlimited
+
+> A free, open-source browser extension that removes the out-of-hearts limit and unlocks every hint on Gizmo AI quizzes (app.gizmo.ai), so students can study without interruptions or paywalls.
+
+## What it does
+- Removes the "out of hearts" modal on app.gizmo.ai/quiz so practice is unlimited.
+- Unlocks every hint, which is normally gated behind a paid Gizmo subscription.
+- Activates automatically when a quiz opens; no settings, no account, no setup.
+
+## Key facts
+- Price: Free, forever. No paid tier.
+- Privacy: Zero personal data collected. No cookies, localStorage, analytics, or telemetry. All patching happens locally in the browser.
+- Open source: Full source on GitHub at https://github.com/alexey-max-fedorov/gizmo-ai-unlimited
+- Self-healing: Patch rules refresh every 2 hours, so it keeps working after Gizmo updates.
+- Browsers: Chrome, Microsoft Edge, Brave, and Firefox.
+- Not affiliated with Gizmo AI.
+
+## Install
+- Chrome / Brave: https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh
+- Microsoft Edge: https://microsoftedge.microsoft.com/addons/detail/gizmo-ai-unlimited/gajdekhpddjnkkldabhaahhhanmkkegi
+- Firefox: https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/
+
+## Links
+- Website: https://gizmo.best
+- Privacy policy: https://gizmo.best/privacy
