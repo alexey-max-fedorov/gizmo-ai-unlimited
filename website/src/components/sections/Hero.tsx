@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ChevronRight, Github } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { AnimatedText } from "@/components/ui/AnimatedText";
 import { QuizMock } from "@/components/sections/QuizMock";
 import { SITE, STORES } from "@/lib/constants";
@@ -63,7 +64,7 @@ export function Hero() {
               Add to browser — free <ChevronRight size={18} />
             </Button>
             <Button href={SITE.repo} external variant="outline" size="lg">
-              <Github size={18} /> View source
+              <GithubIcon size={18} /> View source
             </Button>
           </motion.div>
 

@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Github } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { NAV_LINKS, SITE, STORES } from "@/lib/constants";
 
 export function Navbar() {
@@ -59,7 +60,7 @@ export function Navbar() {
             aria-label="GitHub repository"
             className="text-[#a0a0a0] hover:text-white transition-colors"
           >
-            <Github size={20} />
+            <GithubIcon size={20} />
           </Link>
           <Button href={STORES.chrome} external size="sm">
             Add to browser

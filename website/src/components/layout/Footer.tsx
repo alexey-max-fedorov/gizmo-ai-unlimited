@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Github } from "lucide-react";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { SITE, STORES, NAV_LINKS } from "@/lib/constants";
 
 export function Footer() {
@@ -56,7 +56,7 @@ export function Footer() {
             <li><Link href="/privacy" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Privacy</Link></li>
             <li>
               <a href={SITE.repo} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors inline-flex items-center gap-1.5">
-                <Github size={14} /> GitHub
+                <GithubIcon size={14} /> GitHub
               </a>
             </li>
           </ul>
