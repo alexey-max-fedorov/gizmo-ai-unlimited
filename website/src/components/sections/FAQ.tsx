@@ -26,6 +26,7 @@ export function FAQ() {
                   className="w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
+                  aria-label={`${isOpen ? "Collapse" : "Expand"} answer: ${item.q}`}
                 >
                   <span className="text-base font-medium text-white">{item.q}</span>
                   <span className="text-[#c9a84c] shrink-0">
