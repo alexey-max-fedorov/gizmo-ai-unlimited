@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { GithubIcon } from "@/components/ui/GithubIcon";
-import { SITE, STORES, NAV_LINKS } from "@/lib/constants";
+import { SITE, SHORTLINKS, NAV_LINKS } from "@/lib/constants";
 
 export function Footer() {
   return (
@@ -42,9 +42,9 @@ export function Footer() {
             Install
           </h3>
           <ul className="space-y-3 text-sm">
-            <li><a href={STORES.chrome} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Chrome / Brave</a></li>
-            <li><a href={STORES.edge} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Microsoft Edge</a></li>
-            <li><a href={STORES.firefox} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Firefox</a></li>
+            <li><a href={SHORTLINKS.chrome} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Chrome / Brave</a></li>
+            <li><a href={SHORTLINKS.edge} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Microsoft Edge</a></li>
+            <li><a href={SHORTLINKS.firefox} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Firefox</a></li>
           </ul>
         </div>
 
@@ -54,8 +54,9 @@ export function Footer() {
           </h3>
           <ul className="space-y-3 text-sm">
             <li><Link href="/privacy" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Privacy</Link></li>
+            <li><Link href="/links" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Links</Link></li>
             <li>
-              <a href={SITE.repo} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors inline-flex items-center gap-1.5">
+              <a href={SHORTLINKS.github} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors inline-flex items-center gap-1.5">
                 <GithubIcon size={14} /> GitHub
               </a>
             </li>

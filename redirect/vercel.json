@@ -1,0 +1,112 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "extension.gizmo.best" },
+        { "type": "header", "key": "user-agent", "value": ".*Firefox.*" }
+      ],
+      "destination": "https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/?utm_source=extension.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "extension.gizmo.best" },
+        { "type": "header", "key": "user-agent", "value": ".*Edg/.*" }
+      ],
+      "destination": "https://microsoftedge.microsoft.com/addons/detail/gizmo-ai-unlimited/gajdekhpddjnkkldabhaahhhanmkkegi?utm_source=extension.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "extension.gizmo.best" }],
+      "destination": "https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=extension.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "ext.gizmo.best" },
+        { "type": "header", "key": "user-agent", "value": ".*Firefox.*" }
+      ],
+      "destination": "https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/?utm_source=ext.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "ext.gizmo.best" },
+        { "type": "header", "key": "user-agent", "value": ".*Edg/.*" }
+      ],
+      "destination": "https://microsoftedge.microsoft.com/addons/detail/gizmo-ai-unlimited/gajdekhpddjnkkldabhaahhhanmkkegi?utm_source=ext.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "ext.gizmo.best" }],
+      "destination": "https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=ext.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "chrome.gizmo.best" }],
+      "destination": "https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=chrome.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "edge.gizmo.best" }],
+      "destination": "https://microsoftedge.microsoft.com/addons/detail/gizmo-ai-unlimited/gajdekhpddjnkkldabhaahhhanmkkegi?utm_source=edge.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "firefox.gizmo.best" }],
+      "destination": "https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/?utm_source=firefox.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "github.gizmo.best" }],
+      "destination": "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited?utm_source=github.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "gh.gizmo.best" }],
+      "destination": "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited?utm_source=gh.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "author.gizmo.best" }],
+      "destination": "https://alexey-fedorov.com/?utm_source=author.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "alexey.gizmo.best" }],
+      "destination": "https://alexey-fedorov.com/?utm_source=alexey.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "youtube.gizmo.best" }],
+      "destination": "https://youtu.be/UlrEFLQGZHY?utm_source=youtube.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "yt.gizmo.best" }],
+      "destination": "https://youtu.be/UlrEFLQGZHY?utm_source=yt.gizmo.best",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "tutorial.gizmo.best" }],
+      "destination": "https://youtu.be/UlrEFLQGZHY?utm_source=tutorial.gizmo.best",
+      "statusCode": 301
+    }
+  ]
+}

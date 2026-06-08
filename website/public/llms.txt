@@ -22,4 +22,7 @@
 
 ## Links
 - Website: https://gizmo.best
+- All shortlinks: https://gizmo.best/links
 - Privacy policy: https://gizmo.best/privacy
+- Install (auto-detects your browser): https://extension.gizmo.best
+- Tutorial video: https://yt.gizmo.best

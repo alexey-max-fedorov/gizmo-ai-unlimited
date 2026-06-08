@@ -1,7 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { SITE, STORES } from "@/lib/constants";
+import { SITE, SHORTLINKS } from "@/lib/constants";
 
 export function CTASection() {
   return (
@@ -19,10 +19,10 @@ export function CTASection() {
           quiz — it just works.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-          <Button href={STORES.chrome} external size="lg">
-            Add to Chrome — free <ChevronRight size={18} />
+          <Button href={SHORTLINKS.install} external size="lg">
+            Add to browser — free <ChevronRight size={18} />
           </Button>
-          <Button href={STORES.firefox} external variant="outline" size="lg">
+          <Button href={SHORTLINKS.firefox} external variant="outline" size="lg">
             Add to Firefox
           </Button>
         </div>

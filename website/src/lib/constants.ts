@@ -23,6 +23,22 @@ export const STORES = {
     "https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/",
 } as const;
 
+/**
+ * gizmo.best redirect shortlinks (served by the standalone `redirect/` Vercel
+ * project). Every destination carries `?utm_source=<subdomain>` for attribution,
+ * so all install/source links on the site are tracked. `install` is UA-smart:
+ * it redirects to the visitor's correct store automatically.
+ */
+export const SHORTLINKS = {
+  install: "https://extension.gizmo.best",
+  chrome: "https://chrome.gizmo.best",
+  edge: "https://edge.gizmo.best",
+  firefox: "https://firefox.gizmo.best",
+  github: "https://gh.gizmo.best",
+  youtube: "https://yt.gizmo.best",
+  author: "https://author.gizmo.best",
+} as const;
+
 /** lucide-react icon names, resolved in the component to keep this file framework-free. */
 export type IconName =
   | "Heart"
@@ -109,19 +125,19 @@ export const INSTALL: InstallTarget[] = [
     browser: "chrome",
     label: "Add to Chrome",
     note: "Works on Chrome, Brave & other Chromium browsers",
-    href: STORES.chrome,
+    href: SHORTLINKS.chrome,
   },
   {
     browser: "edge",
     label: "Add to Edge",
     note: "From the official Microsoft Edge Add-ons store",
-    href: STORES.edge,
+    href: SHORTLINKS.edge,
   },
   {
     browser: "firefox",
     label: "Add to Firefox",
     note: "Reviewed and listed on Mozilla Add-ons (AMO)",
-    href: STORES.firefox,
+    href: SHORTLINKS.firefox,
   },
 ];
 

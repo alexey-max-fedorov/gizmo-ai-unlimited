@@ -4,14 +4,17 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { GithubIcon } from "@/components/ui/GithubIcon";
+import { BrowserIcon } from "@/components/ui/BrowserIcon";
 import { AnimatedText } from "@/components/ui/AnimatedText";
 import { QuizMock } from "@/components/sections/QuizMock";
-import { SITE, STORES } from "@/lib/constants";
+import { SITE, SHORTLINKS } from "@/lib/constants";
+import { useBrowser } from "@/lib/useBrowser";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const { browser, label } = useBrowser();
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-20">
@@ -60,10 +63,11 @@ export function Hero() {
             transition={{ duration: 0.6, ease: EASE, delay: 0.62 }}
             className="mt-8 flex flex-col sm:flex-row gap-4"
           >
-            <Button href={STORES.chrome} external size="lg">
-              Add to browser — free <ChevronRight size={18} />
+            <Button href={SHORTLINKS[browser]} external size="lg">
+              <BrowserIcon browser={browser} size={18} /> Add to {label} — free
+              <ChevronRight size={18} />
             </Button>
-            <Button href={SITE.repo} external variant="outline" size="lg">
+            <Button href={SHORTLINKS.github} external variant="outline" size="lg">
               <GithubIcon size={18} /> View source
             </Button>
           </motion.div>

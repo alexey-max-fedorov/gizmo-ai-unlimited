@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { GithubIcon } from "@/components/ui/GithubIcon";
-import { NAV_LINKS, SITE, STORES } from "@/lib/constants";
+import { NAV_LINKS, SHORTLINKS } from "@/lib/constants";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -54,7 +54,7 @@ export function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <Link
-            href={SITE.repo}
+            href={SHORTLINKS.github}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub repository"
@@ -62,7 +62,7 @@ export function Navbar() {
           >
             <GithubIcon size={20} />
           </Link>
-          <Button href={STORES.chrome} external size="sm">
+          <Button href={SHORTLINKS.install} external size="sm">
             Add to browser
           </Button>
         </div>
@@ -89,7 +89,7 @@ export function Navbar() {
               {l.label}
             </a>
           ))}
-          <Button href={STORES.chrome} external className="w-full mt-2">
+          <Button href={SHORTLINKS.install} external className="w-full mt-2">
             Add to browser
           </Button>
         </div>
