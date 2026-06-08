@@ -1,4 +1,4 @@
-export const VERSION = "2.2.1";
+export const VERSION = "2.3.0";
 
 // The URL the patcher fetches to discover the current entry-*.js hash.
 // A specific quiz URL is used because Gizmo's root page may redirect to login.
