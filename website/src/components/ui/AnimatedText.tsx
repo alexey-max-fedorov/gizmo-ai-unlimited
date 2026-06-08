@@ -24,20 +24,22 @@ export function AnimatedText({ text, className, delay = 0, style }: AnimatedText
     );
   }
 
+  // Each word is its own inline-block so it can translateY independently.
+  // A right margin (not an inner space) provides word spacing — a trailing
+  // space inside an inline-block collapses, which is what merged the words.
   return (
     <span className={className} style={style}>
       {words.map((word, i) => (
-        <span key={`${word}-${i}`} className="inline-block overflow-hidden">
-          <motion.span
-            className="inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE, delay: delay + i * 0.08 }}
-          >
-            {word}
-            {i < words.length - 1 ? " " : ""}
-          </motion.span>
-        </span>
+        <motion.span
+          key={`${word}-${i}`}
+          className="inline-block"
+          style={{ marginRight: i < words.length - 1 ? "0.25em" : undefined }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: EASE, delay: delay + i * 0.08 }}
+        >
+          {word}
+        </motion.span>
       ))}
     </span>
   );
