@@ -111,6 +111,29 @@ describe("followup-revive rule", () => {
   });
 });
 
+describe("followup-render rule", () => {
+  const rule = RULES.find((r) => r.id === "followup-render")!;
+  const largeSlot =
+    "(0,r(d[8]).jsx)(r(d[19]).ELI5Button,{event:{event:'UNDERSTAND_ENGAGEMENT_ELI5'},className:\"mx-auto max-w-screen-md w-full mt-2\",onPress:()=>{l({message:{role:'user',parts:[{type:'text',text:S(r(d[19]).ELI5_AI_MESSAGE)}]}})}}),null]";
+  const smallSlot =
+    "(0,r(d[8]).jsx)(r(d[19]).ELI5Button,{event:{event:'UNDERSTAND_ENGAGEMENT_ELI5'},className:\"mx-auto max-w-screen-md w-full mt-2\",onPress:()=>{n({message:{role:'user',parts:[{type:'text',text:w(r(d[19]).ELI5_AI_MESSAGE)}]}})}}),null]";
+
+  it("swaps the orphaned null slot for SuggestedQuestions in both components", () => {
+    const { output, perRuleCounts } = applyRules(largeSlot + smallSlot, [rule]);
+    assert.equal(perRuleCounts["followup-render"], 2);
+    // ELI5 button onPress preserved (var names intact)
+    assert.ok(output.includes("text:S(r(d[19]).ELI5_AI_MESSAGE)}]}})}})"));
+    assert.ok(output.includes("text:w(r(d[19]).ELI5_AI_MESSAGE)}]}})}})"));
+    // null slot replaced with SuggestedQuestions wired to revived consts
+    assert.ok(!output.includes(")}}),null]"));
+    assert.ok(
+      output.includes(
+        ")}}),(0,r(d[8]).jsx)(r(d[15]).SuggestedQuestions,{questions:__fq,onSelectQuestion:__fqAsk,className:\"mx-auto max-w-screen-md w-full mt-2\"})]"
+      )
+    );
+  });
+});
+
 describe("hashRules", () => {
   it("returns a 16-char hex string", () => {
     const hash = hashRules(RULES);

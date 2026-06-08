@@ -31,6 +31,17 @@ export const RULES: ReadonlyArray<PatchRule> = [
     flags: "g",
     replace: "const __fq=$1,__fqAsk=$2;",
     minMatches: 2
+  },
+  {
+    id: "followup-render",
+    description:
+      "Render Gizmo's SuggestedQuestions pill list in the orphaned null slot beside the ELI5 button (last assistant message, status ready), wired to __fq/__fqAsk from followup-revive. Reuses Gizmo's own SuggestedQuestions component (r(d[15])). Matches both explain components.",
+    find:
+      "(text:\\w+\\(r\\(d\\[19\\]\\)\\.ELI5_AI_MESSAGE\\)\\}\\]\\}\\}\\)\\}\\}\\)),null\\]",
+    flags: "g",
+    replace:
+      "$1,(0,r(d[8]).jsx)(r(d[15]).SuggestedQuestions,{questions:__fq,onSelectQuestion:__fqAsk,className:\"mx-auto max-w-screen-md w-full mt-2\"})]",
+    minMatches: 2
   }
 ];
 
