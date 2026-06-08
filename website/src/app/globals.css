@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Backgrounds */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-tertiary: #111111;
+  --color-bg-subtle: #1a1a1a;
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0a0;
+  --color-text-tertiary: #666666;
+
+  /* Brand accent */
+  --color-gold: #c9a84c;
+  --color-gold-hover: #d4b65e;
+
+  /* Borders */
+  --color-border: #1a1a1a;
+  --color-border-hover: #333333;
+
+  /* Fonts */
+  --font-playfair-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-inter-var: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Base element styles MUST live in @layer base so Tailwind's later
+   `utilities` layer can override them. An unlayered `* { padding: 0 }`
+   would beat every layered utility (px-*, mx-auto, p-*) regardless of
+   specificity — which silently kills all spacing. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid #c9a84c;
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: rgba(201, 168, 76, 0.3);
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c9a84c;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Skip-to-content (a11y) */
+  .skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: #c9a84c;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0 0 0.5rem 0.5rem;
+    transition: top 0.2s;
+  }
+  .skip-to-content:focus {
+    top: 0;
+  }
+
+  /* Fine grid overlay used behind hero/CTA. Apply on an absolutely-positioned div. */
+  .bg-grid {
+    background-image:
+      linear-gradient(#ffffff 1px, transparent 1px),
+      linear-gradient(90deg, #ffffff 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.03;
+  }
+
+  /* Soft radial gold glow. Apply on an absolutely-positioned, blurred div. */
+  .gold-glow {
+    background: radial-gradient(ellipse, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+  }
+}
