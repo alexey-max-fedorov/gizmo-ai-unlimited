@@ -89,6 +89,28 @@ describe("applyRules", () => {
   });
 });
 
+describe("followup-revive rule", () => {
+  const rule = RULES.find((r) => r.id === "followup-revive")!;
+  // Real minified snippets (large + small screen), differing only in
+  // list var (f/x) and sendMessage var (l/n).
+  const large =
+    "(0,r(d[6]).useMemo)(()=>{const e=[...f].reverse().find(e=>'assistant'===e.role);return e?(0,r(d[15]).extractFollowupQuestions)(e):[]},[f]),(0,r(d[6]).useCallback)(e=>{l({message:{role:'user',parts:[{type:'text',text:e}]}})},[l]);";
+  const small =
+    "(0,r(d[6]).useMemo)(()=>{const e=[...x].reverse().find(e=>'assistant'===e.role);return e?(0,r(d[15]).extractFollowupQuestions)(e):[]},[x]),(0,r(d[6]).useCallback)(e=>{n({message:{role:'user',parts:[{type:'text',text:e}]}})},[n]);";
+
+  it("rebinds both dead hooks to named consts in both components", () => {
+    const { output, perRuleCounts } = applyRules(large + small, [rule]);
+    assert.equal(perRuleCounts["followup-revive"], 2);
+    // const __fq=<useMemo>,__fqAsk=<useCallback>;
+    assert.ok(output.includes("const __fq=(0,r(d[6]).useMemo)(()=>{const e=[...f]"));
+    assert.ok(output.includes("__fqAsk=(0,r(d[6]).useCallback)(e=>{l("));
+    assert.ok(output.includes("const __fq=(0,r(d[6]).useMemo)(()=>{const e=[...x]"));
+    assert.ok(output.includes("__fqAsk=(0,r(d[6]).useCallback)(e=>{n("));
+    // No leftover bare-expression form
+    assert.ok(!output.includes("[]},[f]),(0,r(d[6]).useCallback)"));
+  });
+});
+
 describe("hashRules", () => {
   it("returns a 16-char hex string", () => {
     const hash = hashRules(RULES);

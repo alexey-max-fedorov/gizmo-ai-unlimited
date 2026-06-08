@@ -21,6 +21,16 @@ export const RULES: ReadonlyArray<PatchRule> = [
     flags: "g",
     replace: "get isSubscribed(){return true}",
     minMatches: 1
+  },
+  {
+    id: "followup-revive",
+    description:
+      "Revive Gizmo's dead followup hooks: bind the discarded useMemo (followup array) and useCallback (ask-followup handler) to __fq / __fqAsk so the render rule can consume them. Matches both explain components (large + small screen).",
+    find:
+      "(\\(0,r\\(d\\[6\\]\\)\\.useMemo\\)\\(\\(\\)=>\\{const e=\\[\\.\\.\\.\\w+\\]\\.reverse\\(\\)\\.find\\(e=>'assistant'===e\\.role\\);return e\\?\\(0,r\\(d\\[15\\]\\)\\.extractFollowupQuestions\\)\\(e\\):\\[\\]\\},\\[\\w+\\]\\)),(\\(0,r\\(d\\[6\\]\\)\\.useCallback\\)\\(e=>\\{\\w+\\(\\{message:\\{role:'user',parts:\\[\\{type:'text',text:e\\}\\]\\}\\}\\)\\},\\[\\w+\\]\\));",
+    flags: "g",
+    replace: "const __fq=$1,__fqAsk=$2;",
+    minMatches: 2
   }
 ];
 
