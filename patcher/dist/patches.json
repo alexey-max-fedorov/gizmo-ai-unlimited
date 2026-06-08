@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "patcherVersion": "2.3.0",
-  "hash": "e7bd632f5510cb65",
+  "hash": "c392e4db1e018659",
   "rules": [
     {
       "id": "is-subscribed",
@@ -26,6 +26,14 @@
       "flags": "g",
       "replace": "$1,(0,r(d[8]).jsx)(r(d[15]).SuggestedQuestions,{questions:__fq,onSelectQuestion:__fqAsk,className:\"mx-auto max-w-screen-md w-full mt-2\"})]",
       "minMatches": 2
+    },
+    {
+      "id": "followup-render-chat",
+      "description": "Render the SuggestedQuestions pill list in the INLINE understand-card chat (ChatMessage.tsx / EngagementOptions). The explain.tsx rules above target a different view; this is the one users actually see on the quiz card. We wrap the active-message EngagementOptions render in a Fragment and append SuggestedQuestions, computing followups from the message (n) and wiring onSelectQuestion to the local sendMessage (l) with the exact transport shape the ELI5/MoreDetail buttons use in this module (r(d[20]).TUTOR_ROLE_IDS, section_type CUSTOM_USER_QUESTION). The chat module that exports SuggestedQuestions/extractFollowupQuestions is NOT in this module's dependency array, so it is required by its global Metro id (5667) — exactly what r(d[15]) resolves to in explain.tsx. deleteMessagesAfterThisId:n.id is a no-op here because the pills only render on the active (last) message. Captures: $3=jsx-runtime dep, $4=message var, $5=sendMessage var; $2=original EngagementOptions render preserved verbatim.",
+      "find": "(message_still_generating&&)(\\(0,r\\((d\\[\\d+\\])\\)\\.jsx\\)\\(\\w+,\\{message:(\\w+),sendMessage:(\\w+)\\}\\))",
+      "flags": "g",
+      "replace": "$1(0,r($3).jsxs)(r($3).Fragment,{children:[$2,(0,r($3).jsx)(r(5667).SuggestedQuestions,{questions:(0,r(5667).extractFollowupQuestions)($4),onSelectQuestion:q=>$5({message:{role_id:r(d[20]).TUTOR_ROLE_IDS.user,message:q,json_input:null,section_type:'CUSTOM_USER_QUESTION'},deleteMessagesAfterThisId:$4.id}),className:\"px-4 mt-2\"})]})",
+      "minMatches": 1
     }
   ]
 }

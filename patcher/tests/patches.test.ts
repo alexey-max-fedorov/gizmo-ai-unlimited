@@ -134,6 +134,33 @@ describe("followup-render rule", () => {
   });
 });
 
+describe("followup-render-chat rule", () => {
+  const rule = RULES.find((r) => r.id === "followup-render-chat")!;
+  // Real minified snippet: the active-message EngagementOptions render inside
+  // component x of ChatMessage.tsx (module 5673). n=message, l=sendMessage.
+  const slot =
+    "W=a&&!y&&!n.message_still_generating&&(0,r(d[7]).jsx)(j,{message:n,sendMessage:l}),t[31]=a,t[32]=y";
+
+  it("wraps the EngagementOptions render and appends SuggestedQuestions", () => {
+    const { output, perRuleCounts } = applyRules(slot, [rule]);
+    assert.equal(perRuleCounts["followup-render-chat"], 1);
+    // Original engagement render preserved, now first child of a Fragment.
+    assert.ok(
+      output.includes(
+        "message_still_generating&&(0,r(d[7]).jsxs)(r(d[7]).Fragment,{children:[(0,r(d[7]).jsx)(j,{message:n,sendMessage:l}),"
+      )
+    );
+    // Followups computed from the message via the chat module's global id (5667).
+    assert.ok(
+      output.includes(
+        "(0,r(d[7]).jsx)(r(5667).SuggestedQuestions,{questions:(0,r(5667).extractFollowupQuestions)(n),onSelectQuestion:q=>l({message:{role_id:r(d[20]).TUTOR_ROLE_IDS.user,message:q,json_input:null,section_type:'CUSTOM_USER_QUESTION'},deleteMessagesAfterThisId:n.id}),className:\"px-4 mt-2\"})]})"
+      )
+    );
+    // Trailing memo assignments untouched.
+    assert.ok(output.includes("]}),t[31]=a,t[32]=y"));
+  });
+});
+
 describe("hashRules", () => {
   it("returns a 16-char hex string", () => {
     const hash = hashRules(RULES);
