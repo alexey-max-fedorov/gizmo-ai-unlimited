@@ -1851,8 +1851,8 @@ packages:
     resolution: {integrity: sha512-M3NhsLbV1i6HuGzBUH8vXrtxOk+tWmzWKDMbAVSUp3Zsjm7ywFeuwrUXhmhQyRK1q5B5GGy7hcXPbj3bnfZg2g==}
     engines: {node: '>=6'}
 
-  electron-to-chromium@1.5.368:
-    resolution: {integrity: sha512-7RckJJK4uESJF9PxvfMWd3TGqIiieUTG4HxnKaKuIpGbcr+r2ZEB3g2gAhCP3Fqm42vJSzLfgab9eva/C4/XVw==}
+  electron-to-chromium@1.5.369:
+    resolution: {integrity: sha512-XM22K9FNaaCOvMMrBn1caIc8v0g6+pKt660ZbfQqUZvfil0hEzr8ZoiY7VcSLGM3L/x3rz5PqZrk+bKOOmVM9w==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -2412,8 +2412,8 @@ packages:
     resolution: {integrity: sha512-4kmO/MdyUIkLIvTPr8VHLil4AtoKIoniWPIEk5+CDy0xnWC84azhSFmuJ7PxZdsYtiP5kEeQsORAVIeMgxT+Hw==}
     hasBin: true
 
-  msgpackr@1.11.13:
-    resolution: {integrity: sha512-pWaxg0k1iiNdkAayUQ7Zlz/vYNfVefUttmHxqFcQjjtyqFa3w4x5rginOEzy/GvbWhBDD9K65/ZXyq8qz8utaQ==}
+  msgpackr@1.12.1:
+    resolution: {integrity: sha512-4EUH9tQHnMmEgzW/MdAP0KIfa1T9AF+htl0ffe2n5vb2EKn9y2co8ccpgWko6S52Jy1PQZKwRnx5/KkYjtd9MQ==}
 
   msgpackr@1.8.5:
     resolution: {integrity: sha512-mpPs3qqTug6ahbblkThoUY2DQdNXcm4IapwOS3Vm/87vmpzLVelvp9h3It1y9l1VPpiFLV11vfOXnmeEwiIXwg==}
@@ -3526,7 +3526,7 @@ snapshots:
       dotenv: 7.0.0
       dotenv-expand: 5.1.0
       json5: 2.2.3
-      msgpackr: 1.11.13
+      msgpackr: 1.12.1
       nullthrows: 1.1.1
       semver: 7.7.1
 
@@ -4786,7 +4786,7 @@ snapshots:
   browserslist@4.22.1:
     dependencies:
       caniuse-lite: 1.0.30001797
-      electron-to-chromium: 1.5.368
+      electron-to-chromium: 1.5.369
       node-releases: 2.0.47
       update-browserslist-db: 1.2.3(browserslist@4.22.1)
 
@@ -4794,7 +4794,7 @@ snapshots:
     dependencies:
       baseline-browser-mapping: 2.10.34
       caniuse-lite: 1.0.30001797
-      electron-to-chromium: 1.5.368
+      electron-to-chromium: 1.5.369
       node-releases: 2.0.47
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -5015,7 +5015,7 @@ snapshots:
 
   dotenv@7.0.0: {}
 
-  electron-to-chromium@1.5.368: {}
+  electron-to-chromium@1.5.369: {}
 
   emoji-regex@8.0.0: {}
 
@@ -5438,7 +5438,7 @@ snapshots:
 
   lmdb@2.5.2:
     dependencies:
-      msgpackr: 1.11.13
+      msgpackr: 1.12.1
       node-addon-api: 4.3.0
       node-gyp-build-optional-packages: 5.0.3
       ordered-binary: 1.6.1
@@ -5534,7 +5534,7 @@ snapshots:
       '@msgpackr-extract/msgpackr-extract-win32-x64': 3.0.4
     optional: true
 
-  msgpackr@1.11.13:
+  msgpackr@1.12.1:
     optionalDependencies:
       msgpackr-extract: 3.0.4
 
