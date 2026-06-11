@@ -5,3 +5,5 @@ allowBuilds:
   lmdb: set this to true or false
   msgpackr-extract: set this to true or false
   sharp: set this to true or false
+minimumReleaseAgeExclude:
+  - '@types/node@25.9.3'
