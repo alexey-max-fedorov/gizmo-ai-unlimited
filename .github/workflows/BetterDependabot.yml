@@ -5,55 +5,71 @@ on:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "22"
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: latest
 
       - name: Update [root]
         run: |
           cd ${{ github.workspace }}
+          pnpm install --no-frozen-lockfile
           pnpm update
         continue-on-error: true
 
       - name: Update [research]
         run: |
           cd ${{ github.workspace }}/research
+          pnpm install --no-frozen-lockfile
           pnpm update
         continue-on-error: true
 
       - name: Update [tests]
         run: |
           cd ${{ github.workspace }}/src/tests
+          pnpm install --no-frozen-lockfile
           pnpm update
         continue-on-error: true
 
       - name: Update [patcher]
         run: |
           cd ${{ github.workspace }}/patcher
+          pnpm install --no-frozen-lockfile
           pnpm update
         continue-on-error: true
 
       - name: Update [lib]
         run: |
           cd ${{ github.workspace }}/src/lib
+          pnpm install --no-frozen-lockfile
           pnpm update
         continue-on-error: true
 
       - name: Update [patcher/tests]
         run: |
           cd ${{ github.workspace }}/patcher/tests
+          pnpm install --no-frozen-lockfile
+          pnpm update
+        continue-on-error: true
+
+      - name: Update [website]
+        run: |
+          cd ${{ github.workspace }}/website
+          pnpm install --no-frozen-lockfile
           pnpm update
         continue-on-error: true
 
