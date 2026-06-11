@@ -28,49 +28,49 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           pnpm install --no-frozen-lockfile --ignore-scripts
-          pnpm update --ignore-scripts
+          pnpm update --latest --ignore-scripts
         continue-on-error: true
 
       - name: Update [research]
         run: |
           cd ${{ github.workspace }}/research
           pnpm install --no-frozen-lockfile --ignore-scripts
-          pnpm update --ignore-scripts
+          pnpm update --latest --ignore-scripts
         continue-on-error: true
 
       - name: Update [tests]
         run: |
           cd ${{ github.workspace }}/src/tests
           pnpm install --no-frozen-lockfile --ignore-scripts
-          pnpm update --ignore-scripts
+          pnpm update --latest --ignore-scripts
         continue-on-error: true
 
       - name: Update [patcher]
         run: |
           cd ${{ github.workspace }}/patcher
           pnpm install --no-frozen-lockfile --ignore-scripts
-          pnpm update --ignore-scripts
+          pnpm update --latest --ignore-scripts
         continue-on-error: true
 
       - name: Update [lib]
         run: |
           cd ${{ github.workspace }}/src/lib
           pnpm install --no-frozen-lockfile --ignore-scripts
-          pnpm update --ignore-scripts
+          pnpm update --latest --ignore-scripts
         continue-on-error: true
 
       - name: Update [patcher/tests]
         run: |
           cd ${{ github.workspace }}/patcher/tests
           pnpm install --no-frozen-lockfile --ignore-scripts
-          pnpm update --ignore-scripts
+          pnpm update --latest --ignore-scripts
         continue-on-error: true
 
       - name: Update [website]
         run: |
           cd ${{ github.workspace }}/website
           pnpm install --no-frozen-lockfile --ignore-scripts
-          pnpm update --ignore-scripts
+          pnpm update --latest --ignore-scripts
         continue-on-error: true
 
       - name: Commit changes
