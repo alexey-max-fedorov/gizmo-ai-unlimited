@@ -21,48 +21,50 @@ describe("RULES", () => {
 });
 
 describe("applyRules", () => {
-  const rule: PatchRule = {
-    id: "is-subscribed",
-    description: "Force isSubscribed getter to return true",
-    find: "\\bget isSubscribed\\(\\)\\{[^}]*\\}",
-    flags: "g",
-    replace: "get isSubscribed(){return true}",
-    minMatches: 1
-  };
+  // Exercise the ACTUAL shipping rule against representative live-bundle shapes,
+  // so a future upstream shape change that breaks it fails here too.
+  const rule = RULES.find((r) => r.id === "is-subscribed")!;
 
-  it("replaces the canonical getEffectiveIsSubscribed body", () => {
-    const input = `foo;get isSubscribed(){return(0,r(_d[4]).getEffectiveIsSubscribed)()};bar`;
+  it("forces an isSubscribedStore.get() read to (!0)", () => {
+    const input = `d=async function(s){const u=r(d[7]).isSubscribedStore.get()??!1;return u}`;
     const { output, perRuleCounts } = applyRules(input, [rule]);
     assert.equal(perRuleCounts["is-subscribed"], 1);
-    assert.ok(output.includes("get isSubscribed(){return true}"));
-    assert.ok(!output.includes("getEffectiveIsSubscribed"));
+    assert.ok(output.includes("const u=(!0)??!1;"));
+    assert.ok(!output.includes("isSubscribedStore.get()"));
   });
 
-  it("replaces ALL occurrences in the file", () => {
-    const input = `
-      get isSubscribed(){return(0,r(d[3]).getEffectiveIsSubscribed)()}
-      function other(){};
-      get isSubscribed(){return(0,r(_d[4]).getEffectiveIsSubscribed)()}
-    `;
-    const { perRuleCounts } = applyRules(input, [rule]);
-    assert.equal(perRuleCounts["is-subscribed"], 2);
+  it("replaces ALL read sites, including the _d require variant", () => {
+    const input = [
+      `if(e!==r(d[9]).isSubscribedStore.get()&&z){}`,
+      `const u=r(_d[7]).isSubscribedStore.get()??!1;`,
+      `u=()=>(r(d[0]).isSubscribedStore.get()??!1)||n.get();`
+    ].join("\n");
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["is-subscribed"], 3);
+    assert.ok(!output.includes("isSubscribedStore.get()"));
+  });
+
+  it("produces syntactically valid JS (the ??/&&/|| operators stay intact)", () => {
+    // A naive `||!0` append would form the illegal `get()||!0??!1` mix and break
+    // the whole bundle. `(!0)` is a self-contained primary expression, so the
+    // surrounding `??!1` stays valid. Guard against regressing to that mistake.
+    const input = `const u=r(d[7]).isSubscribedStore.get()??!1;const v=(r(d[0]).isSubscribedStore.get()??!1)||0;`;
+    const { output } = applyRules(input, [rule]);
+    assert.ok(output.includes("(!0)??!1"));
+    assert.doesNotThrow(() => new Function(output));
+  });
+
+  it("does not touch isSubscribedStore.set() or plain isSubscribed refs", () => {
+    const input = `r(d[9]).isSubscribedStore.set(x);const{isSubscribed:o}=p();e.isSubscribed;`;
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["is-subscribed"], 0);
+    assert.equal(output, input);
   });
 
   it("reports zero matches when the pattern is absent (no throw)", () => {
     const { output, perRuleCounts } = applyRules("var x = 1;", [rule]);
     assert.equal(perRuleCounts["is-subscribed"], 0);
     assert.equal(output, "var x = 1;");
-  });
-
-  it("does not match the setter (set isSubscribed)", () => {
-    const { perRuleCounts } = applyRules(`set isSubscribed(v){this._x=v}`, [rule]);
-    assert.equal(perRuleCounts["is-subscribed"], 0);
-  });
-
-  it("matches an empty body too", () => {
-    const { output, perRuleCounts } = applyRules(`get isSubscribed(){}`, [rule]);
-    assert.equal(perRuleCounts["is-subscribed"], 1);
-    assert.ok(output.includes("get isSubscribed(){return true}"));
   });
 
   it("applies multiple rules in sequence", () => {

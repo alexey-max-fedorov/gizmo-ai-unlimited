@@ -14,12 +14,17 @@ export type PatchRule = {
 export const RULES: ReadonlyArray<PatchRule> = [
   {
     id: "is-subscribed",
-    description: "Force isSubscribed getter to return true",
-    // \bget isSubscribed(){<body without '}'>} — observed bodies are simple
-    // `return(0,r(_d[N]).getEffectiveIsSubscribed)()`.
-    find: "\\bget isSubscribed\\(\\)\\{[^}]*\\}",
+    description: "Force isSubscribedStore reads to return true",
+    // The old `get isSubscribed(){...}` getter is gone; subscription state now
+    // lives in a store read via Metro inline-require as
+    // `r(d[N]).isSubscribedStore.get()` (also the documented `r(_d[N])` variant).
+    // Replace the whole read-expression with `(!0)` so every consumer sees
+    // subscribed=true. `(!0)` is a self-contained primary expression — it keeps
+    // the surrounding `??!1` / `&&` / `||` operators valid (a bare `||!0` append
+    // would form the illegal `||...??` mix and break the bundle).
+    find: "\\br\\(_?d\\[\\d+\\]\\)\\.isSubscribedStore\\.get\\(\\)",
     flags: "g",
-    replace: "get isSubscribed(){return true}",
+    replace: "(!0)",
     minMatches: 1
   }
 ];

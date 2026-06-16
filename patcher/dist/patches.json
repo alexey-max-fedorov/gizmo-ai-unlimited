@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "patcherVersion": "2.2.1",
-  "hash": "e0bc4cff66d9a909",
+  "hash": "ebf5e3099e8699f2",
   "rules": [
     {
       "id": "is-subscribed",
-      "description": "Force isSubscribed getter to return true",
-      "find": "\\bget isSubscribed\\(\\)\\{[^}]*\\}",
+      "description": "Force isSubscribedStore reads to return true",
+      "find": "\\br\\(_?d\\[\\d+\\]\\)\\.isSubscribedStore\\.get\\(\\)",
       "flags": "g",
-      "replace": "get isSubscribed(){return true}",
+      "replace": "(!0)",
       "minMatches": 1
     }
   ]
