@@ -1,14 +1,22 @@
 {
   "schemaVersion": 1,
   "patcherVersion": "2.2.1",
-  "hash": "e0bc4cff66d9a909",
+  "hash": "2f38503a6bcc2b3f",
   "rules": [
     {
       "id": "is-subscribed",
-      "description": "Force isSubscribed getter to return true",
-      "find": "\\bget isSubscribed\\(\\)\\{[^}]*\\}",
+      "description": "Force isSubscribedStore reads to return true",
+      "find": "\\br\\(_?d\\[\\d+\\]\\)\\.isSubscribedStore\\.get\\(\\)",
       "flags": "g",
-      "replace": "get isSubscribed(){return true}",
+      "replace": "(!0)",
+      "minMatches": 1
+    },
+    {
+      "id": "subscription-status",
+      "description": "Force the game-state subscription status check to 'subscribed' (unlimited hearts/hints, no cooldown, no life/hint consumption)",
+      "find": "'subscribed'===\\(0,[\\w$]+\\.default\\)\\(this,[\\w$]+\\)\\[[\\w$]+\\]\\.state\\.snapshot\\?\\.subscription\\?\\.status",
+      "flags": "g",
+      "replace": "(!0)",
       "minMatches": 1
     }
   ]

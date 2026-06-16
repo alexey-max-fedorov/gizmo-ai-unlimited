@@ -2,21 +2,25 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { applyPatchRules, wrapWithMarkers, type PatchRule } from "../lib/patches.ts";
 
+// Mirrors the shipping patcher rule (patcher/src/patches.ts). The extension
+// applies rules from patches.json at runtime; this keeps the browser-side
+// applyPatchRules tested against the same shape.
 const isSubscribedRule: PatchRule = {
   id: "is-subscribed",
-  description: "Force isSubscribed getter to return true",
-  find: "\\bget isSubscribed\\(\\)\\{[^}]*\\}",
+  description: "Force isSubscribedStore reads to return true",
+  find: "\\br\\(_?d\\[\\d+\\]\\)\\.isSubscribedStore\\.get\\(\\)",
   flags: "g",
-  replace: "get isSubscribed(){return true}",
+  replace: "(!0)",
   minMatches: 1
 };
 
 describe("applyPatchRules", () => {
-  it("replaces matched bodies and reports counts", () => {
-    const input = `foo;get isSubscribed(){return X};bar`;
+  it("replaces isSubscribedStore reads and reports counts", () => {
+    const input = `foo;const u=r(d[7]).isSubscribedStore.get()??!1;bar`;
     const { output, perRuleCounts } = applyPatchRules(input, [isSubscribedRule]);
     assert.equal(perRuleCounts["is-subscribed"], 1);
-    assert.ok(output.includes("get isSubscribed(){return true}"));
+    assert.ok(output.includes("(!0)??!1"));
+    assert.ok(!output.includes("isSubscribedStore.get()"));
   });
 
   it("applies multiple rules in order", () => {
