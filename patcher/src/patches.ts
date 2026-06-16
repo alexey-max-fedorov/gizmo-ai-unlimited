@@ -26,6 +26,27 @@ export const RULES: ReadonlyArray<PatchRule> = [
     flags: "g",
     replace: "(!0)",
     minMatches: 1
+  },
+  {
+    id: "subscription-status",
+    description: "Force the game-state subscription status check to 'subscribed' (unlimited hearts/hints, no cooldown, no life/hint consumption)",
+    // This is what ACTUALLY drives unlimited. The quiz game-state class gates
+    // hearts/hints/cooldown on a state-machine snapshot:
+    //   get availableHints(){return 'subscribed'===<sm>.state.snapshot?.subscription?.status ? 1/0 : <count>}
+    //   get hearts(){const e='subscribed'===<sm>...status, i=e?1/0:<count>}
+    //   get cooldown(){if('subscribed'===<sm>...status) return null; ...}
+    //   loseLife(){'subscribed'===<sm>...status || (<decrement>)}
+    // `1/0` is Infinity, and the HUD renders `v>9999?'∞':v` → shows ∞.
+    // `<sm>` is a Babel private-field read `(0,X.default)(this,Y)[Y]` (minified
+    // var names vary, e.g. t/b and s/v across the two bundled copies — hence the
+    // `[\w$]+` placeholders). Replace the whole `'subscribed'===<expr>` compare
+    // with `(!0)`; it stays valid in every context (`?1/0:`, `||(...)`, `!(...)`,
+    // `if(...)`, bare assignment). NOTE: isSubscribedStore (above) is a SEPARATE
+    // mechanism (paywall UI) and does NOT gate game mechanics — both are needed.
+    find: "'subscribed'===\\(0,[\\w$]+\\.default\\)\\(this,[\\w$]+\\)\\[[\\w$]+\\]\\.state\\.snapshot\\?\\.subscription\\?\\.status",
+    flags: "g",
+    replace: "(!0)",
+    minMatches: 1
   }
 ];
 

@@ -77,6 +77,48 @@ describe("applyRules", () => {
   });
 });
 
+describe("subscription-status rule (the actual unlimited gate)", () => {
+  // The shipping rule that makes hearts/hints render ∞: it forces the game-state
+  // snapshot compare `'subscribed'===<sm>.state.snapshot?.subscription?.status`
+  // to `(!0)`, so getters like availableHints return `1/0` (Infinity).
+  const rule = RULES.find((r) => r.id === "subscription-status")!;
+
+  it("flips availableHints to Infinity (1/0) when subscribed", () => {
+    const input = `get availableHints(){return'subscribed'===(0,t.default)(this,b)[b].state.snapshot?.subscription?.status?1/0:(0,t.default)(this,j)[j].hints}`;
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["subscription-status"], 1);
+    assert.ok(output.includes("return(!0)?1/0:"));
+    assert.ok(!output.includes("'subscribed'==="));
+  });
+
+  it("matches both minified var-name variants (t/b and s/v)", () => {
+    const input = [
+      `get hearts(){const e='subscribed'===(0,t.default)(this,b)[b].state.snapshot?.subscription?.status,i=e?1/0:0;return i}`,
+      `get availableHints(){return'subscribed'===(0,s.default)(this,v)[v].state.snapshot?.subscription?.status?1/0:9}`
+    ].join("\n");
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["subscription-status"], 2);
+    assert.ok(!output.includes("'subscribed'==="));
+  });
+
+  it("stays syntactically valid across ?:, ||, and !() contexts", () => {
+    const input = [
+      `const C='subscribed'===(0,t.default)(this,b)[b].state.snapshot?.subscription?.status;`,
+      `function f(){'subscribed'===(0,t.default)(this,b)[b].state.snapshot?.subscription?.status||g()}`,
+      `function h(){return!('subscribed'===(0,s.default)(this,v)[v].state.snapshot?.subscription?.status)&&x}`
+    ].join("\n");
+    const { output } = applyRules(input, [rule]);
+    assert.doesNotThrow(() => new Function(`const g=()=>0,x=0;${output}`));
+  });
+
+  it("does NOT match the purchase-guard variant (no .state, no optional chaining)", () => {
+    const input = `if('subscribed'===s.snapshot.subscription.status)return{error:'subscription_active'};`;
+    const { perRuleCounts, output } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["subscription-status"], 0);
+    assert.equal(output, input);
+  });
+});
+
 describe("hashRules", () => {
   it("returns a 16-char hex string", () => {
     const hash = hashRules(RULES);
