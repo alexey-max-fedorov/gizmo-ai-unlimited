@@ -1,9 +1,15 @@
+"use client";
+
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SITE, SHORTLINKS } from "@/lib/constants";
+import { BrowserIcon } from "../ui/BrowserIcon";
+import { useBrowser } from "@/lib/useBrowser";
 
 export function CTASection() {
+  const { browser, label } = useBrowser();
+
   return (
     <section className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] gold-glow blur-3xl pointer-events-none" aria-hidden />
@@ -19,8 +25,9 @@ export function CTASection() {
           quiz — it just works.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-          <Button href={SHORTLINKS.install} external size="lg">
-            Add to browser<ChevronRight size={18} />
+          <Button href={SHORTLINKS[browser]} external size="lg">
+            <BrowserIcon browser={browser} size={18} /> Add to {label}
+            <ChevronRight size={18} />
           </Button>
           <Button href={SHORTLINKS.firefox} external variant="outline" size="lg">
             Add to Firefox
