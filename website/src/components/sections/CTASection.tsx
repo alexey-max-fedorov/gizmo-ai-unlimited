@@ -20,7 +20,7 @@ export function CTASection() {
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
           <Button href={SHORTLINKS.install} external size="lg">
-            Add to browser — free <ChevronRight size={18} />
+            Add to browser<ChevronRight size={18} />
           </Button>
           <Button href={SHORTLINKS.firefox} external variant="outline" size="lg">
             Add to Firefox

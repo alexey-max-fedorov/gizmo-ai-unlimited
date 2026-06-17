@@ -64,7 +64,7 @@ export function Hero() {
             className="mt-8 flex flex-col sm:flex-row gap-4"
           >
             <Button href={SHORTLINKS[browser]} external size="lg">
-              <BrowserIcon browser={browser} size={18} /> Add to {label} — free
+              <BrowserIcon browser={browser} size={18} /> Add to {label}
               <ChevronRight size={18} />
             </Button>
             <Button href={SHORTLINKS.github} external variant="outline" size="lg">
