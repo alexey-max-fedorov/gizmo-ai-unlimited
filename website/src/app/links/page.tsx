@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ExternalLink, Download, Globe, Play, GitFork, User } from "lucide-react";
+import { ExternalLink, Download, Globe, Play, GitFork, User, LifeBuoy } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
@@ -102,6 +102,19 @@ const LINKS: LinkGroup[] = [
         destination: "alexey-fedorov.com",
         description: "The developer behind Gizmo AI Unlimited",
         icon: <User size={18} className={iconClass} />,
+      },
+    ],
+  },
+  {
+    category: "Support",
+    items: [
+      {
+        label: "Report an issue",
+        aliases: ["support.gizmo.best"],
+        href: "https://support.gizmo.best",
+        destination: "github.com/alexey-max-fedorov/gizmo-ai-unlimited/issues/new",
+        description: "Open a GitHub issue to report a bug or request a feature",
+        icon: <LifeBuoy size={18} className={iconClass} />,
       },
     ],
   },
