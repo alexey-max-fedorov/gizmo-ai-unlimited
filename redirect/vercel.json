@@ -92,6 +92,12 @@
     },
     {
       "source": "/(.*)",
+      "has": [{ "type": "host", "value": "links.gizmo.best" }],
+      "destination": "https://gizmo.best/links",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "support.gizmo.best" }],
       "destination": "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/issues/new",
       "statusCode": 301
