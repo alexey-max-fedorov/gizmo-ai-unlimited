@@ -7,3 +7,4 @@ allowBuilds:
   sharp: set this to true or false
 minimumReleaseAgeExclude:
   - '@types/node@25.9.3'
+  - '@types/node@26.0.0'
