@@ -30,16 +30,14 @@ jobs:
           ref: main
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.0.10
+        uses: pnpm/setup@v2
         with:
-          version: 10
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: pnpm
+          version: 11
+          runtime: node@22
+          cache: true
           cache-dependency-path: patcher/pnpm-lock.yaml
+          package-json-file: patcher/package.json
+          install: false
 
       - name: Install patcher deps
         run: pnpm install --frozen-lockfile
