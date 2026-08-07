@@ -23,16 +23,6 @@
     "plasmo": "^0.90.5",
     "typescript": "^7.0.2"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@swc/core",
-      "esbuild",
-      "lmdb",
-      "msgpackr-extract",
-      "sharp"
-    ]
-  },
   "manifest": {
     "name": "Gizmo AI Unlimited",
     "description": "Unlocks unlimited hearts and hints on Gizmo AI quizzes.",
