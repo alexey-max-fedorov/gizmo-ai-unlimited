@@ -40,7 +40,7 @@ jobs:
           install: false
 
       - name: Install patcher deps
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Run patcher
         timeout-minutes: 10
