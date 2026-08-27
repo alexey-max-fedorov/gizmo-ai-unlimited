@@ -15,7 +15,7 @@
 
 ## First-time setup
 1. `pnpm install` (repo root) — installs extension deps
-2. `cd patcher && pnpm install` (patcher has its own independent `pnpm-lock.yaml`)
+2. `cd patcher && pnpm install --ignore-workspace` (patcher has its own independent `pnpm-lock.yaml`; the `--ignore-workspace` flag is REQUIRED — the root `pnpm-workspace.yaml` otherwise shadows the patcher and its deps like `@types/node` never install, breaking `pnpm typecheck`)
 3. `pnpm approve-builds` — required so native deps (`@parcel/watcher`, `@swc/core`, `esbuild`, `lmdb`, `msgpackr-extract`, `sharp`) can compile
 4. `pnpm build`
 
