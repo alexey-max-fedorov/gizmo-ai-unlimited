@@ -47,6 +47,29 @@ export const RULES: ReadonlyArray<PatchRule> = [
     flags: "g",
     replace: "(!0)",
     minMatches: 1
+  },
+  {
+    id: "import-cooldown",
+    description: "Force the Magic Import cooldown check to inactive (unlimited imports)",
+    // Free accounts don't get a hard import COUNT — they get a per-import time
+    // COOLDOWN ("import once, then wait N hours"). The client gates every import
+    // trigger on `isImportCooldownActive(endTime)` plus an inlined copy inside
+    // the ImportButton controller, both shaped:
+    //   null!=<t>&&Date.parse(<t>)>Date.now()&&'true'!==r(d[N]).env.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN
+    // (`EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN` is a dev bypass flag that defaults
+    // falsy, so the cooldown is on for everyone.) Replace the whole boolean with
+    // `(!1)` so the cooldown always reads inactive → imports never blocked.
+    // Anchored on the unique SKIP_IMPORT_COOLDOWN literal; the `\1` backref keeps
+    // the two var reads identical; `r(d[N])`/`r(_d[N])` require forms and `'`/`"`
+    // quote styles are both covered. `(!1)` is a self-contained false primary —
+    // valid as a bare `return` operand AND as an assignment RHS (`ze=(!1)`), same
+    // rationale as the `(!0)` rules above. NOTE: this is the CLIENT cooldown gate;
+    // if a future check finds the acquire endpoint also rejects server-side, this
+    // unblocks the UI but the import may still error (see issue #33 notes).
+    find: "null!=([\\w$]+)&&Date\\.parse\\(\\1\\)>Date\\.now\\(\\)&&['\"]true['\"]!==r\\(_?d\\[\\d+\\]\\)\\.env\\.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN",
+    flags: "g",
+    replace: "(!1)",
+    minMatches: 2
   }
 ];
 

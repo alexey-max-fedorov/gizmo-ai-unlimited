@@ -8,6 +8,11 @@ describe("RULES", () => {
     assert.ok(ids.includes("is-subscribed"));
   });
 
+  it("includes the import-cooldown rule", () => {
+    const ids = RULES.map((r) => r.id);
+    assert.ok(ids.includes("import-cooldown"));
+  });
+
   it("each rule declares id, find, flags, replace, minMatches", () => {
     for (const rule of RULES) {
       assert.equal(typeof rule.id, "string");
@@ -115,6 +120,55 @@ describe("subscription-status rule (the actual unlimited gate)", () => {
     const input = `if('subscribed'===s.snapshot.subscription.status)return{error:'subscription_active'};`;
     const { perRuleCounts, output } = applyRules(input, [rule]);
     assert.equal(perRuleCounts["subscription-status"], 0);
+    assert.equal(output, input);
+  });
+});
+
+describe("import-cooldown rule (unlimited imports)", () => {
+  // Free accounts get a per-import time COOLDOWN, not a hard count. The client
+  // gates every import trigger on `isImportCooldownActive(endTime)` plus an
+  // inlined copy in the ImportButton controller, both shaped:
+  //   null!=<t>&&Date.parse(<t>)>Date.now()&&'true'!==r(d[N]).env.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN
+  // The rule forces the whole boolean to `(!1)` so the cooldown reads inactive.
+  const rule = RULES.find((r) => r.id === "import-cooldown")!;
+
+  it("forces the isImportCooldownActive body to (!1) — single-quote + r(d[N])", () => {
+    const input = `function I(e){return null!=e&&Date.parse(e)>Date.now()&&'true'!==r(d[24]).env.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN}`;
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["import-cooldown"], 1);
+    // `return null!=e…` → `return (!1)}` — minifier keeps a space after `return`.
+    assert.ok(/return\s*\(!1\)\}/.test(output));
+    assert.ok(!output.includes("EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN"));
+  });
+
+  it("matches the inlined ImportButton gate — double-quote + r(_d[N])", () => {
+    const input = `ze=null!=Ue&&Date.parse(Ue)>Date.now()&&"true"!==r(_d[34]).env.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN;`;
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["import-cooldown"], 1);
+    assert.ok(output.includes("ze=(!1);"));
+  });
+
+  it("replaces BOTH cooldown sites (>= minMatches) in one pass", () => {
+    const input = [
+      `function I(e){return null!=e&&Date.parse(e)>Date.now()&&'true'!==r(d[24]).env.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN}`,
+      `const ze=null!=Ue&&Date.parse(Ue)>Date.now()&&"true"!==r(_d[34]).env.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN;`
+    ].join("\n");
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["import-cooldown"], 2);
+    assert.ok(perRuleCounts["import-cooldown"] >= rule.minMatches);
+    assert.ok(!output.includes("EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN"));
+  });
+
+  it("produces syntactically valid JS in both return and assignment contexts", () => {
+    const input = `function I(e){return null!=e&&Date.parse(e)>Date.now()&&'true'!==r(d[24]).env.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN}const ze=null!=Ue&&Date.parse(Ue)>Date.now()&&"true"!==r(_d[34]).env.EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN;`;
+    const { output } = applyRules(input, [rule]);
+    assert.doesNotThrow(() => new Function(output));
+  });
+
+  it("does not touch a different env-flag cooldown (anchor is import-specific)", () => {
+    const input = `null!=x&&Date.parse(x)>Date.now()&&'true'!==r(d[1]).env.EXPO_PUBLIC_SKIP_QUIZ_COOLDOWN`;
+    const { output, perRuleCounts } = applyRules(input, [rule]);
+    assert.equal(perRuleCounts["import-cooldown"], 0);
     assert.equal(output, input);
   });
 });
