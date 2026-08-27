@@ -1,0 +1,16 @@
+{
+  "autoMemoryDirectory": "./.claude/memory/",
+  "enabledPlugins": {
+    "ui-ux-pro-max@ui-ux-pro-max-skill": false,
+    "clangd-lsp@claude-plugins-official": false,
+    "swift-lsp@claude-plugins-official": false,
+    "supabase@claude-plugins-official": false,
+    "ics-calendar@ics-calendar-plugins": false,
+    "context7@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "vercel@claude-plugins-official": false,
+    "marketing-skills@marketingskills": false
+  }
+}
