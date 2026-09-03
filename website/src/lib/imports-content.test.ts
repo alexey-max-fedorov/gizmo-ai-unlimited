@@ -23,10 +23,16 @@ function expectPrimaryCapabilities(copy: string) {
   }
 }
 
+function expectQuizScope(copy: string) {
+  expect(copy).toMatch(/hearts.*hints.*Gizmo AI quizzes/i);
+}
+
 describe("unlimited Magic Imports content", () => {
   it("presents all three primary capabilities in the core site copy", () => {
     expectPrimaryCapabilities(SITE.oneLiner);
     expectPrimaryCapabilities(SITE.description);
+    expectQuizScope(SITE.oneLiner);
+    expectQuizScope(SITE.description);
     expect(SITE.description).toMatch(/Magic Import's client-side cooldown/i);
     expect(SITE.description.length).toBeLessThanOrEqual(160);
   });
@@ -58,10 +64,30 @@ describe("unlimited Magic Imports content", () => {
     expect(cooldown?.a).toMatch(/server-side limits/i);
   });
 
+  it("describes its app-wide scope without quiz-only lifecycle claims", () => {
+    const faqCopy = FAQ.map(({ a }) => a).join(" ");
+    expect(faqCopy).toMatch(/app\.gizmo\.ai/i);
+    expect(faqCopy).not.toMatch(/only changes how the quiz page behaves/i);
+    expect(faqCopy).not.toMatch(/deactivates automatically when you leave a quiz/i);
+  });
+
+  it("scopes hearts and hints to Gizmo AI quizzes", () => {
+    expect(PRIMARY_CAPABILITIES[0]).toMatch(/Gizmo AI quizzes/i);
+    expect(PRIMARY_CAPABILITIES[1]).toMatch(/Gizmo AI quizzes/i);
+
+    const quizFeatures = FEATURES.filter(({ icon }) =>
+      ["Heart", "Lightbulb"].includes(icon),
+    );
+    expect(quizFeatures).toHaveLength(2);
+    for (const feature of quizFeatures) {
+      expect(`${feature.title} ${feature.body}`).toMatch(/quiz/i);
+    }
+  });
+
   it("exposes the primary capabilities and import search variants", () => {
     expect(SITE.seoTitle).toMatch(/Gizmo AI/i);
     expect(SITE.seoTitle).toMatch(/hearts/i);
-    expect(SITE.seoTitle).toMatch(/hints/i);
+    expect(SITE.seoTitle).toMatch(/quiz hints/i);
     expect(SITE.seoTitle).toMatch(/Magic Imports/i);
     expect(softwareAppSchema().featureList).toEqual([...PRIMARY_CAPABILITIES]);
     expect(SEO_KEYWORDS).toEqual(
@@ -76,6 +102,7 @@ describe("unlimited Magic Imports content", () => {
   it("keeps the machine-readable summaries aligned", () => {
     const llms = readFileSync(new URL("../../public/llms.txt", import.meta.url), "utf8");
     expectPrimaryCapabilities(llms);
+    expectQuizScope(llms);
     expect(llms).toMatch(/client-side cooldown/i);
     expect(llms).toMatch(/server-side limits/i);
 
@@ -83,5 +110,6 @@ describe("unlimited Magic Imports content", () => {
       readFileSync(new URL("../../public/site.webmanifest", import.meta.url), "utf8"),
     ) as { description: string };
     expectPrimaryCapabilities(manifest.description);
+    expectQuizScope(manifest.description);
   });
 });

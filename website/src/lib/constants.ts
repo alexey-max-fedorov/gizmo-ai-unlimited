@@ -4,11 +4,11 @@ export const SITE = {
   url: "https://gizmo.best",
   domain: "gizmo.best",
   tagline: "Study Without Limits",
-  seoTitle: "Gizmo AI Unlimited — Unlimited Hearts, Hints & Magic Imports",
+  seoTitle: "Gizmo AI Unlimited: Hearts, Quiz Hints & Magic Imports",
   oneLiner:
-    "Unlimited hearts, unlocked hints, and unlimited Magic Imports for Gizmo AI — no client-side Magic Import cooldown, no interruptions.",
+    "Unlimited hearts and unlocked hints on Gizmo AI quizzes, plus unlimited Magic Imports — no client-side Magic Import cooldown.",
   description:
-    "Unlimited hearts, unlocked hints, and unlimited Magic Imports on Gizmo AI. Removes Magic Import's client-side cooldown and collects no personal data.",
+    "Unlimited hearts and unlocked hints on Gizmo AI quizzes, plus unlimited Magic Imports. Removes Magic Import's client-side cooldown; collects no personal data.",
   version: "2.3.0",
   author: "Alexey Fedorov",
   repo: "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited",
@@ -25,8 +25,8 @@ export const STORES = {
 } as const;
 
 export const PRIMARY_CAPABILITIES = [
-  "Unlimited hearts",
-  "Unlocked hints",
+  "Unlimited hearts on Gizmo AI quizzes",
+  "Unlocked hints on Gizmo AI quizzes",
   "Unlimited Magic Imports (client-side cooldown check disabled)",
 ] as const;
 
@@ -82,12 +82,12 @@ export const FEATURES: Feature[] = [
   {
     icon: "Heart",
     title: "Unlimited hearts",
-    body: "The out-of-hearts modal never appears. Practice every question as many times as you want, with nothing blocking the screen.",
+    body: "The out-of-hearts modal never appears during Gizmo AI quizzes. Practice every question as many times as you want, with nothing blocking the screen.",
   },
   {
     icon: "Lightbulb",
-    title: "Every hint unlocked",
-    body: "Hints that are normally gated behind a subscription are available on every question — no upgrade required.",
+    title: "Quiz hints unlocked",
+    body: "Hints that are normally gated behind a subscription are available on every standard quiz question — no upgrade required. Practice-exam hints are not supported.",
   },
   {
     icon: "Wand2",
@@ -102,7 +102,7 @@ export const FEATURES: Feature[] = [
   {
     icon: "Lock",
     title: "Zero data collected",
-    body: "No accounts, no cookies, no tracking, no telemetry. Everything runs locally in your browser and nothing is sent to us.",
+    body: "No separate extension account, cookies, tracking, or telemetry. Everything runs locally in your browser and nothing is sent to us.",
   },
   {
     icon: "ShieldCheck",
@@ -128,7 +128,7 @@ export const STEPS: Step[] = [
   },
   {
     title: "Study uninterrupted",
-    body: "The patched app gives you unlimited hearts, opens every hint, and removes Magic Import's client-side cooldown. Leave Gizmo and it steps aside.",
+    body: "The patched app gives you unlimited quiz hearts and hints and removes Magic Import's client-side cooldown. Leave Gizmo and it steps aside.",
   },
 ];
 
@@ -180,7 +180,7 @@ export interface FaqItem {
 export const FAQ: FaqItem[] = [
   {
     q: "What is Gizmo AI Unlimited?",
-    a: "Gizmo AI Unlimited is a free, open-source browser extension that gives you unlimited hearts, unlocked hints, and unlimited Magic Imports by changing how app.gizmo.ai behaves in your browser.",
+    a: "Gizmo AI Unlimited is a free, open-source browser extension that gives you unlimited hearts and unlocked hints on standard Gizmo AI quizzes, plus unlimited Magic Imports across app.gizmo.ai. Practice-exam hints are not supported.",
   },
   {
     q: "Does it remove the Gizmo AI Magic Import cooldown?",
@@ -188,7 +188,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Is it free?",
-    a: "Yes. It is completely free and always will be. There is no paid tier, no account, and no payment of any kind.",
+    a: "Yes. It is completely free and always will be. There is no paid extension tier, separate extension account, or payment of any kind.",
   },
   {
     q: "Is it safe? Does it collect my data?",
@@ -200,7 +200,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Do I need a Gizmo account or subscription?",
-    a: "No. The extension does not touch your Gizmo account, servers, or APIs. It only changes how the quiz page behaves inside your own browser, so you can use it with a free Gizmo account.",
+    a: "You need a free Gizmo account to use Gizmo, but no paid subscription. The extension changes only the app.gizmo.ai script running in your browser and does not modify your account, Gizmo's servers, or its APIs.",
   },
   {
     q: "Will it keep working when Gizmo updates their site?",
@@ -208,7 +208,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Does it modify Gizmo's servers or other users' experience?",
-    a: "No. Nothing is changed on Gizmo's side. The patch applies only to the script running in your browser and deactivates automatically when you leave a quiz.",
+    a: "No. Nothing is changed on Gizmo's side. The patch applies only to the app.gizmo.ai script running in your browser and does not affect other websites or users.",
   },
   {
     q: "How do I install it?",

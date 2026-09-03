@@ -2,7 +2,7 @@
 
 ## Summary (up to 250 characters)
 
-Unlimited hearts and hints for Gizmo AI, plus no client-side Magic Import cooldown — fewer interruptions, more studying.
+Unlimited hearts and hints on Gizmo AI quizzes, plus no client-side Magic Import cooldown — fewer interruptions, more studying.
 
 ---
 
@@ -10,7 +10,7 @@ Unlimited hearts and hints for Gizmo AI, plus no client-side Magic Import cooldo
 
 GIZMO AI UNLIMITED — Study Without Limits
 
-Gizmo AI is one of the best flashcard and quiz platforms out there, but it can interrupt study sessions: hearts run out, hints stay locked, and Magic Import makes you wait on a client-side cooldown before another import. This extension removes those client-side limits so you can keep studying.
+Gizmo AI is one of the best flashcard and quiz platforms out there, but it can interrupt study sessions: quiz hearts run out, quiz hints stay locked, and Magic Import makes you wait on a client-side cooldown before another import. This extension removes those client-side limits so you can keep studying.
 
 If you've ever been stopped mid-quiz or made to wait before importing more study material, this extension is for you.
 
@@ -18,17 +18,17 @@ ________
 
 WHY THIS EXISTS
 
-Gizmo AI uses a hearts system to gate continued practice. Run out of hearts and a full-screen modal blocks the interface. Hints are similarly gated behind a subscription, while Magic Import adds a client-side cooldown before another import. For students trying to cram before a test, those interruptions don't teach discipline. They just waste time.
+Gizmo AI uses a hearts system to gate continued quiz practice. Run out of hearts and a full-screen modal blocks the quiz interface. Standard quiz hints are similarly gated behind a subscription, while Magic Import adds a client-side cooldown before another import. For students trying to cram before a test, those interruptions don't teach discipline. They just waste time.
 
 ________
 
 WHAT IT DOES
 
-— Removes the out-of-hearts modal so you can keep practicing indefinitely
-— Unlocks hints on every question without a subscription
+— Removes the out-of-hearts modal on Gizmo AI quizzes so you can keep practicing indefinitely
+— Unlocks hints on every standard Gizmo AI quiz question without a subscription; practice-exam hints are not supported
 — Removes Magic Import's client-side cooldown so its local timer does not delay another import
-— Activates automatically when you navigate into a quiz, even via SPA navigation from the decks page
-— Deactivates automatically when you leave a quiz so it never interferes with the rest of the site
+— Activates automatically across app.gizmo.ai, including quizzes opened through in-app navigation
+— Runs only on app.gizmo.ai and does not affect any other website
 — Works without requiring a page reload
 
 ________

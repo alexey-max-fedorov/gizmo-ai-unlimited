@@ -1,12 +1,12 @@
 # Gizmo AI Unlimited
 
-> A free, open-source browser extension for unlimited hearts, unlocked hints, and unlimited Magic Imports on Gizmo AI (app.gizmo.ai). It removes Magic Import's client-side cooldown without bypassing server-side limits.
+> A free, open-source browser extension for unlimited hearts and unlocked hints on Gizmo AI quizzes, plus unlimited Magic Imports on app.gizmo.ai. It removes Magic Import's client-side cooldown without bypassing server-side limits.
 
 ## What it does
 - Removes the "out of hearts" modal on app.gizmo.ai/quiz so practice is unlimited.
-- Unlocks every hint, which is normally gated behind a paid Gizmo subscription.
+- Unlocks hints on standard Gizmo AI quiz questions; practice-exam hints are not supported.
 - Enables unlimited Magic Imports by disabling the client-side cooldown check; any server-side limits remain outside the extension's scope.
-- Activates automatically when Gizmo opens; no settings, no account, no setup.
+- Activates automatically when Gizmo opens; no separate extension account, settings, or setup.
 
 ## Key facts
 - Price: Free, forever. No paid tier.
