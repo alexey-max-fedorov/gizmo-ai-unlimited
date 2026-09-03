@@ -5,7 +5,7 @@ describe("constants integrity", () => {
   it("exposes the canonical site facts", () => {
     expect(SITE.name).toBe("Gizmo AI Unlimited");
     expect(SITE.url).toBe("https://gizmo.best");
-    expect(SITE.version).toBe("2.2.1");
+    expect(SITE.version).toBe("2.3.0");
     expect(SITE.tagline).toBe("Study Without Limits");
   });
 

@@ -4,11 +4,12 @@ export const SITE = {
   url: "https://gizmo.best",
   domain: "gizmo.best",
   tagline: "Study Without Limits",
+  seoTitle: "Gizmo AI Unlimited — Unlimited Hearts, Hints & Magic Imports",
   oneLiner:
-    "Unlimited hearts and hints for Gizmo AI quizzes — no interruptions, no paywalls, just studying.",
+    "Unlimited hearts, unlocked hints, and unlimited Magic Imports for Gizmo AI — no client-side Magic Import cooldown, no interruptions.",
   description:
-    "Gizmo AI Unlimited is a free, open-source browser extension that removes the out-of-hearts modal and unlocks every hint on app.gizmo.ai quizzes. No account, no payment, and zero personal data collected.",
-  version: "2.2.1",
+    "Unlimited hearts, unlocked hints, and unlimited Magic Imports on Gizmo AI. Removes Magic Import's client-side cooldown and collects no personal data.",
+  version: "2.3.0",
   author: "Alexey Fedorov",
   repo: "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited",
   gizmoUrl: "https://app.gizmo.ai",
@@ -22,6 +23,25 @@ export const STORES = {
   firefox:
     "https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/",
 } as const;
+
+export const PRIMARY_CAPABILITIES = [
+  "Unlimited hearts",
+  "Unlocked hints",
+  "Unlimited Magic Imports (client-side cooldown check disabled)",
+] as const;
+
+export const SEO_KEYWORDS = [
+  "Gizmo AI",
+  "Gizmo AI unlimited",
+  "Gizmo unlimited hearts",
+  "Gizmo hints unlock",
+  "Gizmo AI unlimited imports",
+  "Gizmo Magic Import",
+  "Gizmo import cooldown",
+  "Gizmo AI extension",
+  "study without limits",
+  "app.gizmo.ai",
+] as const;
 
 /**
  * gizmo.best redirect shortlinks (served by the standalone `redirect/` Vercel
@@ -44,7 +64,6 @@ export type IconName =
   | "Heart"
   | "Lightbulb"
   | "ShieldCheck"
-  | "Zap"
   | "RefreshCw"
   | "Lock"
   | "MousePointerClick"
@@ -71,9 +90,9 @@ export const FEATURES: Feature[] = [
     body: "Hints that are normally gated behind a subscription are available on every question — no upgrade required.",
   },
   {
-    icon: "Zap",
-    title: "Automatic & silent",
-    body: "It activates the moment you open a quiz, including in-app navigation from the decks page. No button to press.",
+    icon: "Wand2",
+    title: "Unlimited Magic Imports",
+    body: "Removes Magic Import's client-side cooldown so you can import again without waiting. It activates automatically — no button or setup required.",
   },
   {
     icon: "RefreshCw",
@@ -109,7 +128,7 @@ export const STEPS: Step[] = [
   },
   {
     title: "Study uninterrupted",
-    body: "The patched quiz treats you as subscribed, so hearts never run out and every hint is open. Leave the quiz and it steps aside.",
+    body: "The patched app gives you unlimited hearts, opens every hint, and removes Magic Import's client-side cooldown. Leave Gizmo and it steps aside.",
   },
 ];
 
@@ -147,7 +166,7 @@ export interface Stat {
 }
 
 export const STATS: Stat[] = [
-  { value: "∞", label: "Hearts & hints" },
+  { value: "∞", label: "Hearts, hints & imports" },
   { value: "$0", label: "Forever free" },
   { value: "0", label: "Bytes of data collected" },
   { value: "2h", label: "Auto-update cadence" },
@@ -161,7 +180,11 @@ export interface FaqItem {
 export const FAQ: FaqItem[] = [
   {
     q: "What is Gizmo AI Unlimited?",
-    a: "Gizmo AI Unlimited is a free, open-source browser extension that removes the out-of-hearts limit and unlocks every hint on app.gizmo.ai quizzes, so you can study without interruptions or paywalls.",
+    a: "Gizmo AI Unlimited is a free, open-source browser extension that gives you unlimited hearts, unlocked hints, and unlimited Magic Imports by changing how app.gizmo.ai behaves in your browser.",
+  },
+  {
+    q: "Does it remove the Gizmo AI Magic Import cooldown?",
+    a: "Yes. It disables the client-side cooldown check used by Magic Import. It does not bypass or disable any server-side limits Gizmo may enforce.",
   },
   {
     q: "Is it free?",

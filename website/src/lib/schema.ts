@@ -1,4 +1,4 @@
-import { SITE, STORES, FAQ } from "./constants";
+import { FAQ, PRIMARY_CAPABILITIES, SITE, STORES } from "./constants";
 
 export function softwareAppSchema() {
   return {
@@ -10,6 +10,7 @@ export function softwareAppSchema() {
     description: SITE.description,
     url: SITE.url,
     softwareVersion: SITE.version,
+    featureList: [...PRIMARY_CAPABILITIES],
     downloadUrl: [STORES.chrome, STORES.edge, STORES.firefox],
     offers: {
       "@type": "Offer",
