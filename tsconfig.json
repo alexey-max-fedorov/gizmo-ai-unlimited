@@ -3,7 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "ignoreDeprecations": "6.0",
-    "types": ["chrome"]
+    "types": ["chrome"],
+    "moduleResolution": "bundler"
   },
   "include": [
     ".plasmo/index.d.ts",
@@ -12,6 +13,7 @@
   ],
   "exclude": [
     "src/tests",
-    "patcher"
+    "patcher",
+    "website"
   ]
 }
