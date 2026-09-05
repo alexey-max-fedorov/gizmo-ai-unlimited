@@ -2,7 +2,7 @@
   "name": "gizmo-ai-unlimited-hearts",
   "version": "2.3.0",
   "private": true,
-  "description": "MV3 extension that unlocks unlimited hearts and hints on app.gizmo.ai by injecting a patched bundle",
+  "description": "MV3 extension that unlocks unlimited hearts and hints on Gizmo AI quizzes and removes Gizmo AI's client-side Magic Import cooldown",
   "scripts": {
     "dev": "plasmo dev",
     "dev:firefox": "plasmo dev --target=firefox-mv3",
@@ -25,7 +25,7 @@
   },
   "manifest": {
     "name": "Gizmo AI Unlimited",
-    "description": "Unlocks unlimited hearts and hints on Gizmo AI quizzes.",
+    "description": "Unlocks unlimited hearts and hints on Gizmo AI quizzes and removes Magic Import's client-side cooldown.",
     "author": "Alexey Fedorov",
     "permissions": [
       "declarativeNetRequest",

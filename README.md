@@ -8,7 +8,7 @@
 
 # Gizmo AI Unlimited
 
-Unlocks unlimited hearts and hints on [app.gizmo.ai](https://app.gizmo.ai/) quizzes.
+Unlocks unlimited hearts and hints on Gizmo AI quizzes and removes the client-side Magic Import cooldown on [app.gizmo.ai](https://app.gizmo.ai/).
 
 ## How it works
 
@@ -37,7 +37,10 @@ See `LICENSE.txt`.
 ## FAQ
 
 **What is Gizmo AI Unlimited?**
-Gizmo AI Unlimited is a free, open-source browser extension for Chrome, Edge, Brave, and Firefox that removes the daily hearts and hints limits on [app.gizmo.ai](https://app.gizmo.ai/), so you can study and practice without interruption.
+Gizmo AI Unlimited is a free, open-source browser extension for Chrome, Edge, Brave, and Firefox that unlocks unlimited hearts and hints on Gizmo AI quizzes and removes Magic Import's client-side cooldown on [app.gizmo.ai](https://app.gizmo.ai/), so you can study without interruption.
+
+**Does unlimited Magic Import bypass server-side limits?**
+No. It removes Magic Import's client-side cooldown only; it does not modify or bypass Gizmo's server-side enforcement.
 
 **Does it stay up to date automatically?**
 Yes. A GitHub Action re-patches the Gizmo JavaScript bundle every 2 hours. Whenever Gizmo pushes an update to their app, the extension self-heals without any action on your part.

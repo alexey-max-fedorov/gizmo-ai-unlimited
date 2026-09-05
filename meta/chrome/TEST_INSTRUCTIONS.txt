@@ -1,3 +1,8 @@
-After installing the extension, go to any Gizmo AI quiz such as https://app.gizmo.ai/quiz/199211333
+TEST INSTRUCTIONS — Gizmo AI Unlimited
 
-It should display "Infinity" on hearts and hints.
+1. Install the extension and reload any open app.gizmo.ai tabs.
+2. Open a Gizmo AI quiz, such as https://app.gizmo.ai/quiz/199211333
+3. Start the quiz. Hearts and hints should display "Infinity."
+4. Return to the decks page, open Magic Import, and complete two valid imports back to back.
+
+The second Magic Import should be available immediately instead of being blocked by a client-side cooldown. The extension does not modify any server-side limits Gizmo may enforce.
