@@ -14,7 +14,7 @@ export function Footer() {
               className="text-white font-semibold text-lg"
               style={{ fontFamily: "var(--font-playfair-display), Georgia, serif" }}
             >
-              Gizmo Unlimited
+              Gizmo AI <span className="text-[#c9a84c]">Unlimited</span>
             </span>
           </div>
           <p className="mt-4 text-sm text-[#666666] leading-relaxed max-w-xs">

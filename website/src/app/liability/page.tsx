@@ -42,7 +42,7 @@ export default function LiabilityPage() {
                 hackany.app
               </a>
               . It is <strong className="text-white">not a consumer product</strong> and is not
-              marketed, sold, or supported as one.
+              intended to be used as one.
             </p>
           </section>
 

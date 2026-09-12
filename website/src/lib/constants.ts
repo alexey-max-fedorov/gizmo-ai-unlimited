@@ -221,4 +221,5 @@ export const NAV_LINKS = [
   { label: "How it works", href: "#how-it-works" },
   { label: "Install", href: "#install" },
   { label: "FAQ", href: "#faq" },
+  { label: "Liability", href: "/liability" },
 ] as const;

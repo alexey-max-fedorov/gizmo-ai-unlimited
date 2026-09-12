@@ -36,7 +36,7 @@ export function Navbar() {
             className="text-white font-semibold text-lg"
             style={{ fontFamily: "var(--font-playfair-display), Georgia, serif" }}
           >
-            Gizmo Unlimited
+            Gizmo AI <span className="text-[#c9a84c]">Unlimited</span>
           </span>
         </Link>
 
