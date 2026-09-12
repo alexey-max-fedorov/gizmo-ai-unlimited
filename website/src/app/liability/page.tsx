@@ -95,14 +95,6 @@ export default function LiabilityPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Not legal advice</h2>
-            <p>
-              Nothing on this page or in this project constitutes legal advice. If you have questions
-              about the legality of using this software in your jurisdiction, consult an attorney.
-            </p>
-          </section>
-
-          <section>
             <h2 className="text-xl font-semibold text-white mb-3">Contact</h2>
             <p>
               The full source code is public at{" "}
