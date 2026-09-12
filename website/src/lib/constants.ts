@@ -87,7 +87,7 @@ export const FEATURES: Feature[] = [
   {
     icon: "Lightbulb",
     title: "Quiz hints unlocked",
-    body: "Hints that are normally gated behind a subscription are available on every standard quiz question — no upgrade required. Practice-exam hints are not supported.",
+    body: "Hints that are normally gated behind a subscription are available on every standard quiz question — no upgrade required.",
   },
   {
     icon: "Wand2",
@@ -180,7 +180,7 @@ export interface FaqItem {
 export const FAQ: FaqItem[] = [
   {
     q: "What is Gizmo AI Unlimited?",
-    a: "Gizmo AI Unlimited is a free, open-source browser extension that gives you unlimited hearts and unlocked hints on standard Gizmo AI quizzes, plus unlimited Magic Imports across app.gizmo.ai. Practice-exam hints are not supported.",
+    a: "Gizmo AI Unlimited is a free, open-source browser extension that gives you unlimited hearts and unlocked hints on standard Gizmo AI quizzes, plus unlimited Magic Imports across app.gizmo.ai.",
   },
   {
     q: "Does it remove the Gizmo AI Magic Import cooldown?",
