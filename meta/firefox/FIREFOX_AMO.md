@@ -25,7 +25,7 @@ ________
 WHAT IT DOES
 
 — Removes the out-of-hearts modal on Gizmo AI quizzes so you can keep practicing indefinitely
-— Unlocks hints on every standard Gizmo AI quiz question without a subscription; practice-exam hints are not supported
+— Unlocks hints on every standard Gizmo AI quiz question without a subscription
 — Removes Magic Import's client-side cooldown so its local timer does not delay another import
 — Activates automatically across app.gizmo.ai, including quizzes opened through in-app navigation
 — Runs only on app.gizmo.ai and does not affect any other website
