@@ -74,4 +74,10 @@ TECHNICAL
 
 Built with Plasmo (MV3). Uses declarativeNetRequest to block Gizmo's original bundle. The background service worker fetches patch rules (patches.json) from GitHub and Gizmo's own bundle from app.gizmo.ai, applies the patches locally, and caches the result in chrome.storage.local. The patch rules are refreshed automatically every 2 hours via a GitHub Actions workflow to stay current with Gizmo's deployments. Source available at github.com/alexey-max-fedorov/gizmo-ai-unlimited. Every line of code that runs in your browser is in that repository.
 
+________________________________________________________________
+
+DISCLAIMER
+
+This is a security research project and proof of concept, documented at hackany.app. It is not a consumer product. By installing or using this extension you assume all liability for your use and any consequences, including potential violation of third-party terms of service. Full details: gizmo.best/liability
+
 Created by Alexey Fedorov.

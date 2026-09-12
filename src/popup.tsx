@@ -56,6 +56,19 @@ function Popup() {
           </svg>
         </button>
       </div>
+
+      <p className="popup-disclaimer">
+        Security research proof-of-concept.{" "}
+        <a
+          href="https://gizmo.best/liability"
+          onClick={(e) => {
+            e.preventDefault()
+            openTab("https://gizmo.best/liability")
+          }}
+        >
+          Liability & Disclaimer
+        </a>
+      </p>
     </div>
   )
 }

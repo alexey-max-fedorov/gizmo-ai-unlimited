@@ -140,6 +140,22 @@ body {
   outline-offset: 2px;
 }
 
+.popup-disclaimer {
+  margin: 12px 0 0 0;
+  font-size: 10px;
+  color: #666;
+  text-align: center;
+}
+
+.popup-disclaimer a {
+  color: #c9a84c;
+  text-decoration: none;
+}
+
+.popup-disclaimer a:hover {
+  text-decoration: underline;
+}
+
 ::selection {
   background-color: rgba(201, 168, 76, 0.3);
   color: #ffffff;

@@ -41,4 +41,13 @@ TERMS AND CONDITIONS
    NEGLIGENCE OR OTHERWISE) ARISING FROM IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+6. SECURITY RESEARCH DISCLAIMER
+   This software is a security research project and proof of concept,
+   documented at https://hackany.app. It is provided as a demonstration of
+   client-side modification techniques and is NOT a consumer product. By
+   downloading, installing, or using this software, you assume all liability
+   for your use and any consequences arising from it, including potential
+   violation of third-party terms of service. See https://gizmo.best/liability
+   for full details.
+
 For commercial licensing inquiries, contact: alexey.max.fedorov@gmail.com

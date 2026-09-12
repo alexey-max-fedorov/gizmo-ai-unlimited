@@ -54,6 +54,7 @@ export function Footer() {
           </h3>
           <ul className="space-y-3 text-sm">
             <li><Link href="/privacy" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Privacy</Link></li>
+            <li><Link href="/liability" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Liability</Link></li>
             <li><Link href="/links" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Links</Link></li>
             <li>
               <a href={SHORTLINKS.github} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors inline-flex items-center gap-1.5">
