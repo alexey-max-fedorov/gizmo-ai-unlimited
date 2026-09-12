@@ -32,6 +32,10 @@ node -e "
 sed -i '' "s/^export const VERSION = \".*\";/export const VERSION = \"$NEW_VERSION\";/" \
   "$ROOT/patcher/src/constants.ts"
 
+# Update website/src/lib/constants.ts
+sed -i '' -E "s/version: \"[0-9]+\.[0-9]+\.[0-9]+\"/version: \"$NEW_VERSION\"/" \
+  "$ROOT/website/src/lib/constants.ts"
+
 # Update src/popup.tsx eyebrow version (e.g. >v2.2.0<)
 sed -i '' -E "s|(popup-eyebrow\">)v[0-9]+\.[0-9]+\.[0-9]+(</p>)|\1v$NEW_VERSION\2|" \
   "$ROOT/src/popup.tsx"
@@ -48,5 +52,6 @@ echo "✓ Bumped to v$NEW_VERSION"
 echo "  → package.json"
 echo "  → patcher/package.json"
 echo "  → patcher/src/constants.ts"
+echo "  → website/src/lib/constants.ts"
 echo "  → src/popup.tsx"
 echo "  → PRIVACY_POLICY.md"

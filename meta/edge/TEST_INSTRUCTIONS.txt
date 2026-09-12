@@ -4,23 +4,25 @@ SETUP
 
 1. Install the extension.
 2. Create a free account at app.gizmo.ai (no subscription required).
+3. Reload any Gizmo tabs that were already open.
 
-TESTING
+QUIZ TEST
 
-3. Navigate to any Gizmo AI quiz. You can use this one:
+4. Navigate to any Gizmo AI quiz. You can use this one:
    https://app.gizmo.ai/quiz/199211333
+5. Start the quiz.
 
-4. Start the quiz.
+Expected: The hearts counter displays "Infinity" instead of a number, and the hints counter displays "Infinity" instead of a subscription prompt.
 
-EXPECTED RESULT
+MAGIC IMPORT TEST
 
-The hearts counter should display "Infinity" instead of a numeric value.
-The hints counter should also display "Infinity" instead of being locked behind a subscription prompt.
+6. Return to the Gizmo decks page and open Magic Import.
+7. Complete two valid imports back to back.
 
-After installing the extension, reload any open Gizmo tabs before testing.
+Expected: The second Magic Import is available immediately instead of being blocked by a client-side cooldown. The extension does not modify any server-side limits Gizmo may enforce.
 
 NOTES
 
 - A free account is sufficient. Do not purchase a subscription.
-- If you navigate to the quiz page from the Gizmo home page (rather than by direct URL), the extension still activates correctly via SPA navigation.
+- The extension activates correctly when you enter a quiz through in-app navigation.
 - The extension has no settings panel and requires no configuration.

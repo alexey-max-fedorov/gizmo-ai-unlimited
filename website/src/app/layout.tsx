@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { SITE } from "@/lib/constants";
+import { SEO_KEYWORDS, SITE } from "@/lib/constants";
 import { softwareAppSchema, faqSchema, organizationSchema } from "@/lib/schema";
 import "./globals.css";
 
@@ -10,32 +10,24 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? SITE.url;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE.name} — ${SITE.tagline} on Gizmo AI`,
+    default: SITE.seoTitle,
     template: `%s · ${SITE.name}`,
   },
   description: SITE.description,
-  keywords: [
-    "Gizmo AI",
-    "Gizmo AI unlimited",
-    "Gizmo unlimited hearts",
-    "Gizmo hints unlock",
-    "Gizmo AI extension",
-    "study without limits",
-    "app.gizmo.ai",
-  ],
+  keywords: [...SEO_KEYWORDS],
   authors: [{ name: SITE.author }],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: SITE_URL,
     siteName: SITE.name,
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: SITE.seoTitle,
     description: SITE.oneLiner,
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: SITE.name }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: SITE.seoTitle }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: SITE.seoTitle,
     description: SITE.oneLiner,
     images: ["/og.png"],
   },

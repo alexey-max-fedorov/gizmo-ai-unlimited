@@ -19,4 +19,4 @@ Two-part system on `app.gizmo.ai/*`. **Patcher** (`./patcher/`, a Node CLI run b
 - Run `pnpm typecheck && pnpm test` (extension) and `cd patcher && pnpm typecheck && pnpm test` (patcher) before declaring work done.
 
 ## Version Bump
-`./bump-version.sh <version>` — syncs version across `package.json`, `patcher/package.json`, `patcher/src/constants.ts`, `src/popup.tsx`, and `PRIVACY_POLICY.md`
+`./bump-version.sh <version>` — syncs version across `package.json`, `patcher/package.json`, `patcher/src/constants.ts`, `website/src/lib/constants.ts`, `src/popup.tsx`, and `PRIVACY_POLICY.md`

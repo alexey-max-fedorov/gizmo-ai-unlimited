@@ -24,7 +24,7 @@ export function InstallSteps() {
           <SectionHeading
             eyebrow="Install in seconds"
             title="Add it to your browser and you're done"
-            subtitle="No configuration, no account, no settings panel. Install, open a Gizmo quiz, and study."
+            subtitle="No configuration, separate extension account, or settings panel. Install it, then keep studying and importing on Gizmo."
           />
         </ScrollReveal>
 

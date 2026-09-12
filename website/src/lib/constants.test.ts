@@ -1,11 +1,16 @@
+import { readFileSync } from "node:fs";
 import { describe, it, expect } from "vitest";
 import { SITE, STORES, FEATURES, STEPS, INSTALL, FAQ, STATS } from "./constants";
+
+const extensionPackage = JSON.parse(
+  readFileSync(new URL("../../../package.json", import.meta.url), "utf8"),
+) as { version: string };
 
 describe("constants integrity", () => {
   it("exposes the canonical site facts", () => {
     expect(SITE.name).toBe("Gizmo AI Unlimited");
     expect(SITE.url).toBe("https://gizmo.best");
-    expect(SITE.version).toBe("2.2.1");
+    expect(SITE.version).toBe(extensionPackage.version);
     expect(SITE.tagline).toBe("Study Without Limits");
   });
 

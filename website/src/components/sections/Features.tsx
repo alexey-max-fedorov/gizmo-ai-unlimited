@@ -5,9 +5,9 @@ import {
   Heart,
   Lightbulb,
   ShieldCheck,
-  Zap,
   RefreshCw,
   Lock,
+  Wand2,
   type LucideIcon,
 } from "lucide-react";
 import { FEATURES, type IconName } from "@/lib/constants";
@@ -18,9 +18,9 @@ const ICONS: Partial<Record<IconName, LucideIcon>> = {
   Heart,
   Lightbulb,
   ShieldCheck,
-  Zap,
   RefreshCw,
   Lock,
+  Wand2,
 };
 
 export function Features() {
@@ -31,7 +31,7 @@ export function Features() {
           <SectionHeading
             eyebrow="Why install it"
             title="Everything you need to study uninterrupted"
-            subtitle="One free extension removes every paywall friction on Gizmo AI quizzes — and respects your privacy completely."
+            subtitle="One free extension unlocks quizzes and removes Magic Import's client-side cooldown — while keeping your data private."
           />
         </ScrollReveal>
 

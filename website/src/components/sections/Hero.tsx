@@ -53,8 +53,8 @@ export function Hero() {
             transition={{ duration: 0.6, ease: EASE, delay: 0.5 }}
             className="mt-6 text-lg text-[#a0a0a0] leading-relaxed max-w-xl"
           >
-            {SITE.oneLiner} Add it to your browser and the out-of-hearts modal is
-            gone — every hint unlocked, no account, nothing tracked.
+            {SITE.oneLiner} Add it to your browser and it activates automatically — no
+            account, no setup, nothing tracked.
           </motion.p>
 
           <motion.div
