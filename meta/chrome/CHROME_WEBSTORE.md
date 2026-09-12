@@ -45,7 +45,7 @@ How do I get unlimited hearts on Gizmo AI?
 Install this extension. Once installed, the hearts modal is removed and you can practice indefinitely without waiting or upgrading.
 
 How do I unlock hints on Gizmo AI quizzes without a subscription?
-This extension unlocks hints on every standard quiz question automatically. Practice-exam hints are not supported. No subscription or account change is needed.
+This extension unlocks hints on every standard quiz question automatically. No subscription or account change is needed.
 
 How do I use Magic Import without waiting for its cooldown?
 The extension removes Magic Import's client-side cooldown. It does not modify or bypass any server-side limits Gizmo may enforce.
