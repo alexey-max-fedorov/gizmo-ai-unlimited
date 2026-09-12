@@ -65,6 +65,7 @@ jobs:
           git add patcher/dist/metadata.json
 
           git commit -m "chore: refresh patched Gizmo bundle"
+          git reset --hard HEAD
           git pull --rebase origin main
           git push origin main
 
