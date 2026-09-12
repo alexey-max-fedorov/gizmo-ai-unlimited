@@ -10,6 +10,13 @@
 
 Unlocks unlimited hearts and hints on Gizmo AI quizzes and removes the client-side Magic Import cooldown on [app.gizmo.ai](https://app.gizmo.ai/).
 
+> [!WARNING]
+> ## Disclaimer
+> This is a **security research project** and **proof of concept**, documented at [hackany.app](https://hackany.app). It is not a consumer product. By using this software you assume all liability. See [gizmo.best/liability](https://gizmo.best/liability) for full details.
+
+
+
+
 ## How it works
 
 Two pieces in this repo:
@@ -54,6 +61,4 @@ Chrome, Edge, Brave, and Firefox. The extension is available on the Chrome Web S
 **Is it free?**
 Yes — completely free and open source.
 
-## Disclaimer
 
-This is a **security research project** and **proof of concept**, documented at [hackany.app](https://hackany.app). It is not a consumer product. By using this software you assume all liability. See [gizmo.best/liability](https://gizmo.best/liability) for full details.
