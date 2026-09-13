@@ -34,9 +34,6 @@ jobs:
         with:
           version: 11
           runtime: node@22
-          cache: true
-          cache-dependency-path: patcher/pnpm-lock.yaml
-          package-json-file: patcher/package.json
           install: false
 
       - name: Install patcher deps
