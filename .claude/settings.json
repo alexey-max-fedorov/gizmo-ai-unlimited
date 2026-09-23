@@ -1,5 +1,4 @@
 {
-  "autoMemoryDirectory": "./.claude/memory/",
   "enabledPlugins": {
     "ui-ux-pro-max@ui-ux-pro-max-skill": false,
     "clangd-lsp@claude-plugins-official": false,

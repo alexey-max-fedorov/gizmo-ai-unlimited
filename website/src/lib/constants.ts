@@ -9,11 +9,11 @@ export const SITE = {
     "Unlimited hearts and unlocked hints on Gizmo AI quizzes, plus unlimited Magic Imports — no client-side Magic Import cooldown.",
   description:
     "Unlimited hearts and unlocked hints on Gizmo AI quizzes, plus unlimited Magic Imports. Removes Magic Import's client-side cooldown; collects no personal data.",
-  version: "2.3.0",
+  version: "2.5.0",
   author: "Alexey Fedorov",
   repo: "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited",
   gizmoUrl: "https://app.gizmo.ai",
-  privacyUpdated: "May 18, 2026",
+  privacyUpdated: "September 23, 2026",
 } as const;
 
 export const STORES = {
@@ -96,8 +96,8 @@ export const FEATURES: Feature[] = [
   },
   {
     icon: "RefreshCw",
-    title: "Self-healing",
-    body: "Patch rules refresh every 2 hours through an automated pipeline, so the extension keeps working after Gizmo ships updates.",
+    title: "No remote code",
+    body: "Every line the extension runs is packaged with it. Gizmo loads its own app. Nothing is downloaded and executed from another server.",
   },
   {
     icon: "Lock",
@@ -119,12 +119,12 @@ export interface Step {
 /** "How it works" — the technical flow, for a semi-technical audience. */
 export const STEPS: Step[] = [
   {
-    title: "Fetch the rules",
-    body: "In the background, the extension downloads a small set of text-replacement patch rules from the project's public GitHub repo.",
+    title: "Gizmo loads normally",
+    body: "The app downloads and runs its own scripts, the same way it does without the extension.",
   },
   {
-    title: "Patch locally",
-    body: "It grabs Gizmo's own quiz script, applies the rules entirely inside your browser, and caches the result in private extension storage.",
+    title: "Adjust reads in memory",
+    body: "A content script packaged with the extension forces subscription and import-cooldown checks to the unlocked result. It never downloads or evaluates remote code.",
   },
   {
     title: "Study uninterrupted",

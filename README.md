@@ -1,8 +1,3 @@
-> [!WARNING]
-> ## Temporarily unavailable on the Chrome web store. 
-> Please use Microsoft Edge Addons or Firefox addons
-
-
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=github-readme"><img src="https://img.shields.io/badge/Chrome-Install-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" height="50" alt="Install on Chrome"></a>
   &nbsp;&nbsp;
@@ -27,7 +22,7 @@ Unlocks unlimited hearts and hints on Gizmo AI quizzes and removes the client-si
 Two pieces in this repo:
 
 1. **Patcher (`patcher/`)** — a Node CLI run every 2 hours by a GitHub Action. It fetches the live Gizmo JavaScript bundle, applies structured regex patch rules, and commits `patcher/dist/patches.json` (the rules + hash) and `patcher/dist/entry.min.js` (a verification copy) to `main`.
-2. **Browser extension (`src/`)** — a Plasmo MV3 extension. On any `app.gizmo.ai` page it uses declarativeNetRequest to block the original Gizmo bundle. The background service worker fetches `patches.json` from this repo, fetches the original bundle directly from Gizmo, applies the patch rules locally, caches the result in `chrome.storage.local`, and the MAIN-world content script injects the patched bundle into the page.
+2. **Browser extension (`src/`)** — a Plasmo MV3 extension. On `app.gizmo.ai` a packaged MAIN-world content script lets Gizmo load its own bundle, then forces in-memory subscription and import-cooldown reads to the unlocked result. It does not fetch or execute remote code.
 
 ## Install
 
@@ -40,7 +35,7 @@ See `.claude/build.md`.
 
 ## Privacy
 
-See `PRIVACY_POLICY.md`. The extension fetches `patches.json` from this repo's GitHub raw URL and Gizmo's own JavaScript bundle from `app.gizmo.ai`. The patched result is cached in extension-private storage on your device. No personal data is collected or transmitted.
+See `PRIVACY_POLICY.md`. The extension does not fetch remote code and does not collect or transmit personal data.
 
 ## License
 
