@@ -1,3 +1,8 @@
+> [!WARNING]
+> ## Temporarily unavailable on the Chrome web store. 
+> Please use Microsoft Edge Addons or Firefox addons
+
+
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=github-readme"><img src="https://img.shields.io/badge/Chrome-Install-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" height="50" alt="Install on Chrome"></a>
   &nbsp;&nbsp;
