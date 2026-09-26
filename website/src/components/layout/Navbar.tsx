@@ -29,17 +29,6 @@ export function Navbar() {
           : "bg-transparent border-b border-transparent",
       )}
     >
-      <div className="bg-[#c9a84c] text-black text-xs sm:text-sm text-center py-2 px-4 font-medium">
-        Temporarily unavailable on the Chrome Web Store — please use{" "}
-        <Link href={SHORTLINKS.edge} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
-          Edge
-        </Link>{" "}
-        or{" "}
-        <Link href={SHORTLINKS.firefox} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
-          Firefox
-        </Link>{" "}
-        for now.
-      </div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <Image src="/icon.png" alt="" width={28} height={28} className="rounded-md" />
