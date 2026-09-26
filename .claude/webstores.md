@@ -1,23 +1,25 @@
 # Store listings
 
-Chrome Web Store, Microsoft Edge Add-ons, and Firefox (AMO) are independent listings. Do not upload one tree's zip to every store.
+v2.5.0 is Chrome Web Store exclusive. Microsoft Edge and Firefox stay on the v2.2.x / v2.3.x line. Do not upload one tree's zip to every store.
 
-| Store | Listing version | How behavior updates |
+| Store | Listing line | How behavior updates |
 | --- | --- | --- |
-| Chrome Web Store | 2.5.0 | Hardcoded in the extension. Does not read `patches.json`. |
-| Microsoft Edge | 2.2.0 | Depends on `patcher/dist/patches.json` published to `main`. |
-| Firefox (AMO) | 2.2.0 | Same as Edge. |
+| Chrome Web Store | 2.5.0 only | Hardcoded in the extension. Does not read `patches.json`. |
+| Microsoft Edge | v2.2.x / v2.3.x | Fetches `patcher/dist/patches.json` from `main`. |
+| Firefox (AMO) | v2.2.x / v2.3.x | Same as Edge. |
 
 ## Chrome Web Store (2.5.0)
 
-Submit `dist/gizmo-ai-unlimited-v2.5.0-chrome.zip` only.
+Submit `dist/gizmo-ai-unlimited-v2.5.0-chrome.zip` only. Do not submit this zip to Edge or Firefox.
 
 v2.5.0 does not fetch patch rules. The three behaviors (subscription status, `isSubscribedStore`, import-cooldown flag) are hardcoded in `src/lib/runtime-patch.ts` and applied in memory after Gizmo's own Metro factories run. There is no bundled copy of `patches.json`. A Gizmo deploy that renames `SnapshotState`, `isSubscribedStore`, or `runtimeConfig` needs a new Chrome Web Store submission.
 
-## Edge and Firefox (2.2.0)
+The 2.5.0 Chrome zip is also attached to the GitHub release so the store build's source is public. It is not the recommended sideload. It cannot pick up patcher updates.
 
-Leave the live Edge and Firefox listings on the already-published 2.2.0 binaries. Those builds fetch `patcher/dist/patches.json` from `main` (the patcher Action writes that file; there is no `patcher/patches.json`). While those binaries stay installed and the patcher keeps publishing, those two stores can fast-patch without a resubmission.
+## Edge and Firefox (v2.2.x / v2.3.x)
 
-`package.sh` builds both zips from the current tree, so `dist/gizmo-ai-unlimited-v2.5.0-firefox.zip` is not what the live Firefox listing runs. Do not upload a build from this tree to Edge or Firefox unless you intend to drop fast-patch.
+Leave Edge and Firefox on the fetch-based line. v2.2.x and v2.3.x both read `patcher/dist/patches.json` from `main` (the patcher Action writes that file; there is no `patcher/patches.json`). While one of those binaries stays installed and the patcher keeps publishing, those stores can fast-patch without a resubmission.
 
-`v2.2.1` is also a fetch-based tag. The listings to leave in place are 2.2.0.
+v2.3.0 is the current build on that line. The live listings may still be 2.2.0 until they are updated; either version is the right line. Do not replace them with 2.5.0.
+
+`package.sh` builds both zips from the current tree, so `dist/gizmo-ai-unlimited-v2.5.0-firefox.zip` is a 2.5.0 build, not the Firefox listing. Do not upload a build from this tree to Edge or Firefox.
