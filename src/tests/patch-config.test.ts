@@ -1,24 +1,10 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
-  PATCHES_URL,
   GIZMO_ENTRY_RE,
   isEntryScriptSrc,
   entryFilenameFromUrl
 } from "../lib/patch-config.ts";
-
-describe("PATCHES_URL", () => {
-  it("points at the raw.githubusercontent.com path for patches.json on main", () => {
-    assert.equal(
-      PATCHES_URL,
-      "https://raw.githubusercontent.com/alexey-max-fedorov/gizmo-ai-unlimited/main/patcher/dist/patches.json"
-    );
-  });
-
-  it("uses https", () => {
-    assert.ok(PATCHES_URL.startsWith("https://"));
-  });
-});
 
 describe("GIZMO_ENTRY_RE", () => {
   it("matches the Gizmo entry script URL with a hex hash", () => {

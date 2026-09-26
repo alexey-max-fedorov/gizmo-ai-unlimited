@@ -19,39 +19,25 @@ Pipeline: `runPatch()` fetches the live quiz HTML with a realistic User-Agent, r
 ## Extension (`src/`)
 | Path | Role |
 |------|------|
-| `src/background.ts` | DNR rule (BLOCK `entry-*.js`) + `chrome.runtime.onMessage` handler for `GET_PATCHED_BUNDLE` — fetches `patches.json`, checks cache, fetches+patches original on miss |
-| `src/contents/gizmo-bridge.ts` | ISOLATED-world content script. Forwards CustomEvents between MAIN-world and background. |
-| `src/contents/gizmo-patch.ts` | MAIN-world content script. Overrides DOM APIs to hijack the entry-script load; requests patched bundle from the bridge; injects via `onreset`. |
-| `src/lib/patch-config.ts` | `PATCHES_URL`, `GIZMO_ENTRY_RE`, `isEntryScriptSrc()`, `entryFilenameFromUrl()` |
-| `src/lib/patches.ts` | `PatchRule`, `applyPatchRules()`, `wrapWithMarkers()` (browser side) |
-| `src/lib/bundle-cache.ts` | `getCachedBundle()`, `setCachedBundle()`, `clearCachedBundle()` over `chrome.storage.local` |
-| `src/lib/reload-tabs.ts` | Reloads open `*.gizmo.ai` tabs after install |
+| `src/contents/gizmo-runtime.ts` | MAIN-world content script at `document_start`. Installs the Metro `__d` hook. |
+| `src/lib/runtime-patch.ts` | Pure hooks: snapshot subscription view, `isSubscribedStore` reads, import-cooldown env flag. |
 | `src/popup.tsx` | Popup UI. React 19. Display-only. |
 | `src/tests/*.test.ts` | Unit tests for the pure modules |
 
-### Injection flow (cache miss)
-1. Extension loads on `https://app.gizmo.ai/*`.
-2. `src/background.ts` registers the DNR BLOCK rule for `entry-*.js` and listens for `GET_PATCHED_BUNDLE` messages.
-3. The page's HTML contains `<script src="/_expo/static/js/web/entry-<hash>.js" defer>`. The DNR rule blocks the request.
-4. The MAIN-world content script catches the script-tag insertion (via prototype overrides + MutationObserver), captures the original URL, neutralizes the script, and dispatches `__gizmo_patch_request__` on `document` with `{ originalUrl }`.
-5. The ISOLATED-world bridge picks up the event, calls `chrome.runtime.sendMessage({ type: "GET_PATCHED_BUNDLE", originalUrl })`.
-6. Background fetches `patches.json`, fetches the original bundle from gizmo.ai, applies `applyPatchRules`, wraps with markers, stores in `chrome.storage.local` keyed by `{bundleFilename, patchesHash}`, returns the patched JS.
-7. The bridge dispatches `__gizmo_patch_response__` with the result. MAIN-world script injects via `document.documentElement.setAttribute("onreset", js); dispatchEvent("reset")`.
-8. The patched Metro bundle runs; `isSubscribed` returns `true` → no hearts modal.
+There is no background service worker, no declarativeNetRequest rule, and no `chrome.storage` cache. The page loads `entry-*.js` itself.
 
-### Injection flow (cache hit)
-Same as above except step 6 short-circuits at `getCachedBundle()` and returns the stored bundle directly. The patches.json fetch still happens (plain GET, browser HTTP cache); only the original bundle fetch and `applyPatchRules` work are skipped.
+### Runtime flow
+1. The content script runs at `document_start` in the page's JS realm, before Metro's runtime assigns global `__d`.
+2. It defines `__d` with a getter that stays undefined until that assignment, then wraps every factory Metro registers.
+3. After a factory returns, `patchModuleExports` looks for three stable names that survive minification:
+   - `SnapshotState` — `snapshot.subscription.status` reads as `"subscribed"` (hearts, hints, cooldown). The stored snapshot is not rewritten, so a React subscriber does not loop.
+   - `isSubscribedStore` — `.get()` and `.getSnapshot()` return `true` (paywall).
+   - `runtimeConfig` — `EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN` is `"true"`, which makes the client cooldown expression false.
+4. Gizmo's bundle executes as the page's own script. The extension never fetches it and never evals a string.
 
-### Cache invalidation
-Cache key is `{bundleFilename, patchesHash}`. A mismatch on either field triggers a full rebuild. `patchesHash` is `sha256(JSON.stringify(rules)).slice(0, 16)`, precomputed by the patcher and read verbatim from `patches.json`.
-
-## Why MAIN world + ISOLATED bridge
-The `onreset` trick and the prototype overrides must run in the page's JS realm (MAIN world). MAIN-world content scripts have no access to `chrome.*` APIs, so we use a second ISOLATED-world script as a postMessage-style bridge. DOM `CustomEvent` on `document` works across realms because the DOM is shared.
-
-## Why DNR + prototype overrides
-DNR blocks the network request; the prototype overrides prevent the original `<script>` element from being added to the DOM in any way. Either alone would mostly work — together they make the original bundle's execution functionally impossible. An extension's own service-worker fetches are NOT subject to its own DNR rules, so the background can still pull the original bundle from gizmo.ai for patching.
+## Why MAIN world
+The Metro define function lives on the page's `globalThis`. An isolated content script cannot see it. The hook has to be installed before `__expo-metro-runtime-*.js` runs, which is why it is `document_start`.
 
 ## Manifest
 Lives in `package.json` under the `manifest` key (Plasmo convention), not a standalone `manifest.json`.
-Permissions: `["scripting", "declarativeNetRequest", "storage", "unlimitedStorage"]` — `scripting` is injected by Plasmo automatically for the MAIN-world content script registration; the other three are declared in `package.json`.
-Host permissions: `["https://*.gizmo.ai/*", "https://raw.githubusercontent.com/*"]`.
+No host permissions and no API permissions are declared. Plasmo adds `scripting` itself for the MAIN-world content script. Content script match is `https://app.gizmo.ai/*`.

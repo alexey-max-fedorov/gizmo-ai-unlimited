@@ -1,6 +1,6 @@
-# Privacy Policy — Gizmo AI Unlimited v2.3.0
+# Privacy Policy — Gizmo AI Unlimited v2.5.0
 
-**Effective date:** May 18, 2026
+**Effective date:** September 23, 2026
 **Author:** Alexey Fedorov
 
 ---
@@ -9,27 +9,37 @@
 
 None. Zero.
 
-Gizmo AI Unlimited operates entirely inside your browser. It uses `declarativeNetRequest` to block the original Gizmo JavaScript bundle, then the background service worker fetches `patches.json` (a small JSON rules file) from this repository's `raw.githubusercontent.com` URL and Gizmo's own JavaScript bundle directly from `app.gizmo.ai`, applies the patch rules locally, and caches the result in extension-private storage (`chrome.storage.local`) on your device. That is the full extent of what it does.
+Gizmo AI Unlimited operates entirely inside your browser. On `app.gizmo.ai` it runs a content script that is packaged with the extension. That script adjusts in-memory subscription and import-cooldown reads inside the page. It does not download JavaScript, patch rules, or any other remote code. That is the full extent of what it does.
+
+The extension itself makes no network requests. It does not open connections, and it does not call `fetch` or any other network API.
 
 The extension does not:
 - Collect, read, or store any personal information
 - Transmit any data to any server — including the author's
 - Use cookies, browser web localStorage, or session storage
 - Track your browsing history, quiz activity, or any other behavior
-- Load any code from unknown or unauthorized sources — it fetches only from this project's own GitHub repository and from Gizmo AI's own `app.gizmo.ai` domain
+- Load or execute any code that is not packaged inside the extension
 - Contact any third-party analytics, advertising, or telemetry service
 
 ## What this extension stores locally
 
-The extension caches the patched JavaScript bundle in `chrome.storage.local` — the browser extension's own private storage, inaccessible to websites. This cache contains only a modified copy of Gizmo AI's own public JavaScript bundle. It stores no personal information and never leaves your device. The cache is cleared automatically when the extension is uninstalled.
+The extension does not write a cache of Gizmo's scripts. It keeps no copy of page data. Uninstalling it removes the extension and everything it added.
 
 ## Data sharing and sale
 
 There is no data to share or sell. The extension has no backend, no database, and no analytics of any kind. Your data stays in your browser because nothing is ever taken out of it.
 
-## Chrome Web Store installs and uninstalls
+## The gizmo.best website
 
-If you install this extension through the Chrome Web Store, Google may record that install or uninstall event as part of their platform analytics. This data is collected by Google, not by this extension or its author. Refer to [Google's Privacy Policy](https://policies.google.com/privacy) and the [Chrome Web Store Terms of Service](https://play.google.com/about/play-terms/) for details on what Google tracks and how they use it.
+This policy's "no network requests" rule is about the **extension**. The marketing website at [gizmo.best](https://gizmo.best) is a separate program. That site uses Vercel Analytics and Speed Insights to measure aggregate, anonymous traffic and page performance. Those tools are cookieless. They do not track you across sites or build a personal profile. The extension does not load them and does not make the requests the website makes.
+
+## Browser stores
+
+Chrome Web Store, Microsoft Edge Add-ons, and Mozilla Add-ons (Firefox) are separate platforms. Each has its own privacy policy. An install, update, or uninstall through one of those stores may be recorded by that store. That data is collected by the store, not by this extension or its author.
+
+- Chrome Web Store — [Google Privacy Policy](https://policies.google.com/privacy)
+- Microsoft Edge Add-ons — [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
+- Mozilla Add-ons — [Mozilla Privacy Policy](https://www.mozilla.org/privacy/)
 
 ## Disclaimer of liability
 
@@ -37,7 +47,7 @@ This extension is provided **"as is"**, without warranty of any kind, express or
 
 ## Changes to this policy
 
-If the extension ever changes in a way that affects data handling, this policy will be updated and the version number in the header will change. The current version (v2.3.0) collects no data.
+If the extension ever changes in a way that affects data handling, this policy will be updated and the version number in the header will change. The current version (v2.5.0) collects no data.
 
 ## Contact
 
