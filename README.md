@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=github-readme"><img src="https://img.shields.io/badge/Chrome-Install-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" height="50" alt="Install on Chrome"></a>
+  <a href="https://gizmo.best/get"><img src="https://img.shields.io/badge/Chrome-Install-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" height="50" alt="Install on Chrome"></a>
   &nbsp;&nbsp;
   <a href="https://microsoftedge.microsoft.com/addons/detail/gizmo-ai-unlimited/gajdekhpddjnkkldabhaahhhanmkkegi?utm_source=github-readme"><img src="https://img.shields.io/badge/Edge-Install-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white" height="50" alt="Install on Edge"></a>
   &nbsp;&nbsp;
@@ -56,7 +56,7 @@ Yes. A GitHub Action re-patches the Gizmo JavaScript bundle every 2 hours. Whene
 The extension only activates on `app.gizmo.ai` pages. It collects no personal data and makes no outbound network requests except to load the patched bundle from this public GitHub repository. See `PRIVACY_POLICY.md` for the full details.
 
 **Which browsers are supported?**
-Chrome, Edge, Brave, and Firefox. The extension is available on the Chrome Web Store, Microsoft Edge Add-ons, and Firefox Add-ons (AMO).
+Chrome, Edge, Brave, and Firefox. Edge and Firefox are on their add-on stores. The Chrome Web Store listing is temporarily unavailable — Chrome installs go through [gizmo.best/get](https://gizmo.best/get).
 
 **Is it free?**
 Yes — completely free and open source.

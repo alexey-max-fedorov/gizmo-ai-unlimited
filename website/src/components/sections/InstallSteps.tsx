@@ -35,8 +35,9 @@ export function InstallSteps() {
               <ScrollReveal key={target.browser} delay={i * 0.08}>
                 <motion.a
                   href={target.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(target.href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.2 }}
                   className={cn(

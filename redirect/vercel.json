@@ -21,7 +21,7 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "extension.gizmo.best" }],
-      "destination": "https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=extension.gizmo.best",
+      "destination": "https://gizmo.best/get?utm_source=extension.gizmo.best",
       "statusCode": 301
     },
     {
@@ -45,13 +45,13 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "ext.gizmo.best" }],
-      "destination": "https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=ext.gizmo.best",
+      "destination": "https://gizmo.best/get?utm_source=ext.gizmo.best",
       "statusCode": 301
     },
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "chrome.gizmo.best" }],
-      "destination": "https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh?utm_source=chrome.gizmo.best",
+      "destination": "https://gizmo.best/get?utm_source=chrome.gizmo.best",
       "statusCode": 301
     },
     {

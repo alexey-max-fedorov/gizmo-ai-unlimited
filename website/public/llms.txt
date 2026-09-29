@@ -17,7 +17,7 @@
 - Not affiliated with Gizmo AI.
 
 ## Install
-- Chrome / Brave: https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh
+- Chrome / Brave: temporarily unavailable on the Chrome Web Store. Manual install of v2.2.0: https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/releases/tag/v2.2.0 — see https://gizmo.best/get
 - Microsoft Edge: https://microsoftedge.microsoft.com/addons/detail/gizmo-ai-unlimited/gajdekhpddjnkkldabhaahhhanmkkegi
 - Firefox: https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/
 

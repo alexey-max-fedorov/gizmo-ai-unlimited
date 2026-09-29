@@ -24,6 +24,13 @@ export const STORES = {
     "https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/",
 } as const;
 
+/** Chrome Web Store listing is down. In-site install buttons go here. */
+export const GET_PATH = "/get";
+
+/** Sideload build for Google Chrome while the store listing is unavailable. */
+export const CHROME_MANUAL_INSTALL =
+  "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/releases/tag/v2.2.0";
+
 export const PRIMARY_CAPABILITIES = [
   "Unlimited hearts on Gizmo AI quizzes",
   "Unlocked hints on Gizmo AI quizzes",
@@ -142,9 +149,9 @@ export interface InstallTarget {
 export const INSTALL: InstallTarget[] = [
   {
     browser: "chrome",
-    label: "Add to Chrome",
-    note: "Works on Chrome, Brave & other Chromium browsers",
-    href: SHORTLINKS.chrome,
+    label: "Install on Chrome",
+    note: "Temporarily unavailable on the Chrome Web Store",
+    href: GET_PATH,
   },
   {
     browser: "edge",
@@ -196,7 +203,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Which browsers are supported?",
-    a: "Chrome, Microsoft Edge, Brave (and other Chromium browsers) through the Chrome Web Store and Edge Add-ons, plus Firefox through Mozilla Add-ons.",
+    a: "Microsoft Edge through Edge Add-ons, and Firefox through Mozilla Add-ons. Chrome and Brave are temporarily unavailable on the Chrome Web Store — use the manual install on gizmo.best/get.",
   },
   {
     q: "Do I need a Gizmo account or subscription?",
@@ -212,7 +219,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "How do I install it?",
-    a: "Click the install button for your browser, add it from the official store, then open any quiz on app.gizmo.ai. It activates automatically — there is no setup or settings panel.",
+    a: "On Edge or Firefox, add it from the official store. On Chrome, open gizmo.best/get and install v2.2.0 from GitHub. Then open any quiz on app.gizmo.ai. It activates automatically — there is no setup or settings panel.",
   },
 ];
 

@@ -1,6 +1,16 @@
 import { readFileSync } from "node:fs";
 import { describe, it, expect } from "vitest";
-import { SITE, STORES, FEATURES, STEPS, INSTALL, FAQ, STATS } from "./constants";
+import {
+  CHROME_MANUAL_INSTALL,
+  GET_PATH,
+  SITE,
+  STORES,
+  FEATURES,
+  STEPS,
+  INSTALL,
+  FAQ,
+  STATS,
+} from "./constants";
 
 const extensionPackage = JSON.parse(
   readFileSync(new URL("../../../package.json", import.meta.url), "utf8"),
@@ -18,6 +28,15 @@ describe("constants integrity", () => {
     expect(STORES.chrome).toContain("chromewebstore.google.com");
     expect(STORES.edge).toContain("microsoftedge.microsoft.com");
     expect(STORES.firefox).toContain("addons.mozilla.org");
+  });
+
+  it("sends Chrome installs to /get and the v2.2.0 release", () => {
+    const chrome = INSTALL.find((target) => target.browser === "chrome");
+    expect(chrome?.href).toBe(GET_PATH);
+    expect(chrome?.href).not.toContain("chromewebstore");
+    expect(CHROME_MANUAL_INSTALL).toBe(
+      "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/releases/tag/v2.2.0",
+    );
   });
 
   it("ships content for every section", () => {

@@ -10,9 +10,9 @@ Every destination carries `?utm_source=<originating-subdomain>` for attribution.
 
 | Subdomain | Destination | Status |
 |---|---|---|
-| `extension.gizmo.best` | Auto-detected by `User-Agent`: Firefox AMO, Edge Add-ons, or Chrome Web Store (default) | 301 |
-| `ext.gizmo.best` | Auto-detected by `User-Agent`: Firefox AMO, Edge Add-ons, or Chrome Web Store (default) | 301 |
-| `chrome.gizmo.best` | Chrome Web Store listing | 301 |
+| `extension.gizmo.best` | Auto-detected by `User-Agent`: Firefox AMO, Edge Add-ons, or `gizmo.best/get` (Chrome default) | 301 |
+| `ext.gizmo.best` | Auto-detected by `User-Agent`: Firefox AMO, Edge Add-ons, or `gizmo.best/get` (Chrome default) | 301 |
+| `chrome.gizmo.best` | `gizmo.best/get` while the Chrome Web Store listing is unavailable | 301 |
 | `edge.gizmo.best` | Microsoft Edge Add-ons listing | 301 |
 | `firefox.gizmo.best` | Firefox AMO listing | 301 |
 
@@ -44,9 +44,9 @@ Every destination carries `?utm_source=<originating-subdomain>` for attribution.
 
 1. Contains `Firefox` → Firefox AMO
 2. Contains `Edg/` → Edge Add-ons
-3. Fallback (Chrome and everything else) → Chrome Web Store
+3. Fallback (Chrome and everything else) → `https://gizmo.best/get`
 
-Edge's UA string also contains the word `Chrome`, so the Edge rule **must** be evaluated before the Chrome fallback in `vercel.json`. Vercel evaluates redirects top-down — if the Chrome fallback (no UA condition) came first, Edge users would land on the Chrome Web Store instead.
+Edge's UA string also contains the word `Chrome`, so the Edge rule **must** be evaluated before the Chrome fallback in `vercel.json`. Vercel evaluates redirects top-down — if the Chrome fallback (no UA condition) came first, Edge users would land on `/get` instead of Edge Add-ons.
 
 ## Files
 

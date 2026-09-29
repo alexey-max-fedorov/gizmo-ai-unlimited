@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { GithubIcon } from "@/components/ui/GithubIcon";
-import { SITE, SHORTLINKS, NAV_LINKS } from "@/lib/constants";
+import { GET_PATH, SITE, SHORTLINKS, NAV_LINKS } from "@/lib/constants";
 
 export function Footer() {
   return (
@@ -42,7 +42,7 @@ export function Footer() {
             Install
           </h3>
           <ul className="space-y-3 text-sm">
-            <li><a href={SHORTLINKS.chrome} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Chrome / Brave</a></li>
+            <li><Link href={GET_PATH} className="text-[#666666] hover:text-[#c9a84c] transition-colors">Chrome / Brave</Link></li>
             <li><a href={SHORTLINKS.edge} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Microsoft Edge</a></li>
             <li><a href={SHORTLINKS.firefox} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Firefox</a></li>
           </ul>
