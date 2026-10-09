@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-08T23:03:21.712Z",
+  "generatedAt": "2026-10-09T12:46:26.086Z",
   "patcherVersion": "2.5.0",
   "source": {
     "probeUrl": "https://app.gizmo.ai/quiz/198926301",
-    "entryUrl": "https://app.gizmo.ai/_expo/static/js/web/entry-66973950a68bf709c132301e96838db4.js",
-    "entryPath": "/_expo/static/js/web/entry-66973950a68bf709c132301e96838db4.js"
+    "entryUrl": "https://app.gizmo.ai/_expo/static/js/web/entry-6aa21abaaa488008d2e93c0e08b6ebb8.js",
+    "entryPath": "/_expo/static/js/web/entry-6aa21abaaa488008d2e93c0e08b6ebb8.js"
   },
   "perRuleCounts": {
     "is-subscribed": 3,
@@ -13,7 +13,7 @@
   },
   "patchesHash": "eb7db1ab34aaa3d5",
   "bytes": {
-    "in": 24803028,
-    "out": 24801622
+    "in": 24852106,
+    "out": 24850700
   }
 }
