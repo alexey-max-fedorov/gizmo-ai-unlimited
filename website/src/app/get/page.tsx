@@ -4,23 +4,16 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BrowserIcon } from "@/components/ui/BrowserIcon";
 import { GithubIcon } from "@/components/ui/GithubIcon";
-import { CHROME_MANUAL_INSTALL, STORES } from "@/lib/constants";
+import { CHROME_MANUAL_INSTALL, EDGE_MANUAL_INSTALL, STORES } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Get the extension",
   description:
-    "Gizmo AI Unlimited is temporarily unavailable on the Chrome Web Store. Install it from Edge Add-ons, Firefox Add-ons, or the v2.2.0 GitHub release for Chrome.",
+    "Gizmo AI Unlimited is temporarily unavailable on the Chrome Web Store and Microsoft Edge Add-ons. Install it from Firefox Add-ons, or load the v2.2.0 GitHub release unpacked in Chrome or Edge.",
   alternates: { canonical: "/get" },
 };
 
 const OPTIONS = [
-  {
-    title: "Microsoft Edge",
-    body: "Install from the Microsoft Edge Add-ons listing.",
-    href: STORES.edge,
-    cta: "Open Edge listing",
-    icon: <BrowserIcon browser="edge" size={22} />,
-  },
   {
     title: "Firefox",
     body: "Install from the Mozilla Add-ons listing.",
@@ -30,10 +23,17 @@ const OPTIONS = [
   },
   {
     title: "Google Chrome",
-    body: "The store listing is down. Download v2.2.0, unzip it, and load it unpacked at chrome://extensions.",
+    body: "The store listing is down. Download v2.2.0, unzip it, turn on Developer mode at chrome://extensions, and choose Load unpacked.",
     href: CHROME_MANUAL_INSTALL,
     cta: "v2.2.0 on GitHub",
     icon: <GithubIcon size={22} />,
+  },
+  {
+    title: "Microsoft Edge",
+    body: "The Edge Add-ons listing is down. Download v2.2.0 (the Chrome zip works in Edge), unzip it, turn on Developer mode at edge://extensions, and choose Load unpacked.",
+    href: EDGE_MANUAL_INSTALL,
+    cta: "v2.2.0 on GitHub",
+    icon: <BrowserIcon browser="edge" size={22} />,
   },
 ] as const;
 
@@ -51,12 +51,12 @@ export default function GetPage() {
               className="text-4xl sm:text-5xl font-semibold text-white leading-tight"
               style={{ fontFamily: "var(--font-playfair-display), Georgia, serif" }}
             >
-              Temporarily unavailable on the Chrome Web Store
+              Temporarily unavailable on the Chrome and Edge stores
             </h1>
             <p className="mt-6 text-lg text-[#a0a0a0] leading-relaxed">
-              Gizmo AI Unlimited is temporarily unavailable on the Chrome Web Store.
-              The Edge and Firefox listings are still up. On Google Chrome, install
-              v2.2.0 manually from GitHub.
+              Gizmo AI Unlimited is temporarily unavailable on the Chrome Web Store and
+              Microsoft Edge Add-ons. The Firefox listing is still up. On Google Chrome,
+              Edge, or Brave, install v2.2.0 manually from GitHub.
             </p>
 
             <div className="mt-12 grid gap-4">

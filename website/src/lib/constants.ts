@@ -13,9 +13,14 @@ export const SITE = {
   author: "Alexey Fedorov",
   repo: "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited",
   gizmoUrl: "https://app.gizmo.ai",
-  privacyUpdated: "September 23, 2026",
+  privacyUpdated: "October 9, 2026",
 } as const;
 
+/**
+ * Store listing URLs. Only Firefox is a live, linked store. The Chrome Web Store
+ * and Edge Add-ons listings are down; they are kept here for reference only and
+ * must not be linked from the site (use GET_PATH instead).
+ */
 export const STORES = {
   chrome:
     "https://chromewebstore.google.com/detail/jnbnbecephjaglcnfhmpopikchhifgnh",
@@ -24,12 +29,19 @@ export const STORES = {
     "https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/",
 } as const;
 
-/** Chrome Web Store listing is down. In-site install buttons go here. */
+/** Chrome Web Store and Edge Add-ons listings are down. In-site install buttons go here. */
 export const GET_PATH = "/get";
 
 /** Sideload build for Google Chrome while the store listing is unavailable. */
 export const CHROME_MANUAL_INSTALL =
   "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/releases/tag/v2.2.0";
+
+/**
+ * Sideload build for Microsoft Edge while the Edge Add-ons listing is
+ * unavailable. The v2.2.0 release's `-chrome.zip` is a Chromium MV3 build, so
+ * it loads unpacked in Edge (edge://extensions, Developer mode) as-is.
+ */
+export const EDGE_MANUAL_INSTALL = CHROME_MANUAL_INSTALL;
 
 export const PRIMARY_CAPABILITIES = [
   "Unlimited hearts on Gizmo AI quizzes",
@@ -51,10 +63,10 @@ export const SEO_KEYWORDS = [
 ] as const;
 
 /**
- * gizmo.best redirect shortlinks (served by the standalone `redirect/` Vercel
- * project). Every destination carries `?utm_source=<subdomain>` for attribution,
- * so all install/source links on the site are tracked. `install` is UA-smart:
- * it redirects to the visitor's correct store automatically.
+ * gizmo.best redirect shortlinks (Namecheap URL Redirect records, see
+ * `redirect/README.md`). Every destination carries `?utm_source=<subdomain>` for
+ * attribution. `install`, `chrome` and `edge` all land on /get; `firefox` goes
+ * to the Firefox Add-ons listing.
  */
 export const SHORTLINKS = {
   install: "https://extension.gizmo.best",
@@ -155,9 +167,9 @@ export const INSTALL: InstallTarget[] = [
   },
   {
     browser: "edge",
-    label: "Add to Edge",
-    note: "From the official Microsoft Edge Add-ons store",
-    href: SHORTLINKS.edge,
+    label: "Install on Edge",
+    note: "Temporarily unavailable on Microsoft Edge Add-ons",
+    href: GET_PATH,
   },
   {
     browser: "firefox",
@@ -203,7 +215,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Which browsers are supported?",
-    a: "Microsoft Edge through Edge Add-ons, and Firefox through Mozilla Add-ons. Chrome and Brave are temporarily unavailable on the Chrome Web Store — use the manual install on gizmo.best/get.",
+    a: "Firefox through Mozilla Add-ons. Chrome, Edge, and Brave are temporarily unavailable on the Chrome Web Store and Microsoft Edge Add-ons — use the manual install on gizmo.best/get.",
   },
   {
     q: "Do I need a Gizmo account or subscription?",
@@ -219,7 +231,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "How do I install it?",
-    a: "On Edge or Firefox, add it from the official store. On Chrome, open gizmo.best/get and install v2.2.0 from GitHub. Then open any quiz on app.gizmo.ai. It activates automatically — there is no setup or settings panel.",
+    a: "On Firefox, add it from Mozilla Add-ons. On Chrome, Edge, or Brave, open gizmo.best/get and install v2.2.0 from GitHub with Load unpacked. Then open any quiz on app.gizmo.ai. It activates automatically — there is no setup or settings panel.",
   },
 ];
 

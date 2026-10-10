@@ -7,7 +7,8 @@ import { GithubIcon } from "@/components/ui/GithubIcon";
 import { BrowserIcon } from "@/components/ui/BrowserIcon";
 import { AnimatedText } from "@/components/ui/AnimatedText";
 import { QuizMock } from "@/components/sections/QuizMock";
-import { GET_PATH, SITE, SHORTLINKS } from "@/lib/constants";
+import { SITE, SHORTLINKS } from "@/lib/constants";
+import { installLink } from "@/lib/browser";
 import { useBrowser } from "@/lib/useBrowser";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
@@ -64,8 +65,8 @@ export function Hero() {
             className="mt-8 flex flex-col sm:flex-row gap-4"
           >
             <Button
-              href={browser === "chrome" ? GET_PATH : SHORTLINKS[browser]}
-              external={browser !== "chrome"}
+              href={installLink(browser).href}
+              external={installLink(browser).external}
               size="lg"
             >
               <BrowserIcon browser={browser} size={18} /> Add to {label}

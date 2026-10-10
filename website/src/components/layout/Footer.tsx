@@ -43,7 +43,7 @@ export function Footer() {
           </h3>
           <ul className="space-y-3 text-sm">
             <li><Link href={GET_PATH} className="text-[#666666] hover:text-[#c9a84c] transition-colors">Chrome / Brave</Link></li>
-            <li><a href={SHORTLINKS.edge} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Microsoft Edge</a></li>
+            <li><Link href={GET_PATH} className="text-[#666666] hover:text-[#c9a84c] transition-colors">Microsoft Edge</Link></li>
             <li><a href={SHORTLINKS.firefox} target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-[#c9a84c] transition-colors">Firefox</a></li>
           </ul>
         </div>

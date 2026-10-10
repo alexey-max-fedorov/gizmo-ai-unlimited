@@ -7,15 +7,15 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { GithubIcon } from "@/components/ui/GithubIcon";
-import { GET_PATH, NAV_LINKS, SHORTLINKS } from "@/lib/constants";
+import { NAV_LINKS, SHORTLINKS } from "@/lib/constants";
+import { installLink } from "@/lib/browser";
 import { useBrowser } from "@/lib/useBrowser";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { browser } = useBrowser();
-  const installHref = browser === "chrome" ? GET_PATH : SHORTLINKS.install;
-  const installExternal = browser !== "chrome";
+  const { href: installHref, external: installExternal } = installLink(browser);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);

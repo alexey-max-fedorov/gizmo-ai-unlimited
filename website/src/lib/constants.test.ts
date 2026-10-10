@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, it, expect } from "vitest";
 import {
   CHROME_MANUAL_INSTALL,
+  EDGE_MANUAL_INSTALL,
   GET_PATH,
   SITE,
   STORES,
@@ -24,7 +25,7 @@ describe("constants integrity", () => {
     expect(SITE.tagline).toBe("Study Without Limits");
   });
 
-  it("has all three store URLs on the right domains", () => {
+  it("keeps the reference store URLs on the right domains", () => {
     expect(STORES.chrome).toContain("chromewebstore.google.com");
     expect(STORES.edge).toContain("microsoftedge.microsoft.com");
     expect(STORES.firefox).toContain("addons.mozilla.org");
@@ -37,6 +38,21 @@ describe("constants integrity", () => {
     expect(CHROME_MANUAL_INSTALL).toBe(
       "https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/releases/tag/v2.2.0",
     );
+  });
+
+  it("sends Edge installs to /get and the same Chromium release", () => {
+    const edge = INSTALL.find((target) => target.browser === "edge");
+    expect(edge?.href).toBe(GET_PATH);
+    expect(edge?.note).toContain("Temporarily unavailable");
+    expect(EDGE_MANUAL_INSTALL).toBe(CHROME_MANUAL_INSTALL);
+  });
+
+  it("only links Firefox as an official store", () => {
+    const stores = INSTALL.filter((target) => target.href.startsWith("http"));
+    expect(stores.map((target) => target.browser)).toEqual(["firefox"]);
+    const copy = JSON.stringify(FAQ);
+    expect(copy).not.toContain("microsoftedge.microsoft.com");
+    expect(copy).toMatch(/Edge[^.]*temporarily unavailable|temporarily unavailable[^.]*Edge/i);
   });
 
   it("ships content for every section", () => {

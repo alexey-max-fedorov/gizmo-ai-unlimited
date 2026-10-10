@@ -36,8 +36,8 @@ const LINKS: LinkGroup[] = [
         label: "Get the extension",
         aliases: ["extension.gizmo.best", "ext.gizmo.best"],
         href: "https://extension.gizmo.best",
-        destination: "store, or gizmo.best/get on Chrome",
-        description: "Edge and Firefox open their stores. Chrome opens gizmo.best/get",
+        destination: "gizmo.best/get",
+        description: "Install options for every browser, including manual install for Chrome and Edge",
         icon: <Download size={18} className={iconClass} />,
       },
       {
@@ -52,8 +52,8 @@ const LINKS: LinkGroup[] = [
         label: "Microsoft Edge Add-ons",
         aliases: ["edge.gizmo.best"],
         href: "https://edge.gizmo.best",
-        destination: "microsoftedge.microsoft.com",
-        description: "Gizmo AI Unlimited on the Microsoft Edge Add-ons store",
+        destination: "gizmo.best/get",
+        description: "Temporarily unavailable on Microsoft Edge Add-ons",
         icon: <Globe size={18} className={iconClass} />,
       },
       {

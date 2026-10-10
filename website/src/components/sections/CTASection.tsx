@@ -3,7 +3,8 @@
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { GET_PATH, SITE, SHORTLINKS } from "@/lib/constants";
+import { SITE, SHORTLINKS } from "@/lib/constants";
+import { installLink } from "@/lib/browser";
 import { BrowserIcon } from "../ui/BrowserIcon";
 import { useBrowser } from "@/lib/useBrowser";
 
@@ -26,8 +27,8 @@ export function CTASection() {
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
           <Button
-            href={browser === "chrome" ? GET_PATH : SHORTLINKS[browser]}
-            external={browser !== "chrome"}
+            href={installLink(browser).href}
+            external={installLink(browser).external}
             size="lg"
           >
             <BrowserIcon browser={browser} size={18} /> Add to {label}

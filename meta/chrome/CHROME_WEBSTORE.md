@@ -1,3 +1,5 @@
+> **Delisted.** The Chrome Web Store listing is "Temporarily unavailable". This copy is kept for reference only. The website sends Chrome users to https://gizmo.best/get for a manual install of the v2.2.0 release.
+
 # Chrome Web Store Listing
 
 ## Short description (up to 132 characters)

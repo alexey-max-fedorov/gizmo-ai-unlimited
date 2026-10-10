@@ -1,6 +1,6 @@
 # Privacy Policy — Gizmo AI Unlimited v2.5.0
 
-**Effective date:** September 23, 2026
+**Effective date:** October 9, 2026
 **Author:** Alexey Fedorov
 
 ---
@@ -31,7 +31,7 @@ There is no data to share or sell. The extension has no backend, no database, an
 
 ## The gizmo.best website
 
-This policy's "no network requests" rule is about the **extension**. The marketing website at [gizmo.best](https://gizmo.best) is a separate program. That site uses Vercel Analytics and Speed Insights to measure aggregate, anonymous traffic and page performance. Those tools are cookieless. They do not track you across sites or build a personal profile. The extension does not load them and does not make the requests the website makes.
+This policy's "no network requests" rule is about the **extension**. The marketing website at [gizmo.best](https://gizmo.best) is a separate program. That site is a static site hosted on GitHub Pages. It runs no analytics, sets no cookies, and loads no tracking scripts. GitHub may process request data such as IP addresses under [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement), and the site loads fonts from Google Fonts. The extension does not make the requests the website makes.
 
 ## Browser stores
 

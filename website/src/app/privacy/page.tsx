@@ -6,7 +6,7 @@ import { SITE } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "The Gizmo AI Unlimited extension makes no network requests and collects no personal data. gizmo.best uses Vercel Analytics. Chrome, Edge, and Firefox stores have their own privacy policies.",
+    "The Gizmo AI Unlimited extension makes no network requests and collects no personal data. gizmo.best is a static site with no analytics or cookies. The Chrome, Edge, and Firefox stores have their own privacy policies.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -100,10 +100,13 @@ export default function PrivacyPage() {
             <p>
               Everything above describes the <strong className="text-white">browser extension</strong>.
               The extension makes no network requests. This marketing website (
-              <code className="text-[#c9a84c]">gizmo.best</code>) does use Vercel Analytics and Speed
-              Insights to measure aggregate, anonymous traffic and page performance. Those tools are
-              cookieless and do not track you across sites or build a personal profile. The extension
-              does not load them.
+              <code className="text-[#c9a84c]">gizmo.best</code>) is a static site hosted on GitHub Pages. It runs no
+              analytics, sets no cookies, and loads no tracking scripts. GitHub may process
+              request data such as IP addresses under{" "}
+              <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer" className="text-[#c9a84c] hover:underline">
+                GitHub&apos;s privacy statement
+              </a>
+              . The site loads fonts from Google Fonts. The extension does not load any of this.
             </p>
           </section>
 

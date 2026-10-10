@@ -13,17 +13,17 @@
 - Privacy: Zero personal data collected. No cookies, localStorage, analytics, or telemetry. All patching happens locally in the browser.
 - Open source: Full source on GitHub at https://github.com/alexey-max-fedorov/gizmo-ai-unlimited
 - Self-healing: Patch rules refresh every 2 hours, so it keeps working after Gizmo updates.
-- Browsers: Chrome, Microsoft Edge, Brave, and Firefox.
+- Browsers: Firefox (Mozilla Add-ons), plus Chrome, Microsoft Edge, and Brave via manual install.
 - Not affiliated with Gizmo AI.
 
 ## Install
 - Chrome / Brave: temporarily unavailable on the Chrome Web Store. Manual install of v2.2.0: https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/releases/tag/v2.2.0 — see https://gizmo.best/get
-- Microsoft Edge: https://microsoftedge.microsoft.com/addons/detail/gizmo-ai-unlimited/gajdekhpddjnkkldabhaahhhanmkkegi
+- Microsoft Edge: temporarily unavailable on Microsoft Edge Add-ons. Manual install of v2.2.0 (load unpacked at edge://extensions): https://github.com/alexey-max-fedorov/gizmo-ai-unlimited/releases/tag/v2.2.0 — see https://gizmo.best/get
 - Firefox: https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/
 
 ## Links
 - Website: https://gizmo.best
 - All shortlinks: https://gizmo.best/links
 - Privacy policy: https://gizmo.best/privacy
-- Install (auto-detects your browser): https://extension.gizmo.best
+- Install options for every browser: https://gizmo.best/get
 - Tutorial video: https://yt.gizmo.best

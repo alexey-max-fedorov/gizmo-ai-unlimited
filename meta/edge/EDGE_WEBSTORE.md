@@ -1,3 +1,5 @@
+> **Delisted.** Microsoft removed the extension from Edge Add-ons (October 2026). This copy is kept for reference only. The website sends Edge users to https://gizmo.best/get for a manual install of the v2.2.0 release.
+
 # Edge Add-ons Listing
 
 ## Short description (up to 132 characters)

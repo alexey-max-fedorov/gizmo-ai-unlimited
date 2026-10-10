@@ -1,5 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { detectBrowser } from "./browser";
+import { detectBrowser, installLink } from "./browser";
+
+describe("installLink", () => {
+  it("sends Chrome and Edge to /get and Firefox to its store shortlink", () => {
+    expect(installLink("chrome")).toEqual({ href: "/get", external: false });
+    expect(installLink("edge")).toEqual({ href: "/get", external: false });
+    expect(installLink("firefox")).toEqual({ href: "https://firefox.gizmo.best", external: true });
+  });
+});
 
 describe("detectBrowser", () => {
   it("detects Edge from a Chromium Edge UA", () => {

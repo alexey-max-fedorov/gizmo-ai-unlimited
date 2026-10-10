@@ -11,7 +11,7 @@ export function softwareAppSchema() {
     url: SITE.url,
     softwareVersion: SITE.version,
     featureList: [...PRIMARY_CAPABILITIES],
-    downloadUrl: [`${SITE.url}${GET_PATH}`, STORES.edge, STORES.firefox],
+    downloadUrl: [`${SITE.url}${GET_PATH}`, STORES.firefox],
     offers: {
       "@type": "Offer",
       price: "0",

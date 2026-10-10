@@ -1,7 +1,8 @@
 Two-part system on `app.gizmo.ai/*`. **Patcher** (`./patcher/`, a Node CLI run by a scheduled GitHub Action) fetches the live Gizmo bundle, runs structured `applyRules` over it, and publishes `./patcher/dist/patches.json` (primary artifact) plus `./patcher/dist/entry.min.js` (verification copy). **Extension** (Plasmo MV3) does not fetch or execute remote JavaScript. A MAIN-world content script at `document_start` wraps Metro's `__d` and, after each module factory runs, forces `SnapshotState` subscription reads, `isSubscribedStore` reads, and `EXPO_PUBLIC_SKIP_IMPORT_COOLDOWN`. Gizmo's own page loads its bundle.
 
 **Stack:** Plasmo · React 19 · TypeScript 6 · pnpm · Node `--test` · `--experimental-strip-types`
-**Targets:** Chrome MV3, Firefox MV3 (AMO)
+**Targets:** Chrome MV3, Firefox MV3 (AMO). Chrome Web Store and Edge Add-ons listings are down; only Firefox is a live store. Chrome and Edge users sideload v2.2.0 from `gizmo.best/get`.
+**Website:** `./website/` is a static Next.js export deployed to GitHub Pages by `.github/workflows/deploy-website.yml` (domain `gizmo.best`, DNS on Namecheap). `./redirect/` documents the `*.gizmo.best` shortlinks, which are Namecheap URL Redirect records.
 
 ## Where to look
 

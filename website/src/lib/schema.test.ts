@@ -10,6 +10,13 @@ describe("JSON-LD builders", () => {
     expect(s.applicationCategory).toBe("BrowserApplication");
   });
 
+  it("lists only /get and Firefox as download URLs", () => {
+    expect(softwareAppSchema().downloadUrl).toEqual([
+      "https://gizmo.best/get",
+      "https://addons.mozilla.org/en-US/firefox/addon/gizmo-ai-unlimited/",
+    ]);
+  });
+
   it("builds an FAQPage with one entity per FAQ item", () => {
     const s = faqSchema();
     expect(s["@type"]).toBe("FAQPage");

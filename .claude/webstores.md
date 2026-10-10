@@ -1,11 +1,13 @@
 # Store listings
 
+**Status:** the Chrome Web Store listing is "Temporarily unavailable" and Microsoft Edge Add-ons removed the extension (October 2026). Only Firefox (AMO) is a live official store. Chrome and Edge users install manually from the v2.2.0 GitHub release via https://gizmo.best/get (`gizmo-ai-unlimited-v2.2.0-chrome.zip` is a Chromium MV3 build that loads unpacked in both; it reads `patches.json` from `main`, so it keeps working). The sections below describe the store lines as they were before the removals.
+
 v2.5.0 is Chrome Web Store exclusive. Microsoft Edge and Firefox stay on the v2.2.x / v2.3.x line. Do not upload one tree's zip to every store.
 
 | Store | Listing line | How behavior updates |
 | --- | --- | --- |
-| Chrome Web Store | 2.5.0 only | Hardcoded in the extension. Does not read `patches.json`. |
-| Microsoft Edge | v2.2.x / v2.3.x | Fetches `patcher/dist/patches.json` from `main`. |
+| Chrome Web Store (unavailable) | 2.5.0 only | Hardcoded in the extension. Does not read `patches.json`. |
+| Microsoft Edge (removed) | v2.2.x / v2.3.x | Fetches `patcher/dist/patches.json` from `main`. |
 | Firefox (AMO) | v2.2.x / v2.3.x | Same as Edge. |
 
 ## Chrome Web Store (2.5.0)
