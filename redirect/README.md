@@ -32,4 +32,4 @@ Every destination carries `?utm_source=<originating-subdomain>` for attribution,
 ## Notes
 
 - Unknown subdomains no longer resolve (the old Vercel wildcard ALIAS is gone). Add a new URL Redirect record for any new shortlink and list it in `website/src/app/links/page.tsx`.
-- Namecheap URL Redirect is HTTP-only for subdomains without a certificate, so `https://<sub>.gizmo.best` may show a certificate warning. Plain `http://` links and typed shortlinks work.
+- Namecheap redirect subdomains only answer on HTTP (port 443 is closed), so the site links them as `http://<sub>.gizmo.best`.
