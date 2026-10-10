@@ -6,7 +6,7 @@ import { SITE } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "The Gizmo AI Unlimited extension makes no network requests and collects no personal data. gizmo.best is a static site with no analytics or cookies. The Chrome, Edge, and Firefox stores have their own privacy policies.",
+    "The Gizmo AI Unlimited extension makes no network requests and collects no personal data. gizmo.best is a static site with no cookies and only cookieless aggregate analytics. The Chrome, Edge, and Firefox stores have their own privacy policies.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -100,8 +100,9 @@ export default function PrivacyPage() {
             <p>
               Everything above describes the <strong className="text-white">browser extension</strong>.
               The extension makes no network requests. This marketing website (
-              <code className="text-[#c9a84c]">gizmo.best</code>) is a static site hosted on GitHub Pages. It runs no
-              analytics, sets no cookies, and loads no tracking scripts. GitHub may process
+              <code className="text-[#c9a84c]">gizmo.best</code>) is a static site hosted on GitHub Pages behind Cloudflare. It sets no cookies and loads no
+              tracking scripts. It uses Cloudflare Web Analytics, a cookieless service that reports aggregate
+              page views and basic performance metrics without fingerprinting visitors. GitHub may process
               request data such as IP addresses under{" "}
               <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer" className="text-[#c9a84c] hover:underline">
                 GitHub&apos;s privacy statement
