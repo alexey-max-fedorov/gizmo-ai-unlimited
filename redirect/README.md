@@ -1,59 +1,35 @@
 # redirect
 
-Standalone Vercel project for Gizmo AI Unlimited subdomain redirects on `gizmo.best`. All routing is declared in `vercel.json` — no runtime, no build step.
+Documentation for the `*.gizmo.best` shortlinks. They are **Namecheap URL Redirect records** (Domain List > gizmo.best > Advanced DNS), not a Vercel project. The old `gizmo-best-redirect` Vercel project and its `vercel.json` were deleted when the site moved to GitHub Pages.
 
-Every destination carries `?utm_source=<originating-subdomain>` for attribution.
+DNS for `gizmo.best` is on Namecheap BasicDNS (`dns1/dns2.registrar-servers.com`):
+
+- `@` A records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (GitHub Pages)
+- `www` CNAME: `alexey-max-fedorov.github.io.`
+- `@` TXT: Google Search Console verification
+- One URL Redirect (Permanent, 301, unmasked) record per subdomain below
+
+Every destination carries `?utm_source=<originating-subdomain>` for attribution, except `links` and `support`, which have no UTM.
 
 ## Subdomain map
 
-### Install
+| Subdomain | Destination |
+|---|---|
+| `extension.gizmo.best`, `ext.gizmo.best` | `https://gizmo.best/get?utm_source=<sub>` |
+| `chrome.gizmo.best` | `https://gizmo.best/get?utm_source=chrome.gizmo.best` |
+| `edge.gizmo.best` | `https://gizmo.best/get?utm_source=edge.gizmo.best` |
+| `firefox.gizmo.best` | Firefox AMO listing |
+| `github.gizmo.best`, `gh.gizmo.best` | `github.com/alexey-max-fedorov/gizmo-ai-unlimited` |
+| `author.gizmo.best`, `alexey.gizmo.best` | `alexey-fedorov.com` |
+| `youtube.gizmo.best`, `yt.gizmo.best`, `tutorial.gizmo.best` | `youtu.be/UlrEFLQGZHY` |
+| `links.gizmo.best` | `https://gizmo.best/links` |
+| `support.gizmo.best` | `github.com/alexey-max-fedorov/gizmo-ai-unlimited/issues/new` |
 
-| Subdomain | Destination | Status |
-|---|---|---|
-| `extension.gizmo.best` | Auto-detected by `User-Agent`: Firefox AMO, Edge Add-ons, or `gizmo.best/get` (Chrome default) | 301 |
-| `ext.gizmo.best` | Auto-detected by `User-Agent`: Firefox AMO, Edge Add-ons, or `gizmo.best/get` (Chrome default) | 301 |
-| `chrome.gizmo.best` | `gizmo.best/get` while the Chrome Web Store listing is unavailable | 301 |
-| `edge.gizmo.best` | Microsoft Edge Add-ons listing | 301 |
-| `firefox.gizmo.best` | Firefox AMO listing | 301 |
+## Behavior change: no more browser detection
 
-### Source
+`extension.` and `ext.` used to pick a store from the `User-Agent` (Firefox AMO, Edge Add-ons, or `/get` for Chrome). Namecheap redirects cannot branch on `User-Agent`, so both now always go to `gizmo.best/get`, which lists every browser (Firefox store, plus manual install for Chrome and Edge). Chrome Web Store and Edge Add-ons listings are down, so `/get` is the right place for those browsers anyway.
 
-| Subdomain | Destination | Status |
-|---|---|---|
-| `github.gizmo.best` | `github.com/alexey-max-fedorov/gizmo-ai-unlimited` | 301 |
-| `gh.gizmo.best` | `github.com/alexey-max-fedorov/gizmo-ai-unlimited` | 301 |
+## Notes
 
-### Author
-
-| Subdomain | Destination | Status |
-|---|---|---|
-| `author.gizmo.best` | `alexey-fedorov.com` | 301 |
-| `alexey.gizmo.best` | `alexey-fedorov.com` | 301 |
-
-### Tutorial
-
-| Subdomain | Destination | Status |
-|---|---|---|
-| `youtube.gizmo.best` | `youtu.be/UlrEFLQGZHY` | 301 |
-| `yt.gizmo.best` | `youtu.be/UlrEFLQGZHY` | 301 |
-| `tutorial.gizmo.best` | `youtu.be/UlrEFLQGZHY` | 301 |
-
-## Browser detection
-
-`extension.gizmo.best` and `ext.gizmo.best` match the visitor's `User-Agent` header:
-
-1. Contains `Firefox` → Firefox AMO
-2. Contains `Edg/` → Edge Add-ons
-3. Fallback (Chrome and everything else) → `https://gizmo.best/get`
-
-Edge's UA string also contains the word `Chrome`, so the Edge rule **must** be evaluated before the Chrome fallback in `vercel.json`. Vercel evaluates redirects top-down — if the Chrome fallback (no UA condition) came first, Edge users would land on `/get` instead of Edge Add-ons.
-
-## Files
-
-- `vercel.json` — redirect rules and status codes
-- `public/index.html` — minimal static fallback (served only on unmatched routes)
-- `.gitignore` — excludes `.vercel` directory
-
-## DNS
-
-Each subdomain needs a CNAME / ALIAS pointing to this Vercel project (or use a wildcard ALIAS on `gizmo.best` and let Vercel route by `host`). Add the subdomains under Project Settings → Domains.
+- Unknown subdomains no longer resolve (the old Vercel wildcard ALIAS is gone). Add a new URL Redirect record for any new shortlink and list it in `website/src/app/links/page.tsx`.
+- Namecheap URL Redirect is HTTP-only for subdomains without a certificate, so `https://<sub>.gizmo.best` may show a certificate warning. Plain `http://` links and typed shortlinks work.
