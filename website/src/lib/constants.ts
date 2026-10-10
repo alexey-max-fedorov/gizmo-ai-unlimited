@@ -63,19 +63,19 @@ export const SEO_KEYWORDS = [
 ] as const;
 
 /**
- * gizmo.best redirect shortlinks (Namecheap URL Redirect records, see
+ * gizmo.best redirect shortlinks (Cloudflare Worker `redirect/worker.js`, see
  * `redirect/README.md`). Every destination carries `?utm_source=<subdomain>` for
  * attribution. `install`, `chrome` and `edge` all land on /get; `firefox` goes
  * to the Firefox Add-ons listing.
  */
 export const SHORTLINKS = {
-  install: "http://extension.gizmo.best",
-  chrome: "http://chrome.gizmo.best",
-  edge: "http://edge.gizmo.best",
-  firefox: "http://firefox.gizmo.best",
-  github: "http://gh.gizmo.best",
-  youtube: "http://yt.gizmo.best",
-  author: "http://author.gizmo.best",
+  install: "https://extension.gizmo.best",
+  chrome: "https://chrome.gizmo.best",
+  edge: "https://edge.gizmo.best",
+  firefox: "https://firefox.gizmo.best",
+  github: "https://gh.gizmo.best",
+  youtube: "https://yt.gizmo.best",
+  author: "https://author.gizmo.best",
 } as const;
 
 /** lucide-react icon names, resolved in the component to keep this file framework-free. */

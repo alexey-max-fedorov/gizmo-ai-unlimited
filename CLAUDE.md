@@ -2,7 +2,7 @@ Two-part system on `app.gizmo.ai/*`. **Patcher** (`./patcher/`, a Node CLI run b
 
 **Stack:** Plasmo · React 19 · TypeScript 6 · pnpm · Node `--test` · `--experimental-strip-types`
 **Targets:** Chrome MV3, Firefox MV3 (AMO). Chrome Web Store and Edge Add-ons listings are down; only Firefox is a live store. Chrome and Edge users sideload v2.2.0 from `gizmo.best/get`.
-**Website:** `./website/` is a static Next.js export deployed to GitHub Pages by `.github/workflows/deploy-website.yml` (domain `gizmo.best`, DNS on Namecheap). `./redirect/` documents the `*.gizmo.best` shortlinks, which are Namecheap URL Redirect records.
+**Website:** `./website/` is a static Next.js export deployed to GitHub Pages by `.github/workflows/deploy-website.yml` (domain `gizmo.best`, registrar Namecheap, DNS + shortlink redirects on Cloudflare). `./redirect/` holds the `*.gizmo.best` shortlink Cloudflare Worker (`worker.js`) and its docs.
 
 ## Where to look
 

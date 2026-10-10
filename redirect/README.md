@@ -1,35 +1,34 @@
 # redirect
 
-Documentation for the `*.gizmo.best` shortlinks. They are **Namecheap URL Redirect records** (Domain List > gizmo.best > Advanced DNS), not a Vercel project. The old `gizmo-best-redirect` Vercel project and its `vercel.json` were deleted when the site moved to GitHub Pages.
+The `*.gizmo.best` shortlinks are served by a free Cloudflare Worker, `gizmo-redirects`. `worker.js` here is the single source of truth for the host map. The apex site is on GitHub Pages.
 
-DNS for `gizmo.best` is on Namecheap BasicDNS (`dns1/dns2.registrar-servers.com`):
+## DNS (Cloudflare, zone `gizmo.best`, Free plan)
 
-- `@` A records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (GitHub Pages)
-- `www` CNAME: `alexey-max-fedorov.github.io.`
+Registrar is Namecheap with custom nameservers `aron.ns.cloudflare.com` and `merlin.ns.cloudflare.com`.
+
+- `@` A records `185.199.108.153` .. `185.199.111.153` (GitHub Pages), **DNS-only**
+- `www` CNAME `alexey-max-fedorov.github.io`, **DNS-only** (GitHub redirects www to apex)
 - `@` TXT: Google Search Console verification
-- One URL Redirect (Permanent, 301, unmasked) record per subdomain below
-
-Every destination carries `?utm_source=<originating-subdomain>` for attribution, except `links` and `support`, which have no UTM.
+- `*` A `192.0.2.1`, **proxied**: dummy origin so wildcard subdomains hit the Worker
+- Worker route `*.gizmo.best/*` -> `gizmo-redirects` (the apex does not match this route)
 
 ## Subdomain map
 
+Every destination carries `?utm_source=<sub>.gizmo.best`, except `links` and `support`.
+
 | Subdomain | Destination |
 |---|---|
-| `extension.gizmo.best`, `ext.gizmo.best` | `https://gizmo.best/get?utm_source=<sub>` |
-| `chrome.gizmo.best` | `https://gizmo.best/get?utm_source=chrome.gizmo.best` |
-| `edge.gizmo.best` | `https://gizmo.best/get?utm_source=edge.gizmo.best` |
-| `firefox.gizmo.best` | Firefox AMO listing |
-| `github.gizmo.best`, `gh.gizmo.best` | `github.com/alexey-max-fedorov/gizmo-ai-unlimited` |
-| `author.gizmo.best`, `alexey.gizmo.best` | `alexey-fedorov.com` |
-| `youtube.gizmo.best`, `yt.gizmo.best`, `tutorial.gizmo.best` | `youtu.be/UlrEFLQGZHY` |
-| `links.gizmo.best` | `https://gizmo.best/links` |
-| `support.gizmo.best` | `github.com/alexey-max-fedorov/gizmo-ai-unlimited/issues/new` |
+| `extension`, `ext` | Firefox User-Agent: Firefox AMO listing. Anything else: `https://gizmo.best/get` |
+| `chrome`, `edge` | `https://gizmo.best/get` (Chrome Web Store and Edge Add-ons listings are down) |
+| `firefox` | Firefox AMO listing |
+| `github`, `gh` | `github.com/alexey-max-fedorov/gizmo-ai-unlimited` |
+| `author`, `alexey` | `alexey-fedorov.com` |
+| `youtube`, `yt`, `tutorial` | `youtu.be/UlrEFLQGZHY` |
+| `links` | `https://gizmo.best/links` |
+| `support` | `github.com/alexey-max-fedorov/gizmo-ai-unlimited/issues/new` |
 
-## Behavior change: no more browser detection
+All are 301 over HTTPS (Cloudflare Universal SSL). Unknown subdomains return 404.
 
-`extension.` and `ext.` used to pick a store from the `User-Agent` (Firefox AMO, Edge Add-ons, or `/get` for Chrome). Namecheap redirects cannot branch on `User-Agent`, so both now always go to `gizmo.best/get`, which lists every browser (Firefox store, plus manual install for Chrome and Edge). Chrome Web Store and Edge Add-ons listings are down, so `/get` is the right place for those browsers anyway.
+## Deploying changes
 
-## Notes
-
-- Unknown subdomains no longer resolve (the old Vercel wildcard ALIAS is gone). Add a new URL Redirect record for any new shortlink and list it in `website/src/app/links/page.tsx`.
-- Namecheap redirect subdomains only answer on HTTP (port 443 is closed), so the site links them as `http://<sub>.gizmo.best`.
+Edit `worker.js`, then upload it as a module Worker named `gizmo-redirects` (Cloudflare dashboard > Workers, or `PUT /accounts/{id}/workers/scripts/gizmo-redirects` with `main_module: index.js`). Add new shortlinks to the `MAP` and to `website/src/app/links/page.tsx`. Free plan limit: 100k requests/day.

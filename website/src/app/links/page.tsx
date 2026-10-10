@@ -35,7 +35,7 @@ const LINKS: LinkGroup[] = [
       {
         label: "Get the extension",
         aliases: ["extension.gizmo.best", "ext.gizmo.best"],
-        href: "http://extension.gizmo.best",
+        href: "https://extension.gizmo.best",
         destination: "gizmo.best/get",
         description: "Install options for every browser, including manual install for Chrome and Edge",
         icon: <Download size={18} className={iconClass} />,
@@ -43,7 +43,7 @@ const LINKS: LinkGroup[] = [
       {
         label: "Chrome Web Store",
         aliases: ["chrome.gizmo.best"],
-        href: "http://chrome.gizmo.best",
+        href: "https://chrome.gizmo.best",
         destination: "gizmo.best/get",
         description: "Temporarily unavailable on the Chrome Web Store",
         icon: <Globe size={18} className={iconClass} />,
@@ -51,7 +51,7 @@ const LINKS: LinkGroup[] = [
       {
         label: "Microsoft Edge Add-ons",
         aliases: ["edge.gizmo.best"],
-        href: "http://edge.gizmo.best",
+        href: "https://edge.gizmo.best",
         destination: "gizmo.best/get",
         description: "Temporarily unavailable on Microsoft Edge Add-ons",
         icon: <Globe size={18} className={iconClass} />,
@@ -59,7 +59,7 @@ const LINKS: LinkGroup[] = [
       {
         label: "Firefox Add-ons",
         aliases: ["firefox.gizmo.best"],
-        href: "http://firefox.gizmo.best",
+        href: "https://firefox.gizmo.best",
         destination: "addons.mozilla.org",
         description: "Gizmo AI Unlimited on Firefox AMO",
         icon: <Globe size={18} className={iconClass} />,
@@ -72,7 +72,7 @@ const LINKS: LinkGroup[] = [
       {
         label: "Watch the tutorial",
         aliases: ["youtube.gizmo.best", "yt.gizmo.best", "tutorial.gizmo.best"],
-        href: "http://youtube.gizmo.best",
+        href: "https://youtube.gizmo.best",
         destination: "youtu.be/UlrEFLQGZHY",
         description: "How to install and use the extension",
         icon: <Play size={18} className={iconClass} />,
@@ -85,7 +85,7 @@ const LINKS: LinkGroup[] = [
       {
         label: "GitHub",
         aliases: ["github.gizmo.best", "gh.gizmo.best"],
-        href: "http://github.gizmo.best",
+        href: "https://github.gizmo.best",
         destination: "github.com/alexey-max-fedorov/gizmo-ai-unlimited",
         description: "Open-source code on GitHub",
         icon: <GitFork size={18} className={iconClass} />,
@@ -98,7 +98,7 @@ const LINKS: LinkGroup[] = [
       {
         label: "Alexey Fedorov",
         aliases: ["author.gizmo.best", "alexey.gizmo.best"],
-        href: "http://author.gizmo.best",
+        href: "https://author.gizmo.best",
         destination: "alexey-fedorov.com",
         description: "The developer behind Gizmo AI Unlimited",
         icon: <User size={18} className={iconClass} />,
@@ -111,7 +111,7 @@ const LINKS: LinkGroup[] = [
       {
         label: "Report an issue",
         aliases: ["support.gizmo.best"],
-        href: "http://support.gizmo.best",
+        href: "https://support.gizmo.best",
         destination: "github.com/alexey-max-fedorov/gizmo-ai-unlimited/issues/new",
         description: "Open a GitHub issue to report a bug or request a feature",
         icon: <LifeBuoy size={18} className={iconClass} />,
