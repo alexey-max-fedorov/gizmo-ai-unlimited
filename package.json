@@ -13,8 +13,8 @@
     "test": "node --experimental-strip-types --test \"src/tests/**/*.test.ts\""
   },
   "dependencies": {
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@types/chrome": "^0.3.5",
